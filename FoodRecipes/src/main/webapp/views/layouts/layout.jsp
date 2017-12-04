@@ -6,9 +6,18 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><tile:getAsString name="title" /></title>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/asset/css/style.css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/asset/bootstrap-3.3.7/dist/css/bootstrap.min.css" />
+<script src="<%=request.getContextPath()%>/resources/asset/bootstrap-3.3.7/dist/js/bootstrap.min.js" ></script>
+<script src="<%=request.getContextPath()%>/resources/asset/js/script.jsp" ></script>
+<script src="<%=request.getContextPath()%>/resources/asset/js/jquery-3.2.1.min.js" ></script>
+<title>this is index page</title>
 </head>
 <body>
-	<tile:insertAttribute name="header" />
-	<tile:insertAttribute name="body" />
+	<div class="container">
+		<tile:insertAttribute name="header"/>
+		<tile:insertAttribute name="body" />
+		<tile:insertAttribute name="footer"/>
+	</div>
 </body>
 </html>

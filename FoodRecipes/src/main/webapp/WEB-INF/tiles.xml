@@ -7,9 +7,24 @@
 		<put-attribute name="title" value="Hello foodrecipes" />
 		<put-attribute name="header" value="/views/layouts/header.jsp" />
 		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/views/layouts/footer.jsp" />
 	</definition>
 
 	<definition name="home.index" extends="base.definition">
 		<put-attribute name="body" value="/views/home/index.jsp" />
+	</definition>
+	<definition name="home.create-recipe" extends="base.definition">
+		<put-attribute name="body" value="/views/home/createrecipe.jsp" />
+	</definition>
+	<definition name="home.recipe" extends="base.definition">
+		<put-attribute name="body" value="/views/home/recipe.jsp" />
+	</definition>
+	
+	<definition name="user.login" extends="base.definition">
+		<put-attribute name="body" value="/views/home/login/login.jsp" />
+	</definition>
+	
+	<definition name="user.register" extends="base.definition">
+		<put-attribute name="body" value="/views/home/login/register.jsp" />
 	</definition>
 </tiles-definitions>  
