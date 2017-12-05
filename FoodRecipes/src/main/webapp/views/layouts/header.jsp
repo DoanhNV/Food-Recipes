@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+	pageEncoding="utf-8" isELIgnored ="false" %>
+	 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	 <%@taglib prefix="tag" uri="http://java.sun.com/jstl/core" %>
 		<form id="redirectForm"></form>
 		<div class="head">
 				<div class="top-head">
@@ -18,9 +20,19 @@
 								<button type="button" class="btn btn-success" id="btnCreateRecipe">
 								  <span class="glyphicon glyphicon-plus"></span> Tạo công thức
 								</button>
-								<button type="button" class="btn btn-success" id="btnLogin">
-								  <span class="glyphicon glyphicon-user" ></span> Đăng nhập
-								</button>
+								
+								<c:choose>
+								    <c:when test="${empty sessionScope.sessionUser}">
+								    	<button type="button" class="btn btn-success" id="btnLogin">
+									  		<span class="glyphicon glyphicon-user" ></span> Đăng nhập
+										</button>
+								    </c:when>
+								    <c:otherwise>
+								    	<button type="button" class="btn btn-success" id="btnLogOut">
+									  		<span class="glyphicon glyphicon-log-out" ></span> 	&nbsp; LogOut 
+										</button>
+								    </c:otherwise>
+								</c:choose>
 							</div>
 						</li>
 					</ul>
@@ -40,6 +52,7 @@
 	$(document).ready(function(){
 		gotoCreateRecipe();
 		gotoLogin();
+		logOut();
 	});
 
 	function gotoCreateRecipe(){
@@ -51,6 +64,12 @@
 	function gotoLogin(){
 		$("#btnLogin").unbind().on("click",function(){
 			redirect("user/login");
+		});
+	}
+	
+	function logOut(){
+		$("#btnLogOut").unbind().on("click",function(){
+			redirect("user/logout");
 		});
 	}
 	

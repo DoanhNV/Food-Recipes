@@ -262,32 +262,9 @@
 							+'</div>'
 							+'</div>'
 							+'</div>';
-						var script = '<>function uploadStepFile(){'
-							+'var number = 0;'
-							+'var uploadId = "";'
-							+'$(".upload-step").off("click").click(function() {'
-							+'var id = $(this).attr("id");'
-							+'number = id.substring(id.length-1,id.length);'
-							+'uploadId = "#upload-file-step"+number;'
-							+'$(".file-upload"+number).trigger("click");'
-							+'$(".file-upload"+number).change(function(){'
-							+'var filePaths = $("#upload-file-step"+number)[0].files;'
-
-							+'var filePath = $("#upload-file-step"+number)[0].files[0];'
-							+'var reader = new FileReader();'
-							+'reader.readAsDataURL(filePath);'
-								
-							+'reader.onload = function(event) {'
-							+'$("#img-preview"+number).attr("src", reader.result);'
-							+'$("#preview"+number).attr("style", "display:block");'
-							+'};'
-							+'});'
-							+'});'
-							+'}';
 						var root = $("#step"+lastNumber);		
 						root.after(step);
 						var body = $("body");
-						body.append(script);
 					});
 				}
 				

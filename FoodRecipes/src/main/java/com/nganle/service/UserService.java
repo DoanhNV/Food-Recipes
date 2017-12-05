@@ -1,10 +1,10 @@
-package com.nganle.dao;
+package com.nganle.service;
 
 import java.util.List;
 
 import com.nganle.entity.User;
 
-public interface UserDAO {
+public interface UserService {
 	public boolean create(User user);
 
 	public boolean update(User user);
@@ -14,8 +14,6 @@ public interface UserDAO {
 	public List<User> listAll();
 
 	public boolean delete(int userId);
-
-	public User getByUserNameAndPassword(String userName, String password);
-
-	public boolean isExistByUserName(String userName);
+	
+	public User login(String userName,String password);
 }

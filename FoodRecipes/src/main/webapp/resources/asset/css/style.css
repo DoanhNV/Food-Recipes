@@ -946,7 +946,6 @@ ul li a{
 
 .form-bound{
 	width: 400px;
-	height: 400px;
 	margin: auto;
 	background-color: #ecf6f9;
 	border-radius: 5px;
@@ -988,6 +987,10 @@ ul li a{
 
 #boundBoundRegister{
 	display:none;
+}
+
+.txtErr{
+	color:red;
 }
 /* end Login*/
 
