@@ -6,7 +6,7 @@
 		<div class="head">
 				<div class="top-head">
 					<ul>
-						<li><a href="#"><img src="<%=request.getContextPath()%>/resources/asset/img/head-logo.jpg"  class="head-logo"/></a></li>
+						<li><a href="../home/index"><img src="<%=request.getContextPath()%>/resources/asset/img/head-logo.jpg"  class="head-logo"/></a></li>
 						<li>
 							<div class="search-block row">
 								<input type="text"  class="search-box col-md-10"/>

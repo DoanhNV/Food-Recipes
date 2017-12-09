@@ -1,10 +1,15 @@
 package com.nganle.support.constant;
 
 public class SQLInfo {
-	
-	public class USER{
-		public static final String TABLE_NAME = "user"; 
-		public static final String FIELD_ID = "id";
+
+	public static final String FIELD_ID = "id";
+	public static final String FIELD_CREATE_TIME = "create_time";
+	public static final String FIELD_UPDATE_TIME = "update_time";
+	public static final String FIELD_STATUS = "status";
+	public static final String FIELD_CREATER_ID = "creater_id";
+
+	public class USER {
+		public static final String TABLE_NAME = "user";
 		public static final String FIELD_USER_NAME = "user_name";
 		public static final String FIELD_FULL_NAME = "full_name";
 		public static final String FIELD_EMAIL = "email";
@@ -16,8 +21,29 @@ public class SQLInfo {
 		public static final String FIELD_PROFILE_IMAGE = "profile_image";
 		public static final String FIELD_NUMBER_OF_RECIPE = "number_of_recipe";
 		public static final String FIELD_IS_ADMIN = "is_admin";
-		public static final String FIELD_CREATE_TIME = "create_time";
-		public static final String FIELD_UPDATE_TIME = "update_time";
-		public static final String FIELD_STATUS = "status";
+	}
+
+	public class MATERIAL {
+		public static final String TABLE_NAME = "material";
+		public static final String FIELD_MATERIAL_NAME = "material_name";
+		public static final String FIELD_FEATURE_IMAGE = "feature_image";
+	}
+
+	public class KIND_OF_CATE {
+		public static final String TABLE_NAME = "kindofcate";
+		public static final String FIELD_KIND_TITLE = "kind_title";
+	}
+
+	public class RECIPE_CATE {
+		public static final String TABLE_NAME = "recipecate";
+		public static final String FIELD_CATE_TITLE = "cate_title";
+		public static final String FIELD_KIND_ID = "kind_id";
+		public static final String FIELD_NUMBER_OF_RECIPE = "number_of_recipe";
+	}
+	
+	public class TIP_CATE{
+		public static final String TABLE_NAME = "tipcate";
+		public static final String FIELD_CATE_NAME = "cate_name";
+		public static final String FIELD_NUMBER_OF_TIPS = "number_of_tips";
 	}
 }

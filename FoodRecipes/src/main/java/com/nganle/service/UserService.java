@@ -14,6 +14,9 @@ public interface UserService {
 	public List<User> listAll();
 
 	public boolean delete(int userId);
+
+	public User login(String userName, String password);
 	
-	public User login(String userName,String password);
+	public boolean changeStatus(int userId, int status);
+
 }

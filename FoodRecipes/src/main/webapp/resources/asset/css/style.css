@@ -43,8 +43,9 @@ ul li a{
 	width:  75%;
 	height:  34px;
 	vertical-align: middle;
-	border-top-left-bottom-radius: 4px 4px 4px;
 	border: solid blue 1px;
+	border-top-left-radius: 5px !important;
+	border-bottom-left-radius: 5px !important;
 }
 
 .btn-search{

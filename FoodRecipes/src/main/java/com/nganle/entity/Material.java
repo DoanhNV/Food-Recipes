@@ -8,6 +8,7 @@ public class Material extends AbstractEntity {
 	private Date createTime;
 	private Date updateTime;
 	private int createrId;
+	private int status;
 
 	public String getMaterialName() {
 		return materialName;
@@ -47,6 +48,14 @@ public class Material extends AbstractEntity {
 
 	public void setCreaterId(int createrId) {
 		this.createrId = createrId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

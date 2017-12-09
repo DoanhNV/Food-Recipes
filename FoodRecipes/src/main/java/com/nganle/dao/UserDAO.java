@@ -18,4 +18,6 @@ public interface UserDAO {
 	public User getByUserNameAndPassword(String userName, String password);
 
 	public boolean isExistByUserName(String userName);
+	
+	public boolean changeStatus(int userId,int status);
 }

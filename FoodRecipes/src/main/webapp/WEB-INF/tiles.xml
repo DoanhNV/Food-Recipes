@@ -19,12 +19,84 @@
 	<definition name="home.recipe" extends="base.definition">
 		<put-attribute name="body" value="/views/home/recipe.jsp" />
 	</definition>
-	
+
 	<definition name="user.login" extends="base.definition">
 		<put-attribute name="body" value="/views/home/login/login.jsp" />
 	</definition>
-	
+
 	<definition name="user.register" extends="base.definition">
 		<put-attribute name="body" value="/views/home/login/register.jsp" />
 	</definition>
+
+	<!-- admin -->
+	<definition name="base.admin" template="/views/layouts/admin/layout.jsp">
+		<put-attribute name="title" value="Hello admin" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="leftmenu" value="/views/layouts/admin/leftmenu.jsp" />
+		<put-attribute name="navmenu" value="/views/layouts/admin/navmenu.jsp" />
+	</definition>
+
+	<definition name="admin.index" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/index.jsp" />
+	</definition>
+
+	<definition name="admin.login" template="/views/admin/login.jsp"></definition>
+
+	<definition name="admin.user.list" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/user/list.jsp" />
+	</definition>
+	
+	<!-- material -->
+	<definition name="admin.material.create" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/material/create.jsp" />
+	</definition>
+	
+	<definition name="admin.material.list" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/material/list.jsp" />
+	</definition>
+	
+	<definition name="admin.material.update" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/material/update.jsp" />
+	</definition>
+	
+	<!--  kind of cate -->	
+	<definition name="admin.kind.create" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/kindofcate/create.jsp" />
+	</definition>
+	
+	<definition name="admin.kind.update" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/kindofcate/update.jsp" />
+	</definition>
+	
+	<definition name="admin.kind.list" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/kindofcate/list.jsp" />
+	</definition>
+	
+	<!-- recipe cate -->
+	<definition name="admin.recipecate.create" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/recipecate/create.jsp" />
+	</definition>
+	
+	<definition name="admin.recipecate.update" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/recipecate/update.jsp" />
+	</definition>
+	
+	<definition name="admin.recipecate.list" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/recipecate/list.jsp" />
+	</definition>
+	
+	<!-- tip cate -->
+	<definition name="admin.tipcate.create" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/tipcate/create.jsp" />
+	</definition>
+	
+	<definition name="admin.tipcate.update" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/tipcate/update.jsp" />
+	</definition>
+	
+	<definition name="admin.tipcate.list" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/tipcate/list.jsp" />
+	</definition>
+	
+
 </tiles-definitions>  

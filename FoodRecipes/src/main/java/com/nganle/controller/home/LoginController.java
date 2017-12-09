@@ -40,8 +40,8 @@ public class LoginController {
 	@RequestMapping(value = "/doRegister", method = RequestMethod.POST)
 	public String doRegister(@ModelAttribute("registerUser") User user, HttpServletRequest request, ModelMap model) {
 		user.setBirthday(new Date());
-		user.setCreateTime(new Date());
-		user.setUpdateTime(new Date());
+		user.setCreateTime(new Date(System.currentTimeMillis()));
+		user.setUpdateTime(new Date(System.currentTimeMillis()));
 		user.setRecipeSavedIds(new ArrayList<String>());
 		user.setTipSavedIds(new ArrayList<String>());
 		user.setProfileImage(DEFAULT_IMAGE);

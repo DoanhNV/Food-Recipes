@@ -131,4 +131,13 @@ public class User extends AbstractEntity {
 		this.status = status;
 	}
 
+	@Override
+	public String toString() {
+		return "User [userName=" + userName + ", email=" + email + ", fullName=" + fullName + ", password=" + password
+				+ ", md5Password=" + md5Password + ", birthday=" + birthday + ", recipeSavedIds=" + recipeSavedIds
+				+ ", tipSavedIds=" + tipSavedIds + ", profileImage=" + profileImage + ", numberOfRecipe="
+				+ numberOfRecipe + ", isAdmin=" + isAdmin + ", createTime=" + createTime + ", updateTime=" + updateTime
+				+ ", status=" + status + "]";
+	}
+	
 }

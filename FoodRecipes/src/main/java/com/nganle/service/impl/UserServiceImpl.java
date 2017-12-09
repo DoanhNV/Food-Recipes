@@ -17,7 +17,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	private UserDAO userDAO;
 
 	public boolean create(User user) {
-		if (userDAO.isExistByUserName(user.getUserName())) {
+		if (!userDAO.isExistByUserName(user.getUserName())) {
 			return userDAO.create(user);
 		}
 		return false;
@@ -42,6 +42,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
 	public User login(String userName, String password) {
 		User resultUser = userDAO.getByUserNameAndPassword(userName, password);
 		return resultUser;
+	}
+
+	public boolean changeStatus(int userId, int status) {
+		return userDAO.changeStatus(userId, status);
 	}
 
 }

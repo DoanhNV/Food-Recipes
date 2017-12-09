@@ -5,8 +5,17 @@ import java.util.Date;
 public class KindOfCate extends AbstractEntity {
 	private String kindTitle;
 	private Date createTime;
-	private Date createDate;
+	private Date updateTime;
 	private int createrId;
+	private int status;
+
+	public KindOfCate() {
+
+	}
+
+	public KindOfCate(String kindTitle) {
+		this.kindTitle = kindTitle;
+	}
 
 	public String getKindTitle() {
 		return kindTitle;
@@ -24,12 +33,12 @@ public class KindOfCate extends AbstractEntity {
 		this.createTime = createTime;
 	}
 
-	public Date getCreateDate() {
-		return createDate;
+	public Date getUpdateTime() {
+		return updateTime;
 	}
 
-	public void setCreateDate(Date createDate) {
-		this.createDate = createDate;
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
 	}
 
 	public int getCreaterId() {
@@ -38,6 +47,14 @@ public class KindOfCate extends AbstractEntity {
 
 	public void setCreaterId(int createrId) {
 		this.createrId = createrId;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }

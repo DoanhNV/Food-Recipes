@@ -12,7 +12,8 @@ public class DBConnection {
 	private static final String DATABASE_NAME = "foodrecipes";
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "";
-	private static final String CONNECTION_STRING = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE_NAME;
+	private static final String UTF8_CHARSET = "characterEncoding=UTF-8";
+	private static final String CONNECTION_STRING = "jdbc:mysql://"+HOST+":"+PORT+"/"+DATABASE_NAME+"?"+UTF8_CHARSET;
 	private static Connection connection = null;
 	
 	public static Connection getConnection(){
