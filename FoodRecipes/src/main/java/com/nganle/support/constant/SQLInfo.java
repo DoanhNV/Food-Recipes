@@ -46,4 +46,14 @@ public class SQLInfo {
 		public static final String FIELD_CATE_NAME = "cate_name";
 		public static final String FIELD_NUMBER_OF_TIPS = "number_of_tips";
 	}
+	
+	public class TIP {
+		public static final String TABLE_NAME = "tip";
+		public static final String TITLE =  "title";
+		public static final String CONTENT = "content";
+		public static final String TIP_CATE_IDS = "tip_cate_ids";
+		public static final String FEATURE_IMAGE = "feature_image";
+		public static final String  SAVED_USER_IDS = "saved_user_ids";
+		public static final String  VIEW = "view";
+	}
 }

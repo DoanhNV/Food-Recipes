@@ -12,24 +12,28 @@ public class Constant {
 		public static final String CURRENT_PAGE = "currentpage";
 		public static final String FISRT_PAGE = "first";
 		public static final String LAST_PAGE = "last";
-		
+
 		// material
 		public static final String LIST_MATERIAL = "listmaterial";
 		public static final String DISPLAY_PAGE = "materialpages";
 		public static final String MATERIAL = "material";
-		
+
 		// kind of cate
 		public static final String LIST_KIND = "listkind";
 		public static final String KIND = "kind";
-		
+
 		// recipe cate
-		public static final String LIST_RECIPE_CATE =  "list_recipecate";
-		public static final String RECIPE_CATE =  "recipecate";
-		
+		public static final String LIST_RECIPE_CATE = "list_recipecate";
+		public static final String RECIPE_CATE = "recipecate";
+
 		// tip cate
-		public static final String LIST_TIP_CATE =  "list_tipcate";
-		public static final String TIP_CATE =  "tipcate";
-		
+		public static final String LIST_TIP_CATE = "list_tipcate";
+		public static final String TIP_CATE = "tipcate";
+
+		// tip cate
+		public static final String LIST_TIP= "list_tip";
+		public static final String TIP = "tip";
+		public static final String BASIC_CATE = "basic_cate";
 	}
 
 	public class STATUS {
@@ -38,8 +42,12 @@ public class Constant {
 		public static final int DEACTIVE_VALUE = 0;
 		public static final String DEACTIVE = "deactive";
 	}
-	
+
 	public static final int NUMBER_PERPAGE = 2;
-	
+
 	public static final String FILE_STORE = "D:/upload/";
+	
+	public class HTML_ATTRIBUTE {
+		public static final String CHECKED_VALUE = "checked";
+	}
 }

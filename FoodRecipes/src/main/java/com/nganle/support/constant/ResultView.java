@@ -24,10 +24,16 @@ public class ResultView {
 		public static final String UPDATE = "admin.recipecate.update";
 		public static final String LIST_ALL = "admin.recipecate.list";
 	}
-	
+
 	public class TIP_CATE {
 		public static final String CREATE = "admin.tipcate.create";
 		public static final String UPDATE = "admin.tipcate.update";
 		public static final String LIST_ALL = "admin.tipcate.list";
+	}
+
+	public class TIP {
+		public static final String CREATE = "admin.tip.create";
+		public static final String UPDATE = "admin.tip.update";
+		public static final String LIST_ALL = "admin.tip.list";
 	}
 }

@@ -126,4 +126,35 @@ public class SQLQuery {
 													+ " WHERE "+ SQLInfo.FIELD_ID +  "=?";
 		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.TIP_CATE.TABLE_NAME;
 	}
+	
+	public class TIP {
+		public static final String CREATE = "INSERT INTO "+ SQLInfo.TIP.TABLE_NAME + "("
+													+ SQLInfo.TIP.TITLE + ","
+													+ SQLInfo.TIP.CONTENT + ","
+													+ SQLInfo.TIP.TIP_CATE_IDS + ","
+													+ SQLInfo.FIELD_CREATE_TIME + ","
+													+ SQLInfo.FIELD_UPDATE_TIME + ","
+													+ SQLInfo.TIP.FEATURE_IMAGE + ","
+													+ SQLInfo.TIP.SAVED_USER_IDS + ","
+													+ SQLInfo.FIELD_CREATER_ID + ","
+													+ SQLInfo.TIP.VIEW + ","
+													+ SQLInfo.FIELD_STATUS + ")"
+													+ " VALUE(?,?,?,?,?,?,?,?,?,?)";
+		public static final String UPDATE = "UPDATE "+ SQLInfo.TIP.TABLE_NAME + " SET "
+													+ SQLInfo.TIP.TITLE + " = ?, "
+													+ SQLInfo.TIP.CONTENT + " = ?, "
+													+ SQLInfo.TIP.TIP_CATE_IDS + " = ?, "
+													+ SQLInfo.FIELD_UPDATE_TIME + " = ?, "
+													+ SQLInfo.TIP.FEATURE_IMAGE + " = ?, "
+													+ SQLInfo.TIP.SAVED_USER_IDS + " = ?,"
+													+ SQLInfo.FIELD_STATUS + " = ? "
+													+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
+		public static final String DELETE = "DELETE FROM "+ SQLInfo.TIP.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_ID +" = ?";
+		
+		public static final String GET_BY_ID = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_ID +" = ?";
+		
+		public static final String LIST_ALL = "SELECT *  FROM "+ SQLInfo.TIP.TABLE_NAME;
+	}
 }

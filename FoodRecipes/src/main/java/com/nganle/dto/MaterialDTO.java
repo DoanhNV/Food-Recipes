@@ -2,14 +2,10 @@ package com.nganle.dto;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
-import org.springframework.core.io.PathResource;
 import org.springframework.util.Base64Utils;
 
 import com.nganle.dao.UserDAO;

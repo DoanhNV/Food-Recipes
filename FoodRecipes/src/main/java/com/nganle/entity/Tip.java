@@ -12,6 +12,7 @@ public class Tip extends AbstractEntity {
 	private String featureImage;
 	private List<String> savedUserIds;
 	private int createrId;
+	private int view;
 	private int status;
 
 	public String getTitle() {
@@ -84,6 +85,14 @@ public class Tip extends AbstractEntity {
 
 	public void setCreaterId(int createrId) {
 		this.createrId = createrId;
+	}
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
 	}
 
 }

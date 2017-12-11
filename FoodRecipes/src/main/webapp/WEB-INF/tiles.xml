@@ -98,5 +98,18 @@
 		<put-attribute name="body" value="/views/admin/tipcate/list.jsp" />
 	</definition>
 	
+	<!-- tip  -->
+	<definition name="admin.tip.create" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/tip/create.jsp" />
+	</definition>
+	
+	<definition name="admin.tip.update" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/tip/update.jsp" />
+	</definition>
+	
+	<definition name="admin.tip.list" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/tip/list.jsp" />
+	</definition>
+	
 
 </tiles-definitions>  

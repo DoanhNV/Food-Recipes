@@ -121,7 +121,7 @@ public class MaterialController {
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String delete(@RequestParam("material-data") int id,RedirectAttributes redirectAtt) {
+	public String delete(@RequestParam("material-data") int id) {
 		materialService.deleteById(id);
 		return Utils.redirect("/material/list");
 	}

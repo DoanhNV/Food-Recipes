@@ -62,11 +62,11 @@
 							<li><a href="../tipcate/list">Xem tất cả</a></li>
 							<li><a href="../tipcate/create">Tạo mới</a></li>
 						</ul></li>
-					<li><a><i class="fa fa-clone"></i>Layouts <span
+					<li><a><i class="fa fa-clone"></i>Mẹo vặt <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-							<li><a href="fixed_footer.html">Fixed Footer</a></li>
+							<li><a href="../tip/list">Xem tất cả</a></li>
+							<li><a href="../tip/create">Tạo mới</a></li>
 						</ul></li>
 				</ul>
 			</div>

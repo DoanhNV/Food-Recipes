@@ -1,5 +1,6 @@
 package com.nganle.support.util;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Utils {
 
 	public static List<String> getPageToDisplay(int size, int currentPage) {
 		List<String> result = new ArrayList<String>();
-		if(currentPage > size ) {
+		if (currentPage > size) {
 			return result;
 		}
 		if (currentPage - 2 > 0) {
@@ -41,13 +42,48 @@ public class Utils {
 		}
 		return result;
 	}
+
 	/**
 	 * Url : /part/part
+	 * 
 	 * @param url
 	 * @return
 	 */
 	public static String redirect(String url) {
-		return "redirect:"+url;
+		return "redirect:" + url;
+	}
+
+	public static String toSQlArray(List<String> list) {
+		if(list == null) {
+			return "";
+		}
+		String result = "";
+		int size = list.size();
+		for (int i = 0; i < size; i++) {
+			result += list.get(i);
+			if (i != size - 1) {
+				result += ",";
+			}
+		}
+		return result;
+	}
+
+	public static Date getCurrentSQLDate() {
+		return new Date(System.currentTimeMillis());
+	}
+	
+	/**
+	 * arr format: "a,b,c"
+	 * @param arr String
+	 * @return List<String>
+	 */
+	public static List<String> toList(String arr) {
+		List<String> result = new ArrayList<String>();
+		String[] data = arr.split(",");
+		for (int i = 0; i < data.length; i++) {
+			result.add(data[i]);
+		}
+		return result;
 	}
 
 }
