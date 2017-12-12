@@ -30,7 +30,7 @@
 		border: solid 10px brown;
 	}
 	
-	.child-content{
+	.child-content {
 		height: 100px;
 		float: left;
 		border: solid 0.5px green;
@@ -60,6 +60,7 @@
 		font-weight: bold;
 	}
 </style>
+<form method="POST" action="../admin_recipe/doCreate"  enctype="multipart/form-data" >
 <!-- Popup create -->
 	<div class="parent-pop">
 		<div class="child-pop ">
@@ -70,7 +71,7 @@
 						<img src="${material.featureImage}"  class="mater-img"/>
 					</div>
 					<div class="clear"></div>
-					<span class="mater-name">${material.materialName}</span>
+					<span class="mater-name" id="materialid-${material.id}">${material.materialName}</span>
 				</div>
 			</c:forEach>
 		</div>
@@ -79,11 +80,10 @@
 	</div>
 <div class="clear"></div>
 <div class="create-recipe-title">
-	<h2>Tạo mới và chia sẻ công thức</h2>
+	<h1 style="padding-top: 40px;">Tạo mới và chia sẻ công thức</h1>
 </div>
 <div class="clear"></div>
 <div class="create-recipe-title create-header"></div>
-<form method="POST" action="../admin_recipe/doCreate" modelAttribute="recipe" enctype="multipart/form-data" >
 <div class="">
 	<div class="create create-left">
 		<div class="create-left-content">
@@ -91,10 +91,10 @@
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="glyphicon glyphicon-pencil"></i></span> <input type="text" name="title"
-						class="form-control" placeholder="Nhập tên món ăn">
+						class="form-control" placeholder="Nhập tên món ăn" required="required">
 				</div>
 				<div class="recipe-create-title">Ảnh đại diện</div>
-				<input type="file" id="upload-file-profile" name="img"
+				<input type="file" id="upload-file-profile" name="featureImage"
 					class="file-upload-profile" style="display: none;" />
 				<button type="button" id="openfile" class="btn btn-upload">
 					<span class="glyphicon glyphicon-upload"></span>Upload
@@ -106,59 +106,30 @@
 				<div class="clear"></div>
 				<div class="recipe-create-title">Thời gian</div>
 				<select class="form-control select" name="hour">
-					<option>Giờ</option>
-					<option>0 Giờ</option>
-					<option>1 Giờ</option>
-					<option>2 Giờ</option>
+					<c:forEach items="${recipe_hours }"  var="recipeHourItem">
+								<option value="${recipeHourItem.timeValue}">${recipeHourItem.timeName}</option>
+					</c:forEach>
 				</select> 
 				<select class="form-control select" name="minute">
-					<option>Phút</option>
-					<option>0 Phút</option>
-					<option>1 Phút</option>
-					<option>2 Phút</option>
+					<c:forEach items="${recipe_minutes }"  var="recipeMinuteItem">
+						<option value="${recipeMinuteItem.timeValue}">${recipeMinuteItem.timeName}</option>
+					</c:forEach>
 				</select>
 				<div class="clear"></div>
-				<div class="recipe-create-title">Chi phí</div>
-				<select class="form-control select cost-select" name="cost">
-					<option>rẻ</option>
-					<option>trung bình</option>
-					<option>đắt</option>
-				</select>
+				<div class="recipe-create-title">Chi phí (VNĐ)</div>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-pencil"></i></span> <input type="number" name="cost"
+						class="form-control" placeholder="VNĐ" required="required" style="width: 200px;">
+				</div>
 				<div class="clear"></div>
 				<div class="recipe-create-title">Nguyên liệu</div>
-				<div class="cate-step-content">
-					<div class="checkbox cate-check ">
-						<button type="button" name='testField' class="btn btn-success" name="" value="1">Cà chua<span class="glyphicon glyphicon-tags title-material-tag"></span>
-						</button>
-						
-					</div>
-					<div class="clear"></div>
+				<div class="cate-step-content" id="tagRecipeCate">
 				</div>
 				<div class="clear"></div>
 				<div class="add-material">
-					<h4>Thêm nguyên liệu</h4>
-					<div class="mater-left">
-						<div class="material-add-title">Tên nguyên liệu</div>
-						<input type="text" class="form-control"
-							placeholder="nhập tên nguyên liệu" />
-					</div>
-					<div class="mater-left mater-right">
-						<input type="file" id="uploadfileMater" name="img"
-							class="file-upload" style="display: none;" />
-						<button type="button" id="openfileMater"
-							class="btn btn-upload-mater">
-							<span class="glyphicon glyphicon-upload"></span>Upload
-						</button>
-						<div class="preview-recipe-mater" id="image-temp">
-							<img src="" id="img-temp-mater"
-								style="width: 100%; height: 100%;" alt="preview Profile image" />
-						</div>
-					</div>
-					<div class="clear"></div>
-					<button type="button" class="btn btn-danger">Thêm mới</button>
 					<button type="button" class="btn btn-danger" id="btnChooseM">chọn nguyên liệu</button>
 				</div>
-			
 		</div>
 		<div class="clear"></div>
 		<div class="recipe-create-title">Các bước thực hiện</div>
@@ -168,7 +139,7 @@
 			</div>
 			<div class="step-post step-element-content">
 				<div class="form-group">
-					<textarea class="form-control baby-step-content" rows="5" name="stepText"></textarea>
+					<textarea class="form-control baby-step-content" rows="5" name="stepText" required="required"></textarea>
 				</div>
 				<div class="clear"></div>
 				<input type="file" id="upload-file-step1" name="stepImg"
@@ -224,14 +195,27 @@
 		submitStrigger();
 		getMaterial();
 		chooseM();
-		$("[name='testField']").click(function(){
-			alert($("[name='testField']").val());
-		});
 	});
 	
 	function getMaterial(){
 		$("#submitMaterial").click(function(){
 			$(".parent-pop").attr("style","display:none");
+			var data = "";
+			$('input[type="checkbox"][name="materialIds"]:checked').each(function(i){
+		          var id = $(this).val();
+		          var id2 =  "#materialid-"+id;
+		          text = $(id2).text();
+		          data += text + "||";
+		         
+		     });
+			var arr = data.split("||");
+			if(arr.length > 2){
+				 $("#tagRecipeCate").empty();
+			}
+			for(var i = 0; i < arr.length - 1; i ++){
+				 var content = '<button type="button" id="tagElement" class="btn btn-success" name="" value="1">'+arr[i]+'<span class="glyphicon glyphicon-tags title-material-tag"></span>';
+		         $("#tagRecipeCate").append(content);
+			}
 		});
 	}
 	
@@ -335,7 +319,7 @@
 									+ '</div>'
 									+ '<div class="step-post step-element-content">'
 									+ '<div class="form-group">'
-									+ '<textarea class="form-control baby-step-content" rows="5" name="stepText"></textarea>'
+									+ '<textarea class="form-control baby-step-content" rows="5" name="stepText" required="required"></textarea>'
 									+ '</div>'
 									+ '<div class="clear"></div>'
 									+ '<input type="file" id="upload-file-step'+nextNumber+'" name="stepImg" class="file-upload'+nextNumber+'" style="display:none;" multiple/>'

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.nganle.dao.DBConnection;
 import com.nganle.dao.RecipeDAO;
 import com.nganle.entity.Recipe;
+import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.SQLInfo;
 import com.nganle.support.constant.SQLQuery;
 import com.nganle.support.util.Utils;
@@ -28,15 +29,16 @@ public class RecipeDAOImpl implements RecipeDAO {
 			prepareStatement.setString(2, recipe.getContent());
 			prepareStatement.setString(3, recipe.getFeatureImage());
 			prepareStatement.setDouble(4, recipe.getCost());
-			prepareStatement.setString(5, recipe.getKeySearch());
-			prepareStatement.setString(6, Utils.toSQlArray(recipe.getMaterialIds()));
-			prepareStatement.setString(7, Utils.toSQlArray(recipe.getSavedUserIds()));
-			prepareStatement.setString(8, Utils.toSQlArray(recipe.getLikeIds()));
-			prepareStatement.setString(9, Utils.toSQlArray(recipe.getCommentIds()));
+			prepareStatement.setString(5, Utils.toSQlArray(recipe.getMaterialIds()));
+			prepareStatement.setString(6, Utils.toSQlArray(recipe.getSavedUserIds()));
+			prepareStatement.setString(7, Utils.toSQlArray(recipe.getLikeIds()));
+			prepareStatement.setString(8, Utils.toSQlArray(recipe.getCommentIds()));
+			prepareStatement.setDate(9, Utils.getCurrentSQLDate());
 			prepareStatement.setDate(10, Utils.getCurrentSQLDate());
-			prepareStatement.setDate(11, Utils.getCurrentSQLDate());
-			prepareStatement.setInt(12, recipe.getCreaterId());
-			prepareStatement.setInt(13, recipe.getStatus());
+			prepareStatement.setInt(11, recipe.getCreaterId());
+			prepareStatement.setInt(12, Constant.STATUS.ACTIVE_VALUE);
+			prepareStatement.setString(13, recipe.getEstimateTime());
+			prepareStatement.setString(14, Utils.toSQlArray(recipe.getRecipeCateIds()));
 			prepareStatement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -52,11 +54,11 @@ public class RecipeDAOImpl implements RecipeDAO {
 			prepareStatement.setString(2, recipe.getContent());
 			prepareStatement.setString(3, recipe.getFeatureImage());
 			prepareStatement.setDouble(4, recipe.getCost());
-			prepareStatement.setString(5, recipe.getKeySearch());
-			prepareStatement.setString(6, Utils.toSQlArray(recipe.getMaterialIds()));
-			prepareStatement.setDate(7, Utils.getCurrentSQLDate());
-			prepareStatement.setInt(8, recipe.getStatus());
-			prepareStatement.setInt(8, recipe.getId());
+			prepareStatement.setString(5, Utils.toSQlArray(recipe.getMaterialIds()));
+			prepareStatement.setDate(6, Utils.getCurrentSQLDate());
+			prepareStatement.setInt(7, recipe.getStatus());
+			prepareStatement.setString(8, recipe.getEstimateTime());
+			prepareStatement.setInt(9, recipe.getId());
 			prepareStatement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -88,7 +90,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setContent(set.getString(SQLInfo.RECIPE.CONTENT));
 				recipe.setFeatureImage(set.getString(SQLInfo.RECIPE.FEATURE_IMAGE));
 				recipe.setCost(set.getDouble(SQLInfo.RECIPE.COST));
-				recipe.setKeySearch(set.getString(SQLInfo.RECIPE.KEY_SEARCH));
 				recipe.setMaterialIds(Utils.toList(set.getString(SQLInfo.RECIPE.MATERIAL_IDS)));
 				recipe.setCommentIds(Utils.toList(set.getString(SQLInfo.RECIPE.COMMENT_IDS)));
 				recipe.setLikeIds(Utils.toList(set.getString(SQLInfo.RECIPE.LIKE_IDS)));
@@ -97,6 +98,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
 				recipe.setCreaterId(set.getInt(SQLInfo.FIELD_CREATER_ID));
 				recipe.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
+				recipe.setViews(set.getInt(SQLInfo.RECIPE.VIEWS));
+				recipe.setEstimateTime(set.getString(SQLInfo.RECIPE.ESTIMATE_TIME));
 				return recipe;
 			}
 		} catch (SQLException e) {
@@ -108,7 +111,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 	public List<Recipe> listAll() {
 		List<Recipe> result = new ArrayList<Recipe>();
 		try {
-			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.GET_BY_ID);
+			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.LIST_ALL);
 			ResultSet set = prepareStatement.executeQuery();
 			while (set.next()) {
 				Recipe recipe = new Recipe();
@@ -117,7 +120,6 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setContent(set.getString(SQLInfo.RECIPE.CONTENT));
 				recipe.setFeatureImage(set.getString(SQLInfo.RECIPE.FEATURE_IMAGE));
 				recipe.setCost(set.getDouble(SQLInfo.RECIPE.COST));
-				recipe.setKeySearch(set.getString(SQLInfo.RECIPE.KEY_SEARCH));
 				recipe.setMaterialIds(Utils.toList(set.getString(SQLInfo.RECIPE.MATERIAL_IDS)));
 				recipe.setCommentIds(Utils.toList(set.getString(SQLInfo.RECIPE.COMMENT_IDS)));
 				recipe.setLikeIds(Utils.toList(set.getString(SQLInfo.RECIPE.LIKE_IDS)));
@@ -126,6 +128,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
 				recipe.setCreaterId(set.getInt(SQLInfo.FIELD_CREATER_ID));
 				recipe.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
+				recipe.setViews(set.getInt(SQLInfo.RECIPE.VIEWS));
+				recipe.setEstimateTime(set.getString(SQLInfo.RECIPE.ESTIMATE_TIME));
 				result.add(recipe);
 			}
 			return result;

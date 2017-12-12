@@ -61,26 +61,57 @@
                         <thead>
                           <tr class="headings">
                             <th class="column-title">Tên chủ đề</th>
+                            <th class="column-title">Ảnh</th>
                             <th class="column-title">Ngày tạo</th>
                             <th class="column-title">Trạng thái</th>
-                            <th class="column-title">Cập nhật </th>
+                            <th class="column-title">Lượt xem </th>
+                            <th class="column-title">Lượt thích </th>
+                            <th class="column-title">Lượt lưu</th>
+                            <th class="column-title">Lượt comment</th>
+                              <th class="column-title">Cập nhật</th>
                           </tr>
                         </thead>
 
                         <tbody>
-                        	<c:forEach items="${listkind}" var="kind">
+                        	<c:forEach items="${list_recipe}" var="recipe">
 	                        	<tr class="even pointer">
-		                            <td class=" ">${kind.title}</td>
-		                            <td class=" ">${kind.createTime}</td>
-		                            <td class=" ">${kind.status}</td>
+		                            <td class=" ">${recipe.title}</td>
+		                            <td class=" ">
+										<img src="${recipe.featureImage }"  style="width:70px;height:50px;"/>
+									</td>
+		                            <td class=" ">${recipe.createTime}</td>
+		                            <td class=" ">${recipe.status}</td>
+		                            <td class=" ">${recipe.views}</td>
+		                            <td class=" ">${recipe.likeNumber}</td>
+		                            <td class=" ">${recipe.saveNumber}</td>
+		                            <td class=" ">${recipe.commentNumber}</td>
 		                             <td class=" "> 
-		                              <span class="btn btn-primary btnUpdateM" data-id="${kind.id}">Update</span>
-		                             <span class="btn btn-success btnChangeStatus" data-id="${kind.id}" data-status="${kind.status}">Đổi trạng thái</span>
+		                              <span class="btn btn-primary btnUpdateM" data-id="${recipe.id}">Update</span>
+		                             <span class="btn btn-success btnChangeStatus" data-id="${recipe.id}" data-status="${recipe.status}">Đổi trạng thái</span>
 		                             </td>
                           		</tr>
                         	</c:forEach>
                         </tbody>
                       </table>
+                    </div>
+                     <div class="bound-page">
+	                    <div class="pagination">
+	                    	<a href="../admin_recipe/list?page=${first}">&laquo;</a>
+	                     	<c:forEach items="${materialpages}" var="page">
+	                     		 <c:choose>
+			                      	<c:when test="${page != '...' && page == currentpage}">
+			                      		<a href="../admin_recipe/list?page=${page}" id="pageActive" class="active" data-id="${page}">${page}</a>
+			                      	</c:when>
+			                      	<c:when  test="${page == '...'}">
+			                      		<a>${page}</a>
+			                      	</c:when>
+			                      	<c:otherwise>
+			                      		<a href="../admin_recipe/list?page=${page}">${page}</a>
+			                      	</c:otherwise>
+			                     </c:choose>
+	                     	</c:forEach>
+						  <a href="../admin_recipe/list?page=${last}">&raquo;</a>
+						</div>
                     </div>
                   </div>
                 </div>
@@ -95,13 +126,13 @@
 	
 	function changeStatus(){
 		$(".btnChangeStatus").off("click").click(function(){
-			window.location.href = "../kind/change-status?kind-data="+$(this).data("id")+"-"+$(this).data("status")+"-";
+			window.location.href = "../recipe/change-status?recipe-data="+$(this).data("id")+"-"+$(this).data("status")+"-";
 		});
 	}
 	
 	function update(){
 		$(".btnUpdateM").off().off("click").click(function(){
-			window.location.href = "../kind/update?kindid="+$(this).data("id");
+			window.location.href = "../recipe/update?recipeid="+$(this).data("id");
 		});
 	}
 	

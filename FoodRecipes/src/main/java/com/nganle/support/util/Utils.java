@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.nganle.dto.TimeRecipe;
 import com.nganle.support.constant.Constant;
 
 public class Utils {
@@ -59,7 +62,7 @@ public class Utils {
 		return "redirect:" + url;
 	}
 
-	public static String toSQlArray(List<String> list) {
+	public static String toSQlArray(List<Integer> list) {
 		if(list == null) {
 			return "";
 		}
@@ -83,11 +86,14 @@ public class Utils {
 	 * @param arr String
 	 * @return List<String>
 	 */
-	public static List<String> toList(String arr) {
-		List<String> result = new ArrayList<String>();
+	public static List<Integer> toList(String arr) {
+		List<Integer> result = new ArrayList<Integer>();
+		if(arr == null || arr  == "") {
+			return result;
+		}
 		String[] data = arr.split(",");
 		for (int i = 0; i < data.length; i++) {
-			result.add(data[i]);
+			result.add(Integer.parseInt(data[i]));
 		}
 		return result;
 	}
@@ -105,5 +111,22 @@ public class Utils {
 		}
 		return null;
 	}
-
+	
+	public static List<TimeRecipe> init(int max,String suffix){
+		List<TimeRecipe> result = new ArrayList<TimeRecipe>();
+		for (int i = 0; i < max+1; i++) {
+			result.add(new TimeRecipe(i, i + " " + suffix));
+		}
+		return result;
+	}
+	
+	public static Map<Integer,String> initMapTime(int max,String suffix){
+		Map<Integer,String> result = new HashMap<Integer,String>();
+		for (int i = 0; i < max+1; i++) {
+			result.put(i, i + " " + suffix);
+		}
+		return result;
+	}
+	
+	
 }

@@ -89,10 +89,10 @@ public class TipDTO {
 			TipDTO dto = new TipDTO();
 			dto.setId(tip.getId());
 			dto.setTitle(tip.getTitle());
-			List<String> list = tip.getTipCateIds();
+			List<Integer> list = tip.getTipCateIds();
 			String cateData = "";
 			for (TipCategory cate : cates) {
-				if (list.contains(String.valueOf(cate.getId()))) {
+				if (list.contains(cate.getId())) {
 					cateData += cate.getCateName() + "<br/>";
 				}
 			}

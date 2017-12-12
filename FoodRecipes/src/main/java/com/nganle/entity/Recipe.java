@@ -5,20 +5,20 @@ import java.util.List;
 
 public class Recipe extends AbstractEntity {
 	private String title;
-	private List<String> recipeCateIds;
-	private String keySearch;
+	private List<Integer> recipeCateIds;
 	private String content;
 	private int createrId;
 	private String featureImage;
-	private List<String> materialIds;
-	private List<String> likeIds;
-	private List<String> commentIds;
+	private List<Integer> materialIds;
+	private List<Integer> likeIds;
+	private List<Integer> commentIds;
 	private Double cost;
 	private int views;
-	private List<String> savedUserIds;
+	private List<Integer> savedUserIds;
 	private Date createTime;
 	private Date updateTime;
 	private int status;
+	private String estimateTime;
 
 	public String getTitle() {
 		return title;
@@ -28,20 +28,12 @@ public class Recipe extends AbstractEntity {
 		this.title = title;
 	}
 
-	public List<String> getRecipeCateIds() {
+	public List<Integer> getRecipeCateIds() {
 		return recipeCateIds;
 	}
 
-	public void setRecipeCateIds(List<String> recipeCateIds) {
+	public void setRecipeCateIds(List<Integer> recipeCateIds) {
 		this.recipeCateIds = recipeCateIds;
-	}
-
-	public String getKeySearch() {
-		return keySearch;
-	}
-
-	public void setKeySearch(String keySearch) {
-		this.keySearch = keySearch;
 	}
 
 	public String getContent() {
@@ -68,30 +60,6 @@ public class Recipe extends AbstractEntity {
 		this.featureImage = featureImage;
 	}
 
-	public List<String> getMaterialIds() {
-		return materialIds;
-	}
-
-	public void setMaterialIds(List<String> materialIds) {
-		this.materialIds = materialIds;
-	}
-
-	public List<String> getLikeIds() {
-		return likeIds;
-	}
-
-	public void setLikeIds(List<String> likeIds) {
-		this.likeIds = likeIds;
-	}
-
-	public List<String> getCommentIds() {
-		return commentIds;
-	}
-
-	public void setCommentIds(List<String> commentIds) {
-		this.commentIds = commentIds;
-	}
-
 	public Double getCost() {
 		return cost;
 	}
@@ -106,14 +74,6 @@ public class Recipe extends AbstractEntity {
 
 	public void setViews(int views) {
 		this.views = views;
-	}
-
-	public List<String> getSavedUserIds() {
-		return savedUserIds;
-	}
-
-	public void setSavedUserIds(List<String> savedUserIds) {
-		this.savedUserIds = savedUserIds;
 	}
 
 	public Date getCreateTime() {
@@ -138,6 +98,46 @@ public class Recipe extends AbstractEntity {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getEstimateTime() {
+		return estimateTime;
+	}
+
+	public void setEstimateTime(String estimateTime) {
+		this.estimateTime = estimateTime;
+	}
+
+	public List<Integer> getMaterialIds() {
+		return materialIds;
+	}
+
+	public void setMaterialIds(List<Integer> materialIds) {
+		this.materialIds = materialIds;
+	}
+
+	public List<Integer> getLikeIds() {
+		return likeIds;
+	}
+
+	public void setLikeIds(List<Integer> likeIds) {
+		this.likeIds = likeIds;
+	}
+
+	public List<Integer> getCommentIds() {
+		return commentIds;
+	}
+
+	public void setCommentIds(List<Integer> commentIds) {
+		this.commentIds = commentIds;
+	}
+
+	public List<Integer> getSavedUserIds() {
+		return savedUserIds;
+	}
+
+	public void setSavedUserIds(List<Integer> savedUserIds) {
+		this.savedUserIds = savedUserIds;
 	}
 
 }

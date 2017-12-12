@@ -71,7 +71,7 @@
 					<li><a><i class="fa fa-clone"></i>Công thức <span
 							class="fa fa-chevron-down"></span></a>
 						<ul class="nav child_menu">
-							<li><a href="../admin_recipe//list">Xem tất cả</a></li>
+							<li><a href="../admin_recipe/list">Xem tất cả</a></li>
 							<li><a href="../admin_recipe/create">Tạo mới</a></li>
 						</ul></li>
 				</ul>

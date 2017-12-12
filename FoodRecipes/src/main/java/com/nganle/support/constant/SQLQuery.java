@@ -164,7 +164,6 @@ public class SQLQuery {
 													+ SQLInfo.RECIPE.CONTENT + ","
 													+ SQLInfo.RECIPE.FEATURE_IMAGE + ","
 													+ SQLInfo.RECIPE.COST + ","
-													+ SQLInfo.RECIPE.KEY_SEARCH + ","
 													+ SQLInfo.RECIPE.MATERIAL_IDS + ","
 													+ SQLInfo.RECIPE.SAVED_USER_IDS + ","
 													+ SQLInfo.RECIPE.LIKE_IDS + ","
@@ -172,17 +171,19 @@ public class SQLQuery {
 													+ SQLInfo.FIELD_CREATE_TIME + ","
 													+ SQLInfo.FIELD_UPDATE_TIME + ","
 													+ SQLInfo.FIELD_CREATER_ID + ","
-													+ SQLInfo.FIELD_STATUS + ")"
-													+ " VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+													+ SQLInfo.FIELD_STATUS + ","
+													+ SQLInfo.RECIPE.ESTIMATE_TIME + ","
+													+ SQLInfo.RECIPE.RECIPE_CATE_IDS +")"
+													+ " VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		public static final String UPDATE = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
 													+ SQLInfo.RECIPE.TITLE + " = ?,"
 													+ SQLInfo.RECIPE.CONTENT + " = ?,"
 													+ SQLInfo.RECIPE.FEATURE_IMAGE + " = ?,"
 													+ SQLInfo.RECIPE.COST + " = ?,"
-													+ SQLInfo.RECIPE.KEY_SEARCH + " = ?,"
 													+ SQLInfo.RECIPE.MATERIAL_IDS + " = ?,"
 													+ SQLInfo.FIELD_UPDATE_TIME + " = ?,"
+													+ SQLInfo.RECIPE.ESTIMATE_TIME + " = ?"
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
 		public static final String DELETE  = "DELETE FROM " + SQLInfo.RECIPE.TABLE_NAME 
 													+ " WHERE " + SQLInfo.FIELD_ID  + "= ?";

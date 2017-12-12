@@ -37,6 +37,9 @@ public class Constant {
 		
 		// Recipe
 		public static final String LIST_KIND_CATE = "list_kind_cate";
+		public static final String RECIPE_HOUR = "recipe_hours";
+		public static final String RECIPE_MINUTE = "recipe_minutes";
+		public static final String LIST_RECIPE = "list_recipe";
 	}
 
 	public class STATUS {

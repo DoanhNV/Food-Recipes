@@ -45,7 +45,7 @@ public class TipController {
 	}
 	
 	@RequestMapping("/doCreate")
-	public String doCreate(@ModelAttribute("tip") Tip tip,@RequestParam("cateids") List<String> cates,@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content) {
+	public String doCreate(@ModelAttribute("tip") Tip tip,@RequestParam("cateids") List<Integer> cates,@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content) {
 		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
 		File desFile = new File(filePath);
 		try {
@@ -81,14 +81,14 @@ public class TipController {
 	public String update(@RequestParam("id") int id,ModelMap model) {
 		Tip tip = tipService.getById(id);
 		List<TipCategory> cates = cateService.listAll();
-		List<String> tipCateIds = tip.getTipCateIds();
+		List<Integer> tipCateIds = tip.getTipCateIds();
 		List<BasicTipCate> basicCate = new ArrayList<BasicTipCate>();
 		for (TipCategory cate : cates) {
 			BasicTipCate bCate = new BasicTipCate();
 			bCate.setId(cate.getId());
 			bCate.setTitle(cate.getCateName());
-			for (String cateId : tipCateIds) {
-				if(Integer.parseInt(cateId) == cate.getId()) {
+			for (int cateId : tipCateIds) {
+				if(cateId == cate.getId()) {
 					bCate.setChecked(Constant.HTML_ATTRIBUTE.CHECKED_VALUE);
 					break;
 				}
@@ -102,7 +102,7 @@ public class TipController {
 	
 	
 	@RequestMapping("/doUpdate")
-	public String doUpdate(@ModelAttribute("tip") Tip tip,@RequestParam("cateids") List<String> cates,@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content) {
+	public String doUpdate(@ModelAttribute("tip") Tip tip,@RequestParam("cateids") List<Integer> cates,@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content) {
 		Tip updateTip = tipService.getById(tip.getId());
 		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
 		File desFile = new File(filePath);

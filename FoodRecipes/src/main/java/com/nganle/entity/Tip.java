@@ -6,11 +6,11 @@ import java.util.List;
 public class Tip extends AbstractEntity {
 	private String title;
 	private String content;
-	private List<String> tipCateIds;
+	private List<Integer> tipCateIds;
 	private Date createTime;
 	private Date updateTime;
 	private String featureImage;
-	private List<String> savedUserIds;
+	private List<Integer> savedUserIds;
 	private int createrId;
 	private int view;
 	private int status;
@@ -29,14 +29,6 @@ public class Tip extends AbstractEntity {
 
 	public void setContent(String content) {
 		this.content = content;
-	}
-
-	public List<String> getTipCateIds() {
-		return tipCateIds;
-	}
-
-	public void setTipCateIds(List<String> tipCateIds) {
-		this.tipCateIds = tipCateIds;
 	}
 
 	public Date getCreateTime() {
@@ -63,14 +55,6 @@ public class Tip extends AbstractEntity {
 		this.featureImage = featureImage;
 	}
 
-	public List<String> getSavedUserIds() {
-		return savedUserIds;
-	}
-
-	public void setSavedUserIds(List<String> savedUserIds) {
-		this.savedUserIds = savedUserIds;
-	}
-
 	public int getStatus() {
 		return status;
 	}
@@ -93,6 +77,22 @@ public class Tip extends AbstractEntity {
 
 	public void setView(int view) {
 		this.view = view;
+	}
+
+	public List<Integer> getTipCateIds() {
+		return tipCateIds;
+	}
+
+	public void setTipCateIds(List<Integer> tipCateIds) {
+		this.tipCateIds = tipCateIds;
+	}
+
+	public List<Integer> getSavedUserIds() {
+		return savedUserIds;
+	}
+
+	public void setSavedUserIds(List<Integer> savedUserIds) {
+		this.savedUserIds = savedUserIds;
 	}
 
 }

@@ -42,7 +42,7 @@ public class Step {
 	}
 	
 	public static String toSQLArray(List<String> texts,List<String> filePaths){
-		String result = "";
+		String result = "[";
 		int stepNumber = texts.size();
 		for (int i = 0; i < stepNumber; i++) {
 			String stepStr = "{";
@@ -51,9 +51,9 @@ public class Step {
 			stepStr += "}";
 			result += stepStr;
 			if( i != (stepNumber -1)){
-				result += ",";
+				result += "*";
 			}
 		}
-		return result;
+		return result + "]";
 	}
 }
