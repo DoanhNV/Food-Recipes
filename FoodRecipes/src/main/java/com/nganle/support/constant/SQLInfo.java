@@ -56,4 +56,20 @@ public class SQLInfo {
 		public static final String  SAVED_USER_IDS = "saved_user_ids";
 		public static final String  VIEW = "view";
 	}
+	
+	public class RECIPE {
+		public static final String TABLE_NAME = "recipe";
+		public static final String TITLE = "title";
+		public static final String RECIPE_CATE_IDS = "recipe_cate_ids";
+		public static final String KEY_SEARCH = "key_search";
+		public static final String CONTENT = "";
+		public static final String FEATURE_IMAGE = "feature_image";
+		public static final String MATERIAL_IDS = "material_ids";
+		public static final String LIKE_IDS = "like_ids";
+		public static final String COMMENT_IDS = "comment_ids";
+		public static final String SAVED_USER_IDS = "saved_user_ids";
+		public static final String COST = "cost";
+		public static final String VIEW = "view";
+		public static final String STEP = "step";
+	}
 }

@@ -18,6 +18,7 @@ import com.nganle.entity.Recipe;
 import com.nganle.service.KindOfCateService;
 import com.nganle.service.MaterialService;
 import com.nganle.service.RecipeCategoryService;
+import com.nganle.service.RecipeService;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
@@ -28,13 +29,13 @@ public class RecipeADController {
 
 	@Autowired
 	private KindOfCateService kindService;
-
 	@Autowired
 	private RecipeCategoryService cateService;
-
 	@Autowired
 	private MaterialService materialService;
-
+	@Autowired
+	private RecipeService recipeService;
+	
 	@RequestMapping("/create")
 	public String create(ModelMap model) {
 		List<KindCateBasicDTO> listDTO = KindCateBasicDTO.toListDTO(kindService.listAll(), cateService.listAll());

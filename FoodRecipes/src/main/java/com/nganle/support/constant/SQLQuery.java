@@ -157,4 +157,51 @@ public class SQLQuery {
 		
 		public static final String LIST_ALL = "SELECT *  FROM "+ SQLInfo.TIP.TABLE_NAME;
 	}
+	
+	public class RECIPE {
+		public static final String 	CREATE = "INSERT INTO " + SQLInfo.RECIPE.TABLE_NAME + "("
+													+ SQLInfo.RECIPE.TITLE + ","
+													+ SQLInfo.RECIPE.CONTENT + ","
+													+ SQLInfo.RECIPE.FEATURE_IMAGE + ","
+													+ SQLInfo.RECIPE.COST + ","
+													+ SQLInfo.RECIPE.KEY_SEARCH + ","
+													+ SQLInfo.RECIPE.MATERIAL_IDS + ","
+													+ SQLInfo.RECIPE.SAVED_USER_IDS + ","
+													+ SQLInfo.RECIPE.LIKE_IDS + ","
+													+ SQLInfo.RECIPE.COMMENT_IDS + ","
+													+ SQLInfo.FIELD_CREATE_TIME + ","
+													+ SQLInfo.FIELD_UPDATE_TIME + ","
+													+ SQLInfo.FIELD_CREATER_ID + ","
+													+ SQLInfo.FIELD_STATUS + ")"
+													+ " VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+		
+		public static final String UPDATE = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
+													+ SQLInfo.RECIPE.TITLE + " = ?,"
+													+ SQLInfo.RECIPE.CONTENT + " = ?,"
+													+ SQLInfo.RECIPE.FEATURE_IMAGE + " = ?,"
+													+ SQLInfo.RECIPE.COST + " = ?,"
+													+ SQLInfo.RECIPE.KEY_SEARCH + " = ?,"
+													+ SQLInfo.RECIPE.MATERIAL_IDS + " = ?,"
+													+ SQLInfo.FIELD_UPDATE_TIME + " = ?,"
+													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
+		public static final String DELETE  = "DELETE FROM " + SQLInfo.RECIPE.TABLE_NAME 
+													+ " WHERE " + SQLInfo.FIELD_ID  + "= ?";
+		public static final String GET_BY_ID = "SELECT * FROM "+ SQLInfo.RECIPE.TABLE_NAME
+													+ " WHERE "+ SQLInfo.FIELD_ID + "=?";
+		public static final String LIST_ALL = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME;
+		
+		public static final String CHANGE_STATUS = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
+													+ SQLInfo.FIELD_STATUS + "= ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "=?";
+		public static final String ADD_SAVED_IDS = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
+													+ SQLInfo.RECIPE.SAVED_USER_IDS + "= ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
+		
+		public static final String ADD_LIKED_IDS = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
+													+ SQLInfo.RECIPE.LIKE_IDS + "= ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
+		public static final String ADD_COMMENT_IDS = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
+													+ SQLInfo.RECIPE.COMMENT_IDS + "= ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
+	}
 }
