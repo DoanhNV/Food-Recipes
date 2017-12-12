@@ -111,5 +111,20 @@
 		<put-attribute name="body" value="/views/admin/tip/list.jsp" />
 	</definition>
 	
+	
+	<!-- tip  -->
+	<definition name="admin.recipe.create" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/recipe/create.jsp" />
+	</definition>
+	
+	<definition name="admin.recipe.update" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/recipe/update.jsp" />
+	</definition>
+	
+	<definition name="admin.recipe.list" extends="base.admin">
+		<put-attribute name="body" value="/views/admin/recipe/list.jsp" />
+	</definition>
+	
+	
 
 </tiles-definitions>  

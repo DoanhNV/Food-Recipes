@@ -41,6 +41,13 @@
 
 <!-- Custom Theme Style -->
 <link href="<%=request.getContextPath()%>/resources/admin/build/css/custom.min.css" rel="stylesheet">
+
+<!-- for Recipe -->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/asset/css/style.css"/>
+
+<script src="<%=request.getContextPath()%>/resources/asset/bootstrap-3.3.7/dist/js/bootstrap.min.js" ></script>
+<script src="<%=request.getContextPath()%>/resources/asset/js/script.jsp" ></script>
+<script src="<%=request.getContextPath()%>/resources/asset/js/jquery-3.2.1.min.js" ></script>
 </head>
 
 <body class="nav-md">

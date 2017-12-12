@@ -36,4 +36,10 @@ public class ResultView {
 		public static final String UPDATE = "admin.tip.update";
 		public static final String LIST_ALL = "admin.tip.list";
 	}
+	
+	public class ADMIN_RECIPE {
+		public static final String CREATE = "admin.recipe.create";
+		public static final String UPDATE = "admin.recipe.update";
+		public static final String LIST_ALL = "admin.recipe.list";
+	}
 }

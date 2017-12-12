@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8" isELIgnored="false"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>   
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="col-md-3 left_col">
 	<div class="left_col scroll-view">
 		<div class="navbar nav_title" style="border: 0;">
@@ -67,6 +67,12 @@
 						<ul class="nav child_menu">
 							<li><a href="../tip/list">Xem tất cả</a></li>
 							<li><a href="../tip/create">Tạo mới</a></li>
+						</ul></li>
+					<li><a><i class="fa fa-clone"></i>Công thức <span
+							class="fa fa-chevron-down"></span></a>
+						<ul class="nav child_menu">
+							<li><a href="../admin_recipe//list">Xem tất cả</a></li>
+							<li><a href="../admin_recipe/create">Tạo mới</a></li>
 						</ul></li>
 				</ul>
 			</div>

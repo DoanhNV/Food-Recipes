@@ -30,10 +30,13 @@ public class Constant {
 		public static final String LIST_TIP_CATE = "list_tipcate";
 		public static final String TIP_CATE = "tipcate";
 
-		// tip cate
+		// tip
 		public static final String LIST_TIP= "list_tip";
 		public static final String TIP = "tip";
 		public static final String BASIC_CATE = "basic_cate";
+		
+		// Recipe
+		public static final String LIST_KIND_CATE = "list_kind_cate";
 	}
 
 	public class STATUS {
