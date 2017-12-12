@@ -66,7 +66,7 @@
 			<c:forEach items="${listmaterial}" var="material">
 				<div class="child-content ">
 					<div>
-						<input type="checkbox" value="${material.id}" class="check-mater"> 
+						<input type="checkbox" value="${material.id}" class="check-mater" name="materialIds"> 
 						<img src="${material.featureImage}"  class="mater-img"/>
 					</div>
 					<div class="clear"></div>
@@ -105,12 +105,13 @@
 				</div>
 				<div class="clear"></div>
 				<div class="recipe-create-title">Thời gian</div>
-				<select class="form-control select">
+				<select class="form-control select" name="hour">
 					<option>Giờ</option>
 					<option>0 Giờ</option>
 					<option>1 Giờ</option>
 					<option>2 Giờ</option>
-				</select> <select class="form-control select">
+				</select> 
+				<select class="form-control select" name="minute">
 					<option>Phút</option>
 					<option>0 Phút</option>
 					<option>1 Phút</option>
@@ -118,7 +119,7 @@
 				</select>
 				<div class="clear"></div>
 				<div class="recipe-create-title">Chi phí</div>
-				<select class="form-control select cost-select">
+				<select class="form-control select cost-select" name="cost">
 					<option>rẻ</option>
 					<option>trung bình</option>
 					<option>đắt</option>
@@ -167,10 +168,10 @@
 			</div>
 			<div class="step-post step-element-content">
 				<div class="form-group">
-					<textarea class="form-control baby-step-content" rows="5"></textarea>
+					<textarea class="form-control baby-step-content" rows="5" name="stepText"></textarea>
 				</div>
 				<div class="clear"></div>
-				<input type="file" id="upload-file-step1" name="recipeFiles"
+				<input type="file" id="upload-file-step1" name="stepImg"
 					class="file-upload1" style="display: none;" multiple />
 				<button type="button" class="btn upload-step" id="uploadStep1">
 					<span class="glyphicon glyphicon-camera"></span>
@@ -334,10 +335,10 @@
 									+ '</div>'
 									+ '<div class="step-post step-element-content">'
 									+ '<div class="form-group">'
-									+ '<textarea class="form-control baby-step-content" rows="5" ></textarea>'
+									+ '<textarea class="form-control baby-step-content" rows="5" name="stepText"></textarea>'
 									+ '</div>'
 									+ '<div class="clear"></div>'
-									+ '<input type="file" id="upload-file-step'+nextNumber+'" name="recipeFiles" class="file-upload'+nextNumber+'" style="display:none;" multiple/>'
+									+ '<input type="file" id="upload-file-step'+nextNumber+'" name="stepImg" class="file-upload'+nextNumber+'" style="display:none;" multiple/>'
 									+ '<button type="button" class="btn upload-step" id="uploadStep'+nextNumber+'"><span class="glyphicon glyphicon-camera"></span></button>'
 
 									+ '<div class="preview-step-img " id="preview'+nextNumber+'">'

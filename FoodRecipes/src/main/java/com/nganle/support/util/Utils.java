@@ -1,5 +1,7 @@
 package com.nganle.support.util;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +9,10 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.ModelMap;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.nganle.support.constant.Constant;
 
 public class Utils {
 
@@ -84,6 +90,20 @@ public class Utils {
 			result.add(data[i]);
 		}
 		return result;
+	}
+	
+	public static String uploadToStorage(MultipartFile file){
+		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
+		File desFile = new File(filePath);
+		try {
+			if (file.getSize() != 0) {
+				FileCopyUtils.copy(file.getBytes(), desFile);
+				return filePath;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
