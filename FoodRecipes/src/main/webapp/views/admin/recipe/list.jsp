@@ -126,7 +126,8 @@
 	
 	function changeStatus(){
 		$(".btnChangeStatus").off("click").click(function(){
-			window.location.href = "../recipe/change-status?recipe-data="+$(this).data("id")+"-"+$(this).data("status")+"-";
+			var page = $("#pageActive").data("id");
+			window.location.href = "../recipe/change-status?recipe-data="+$(this).data("id")+"-"+$(this).data("status")+"-"+page;
 		});
 	}
 	

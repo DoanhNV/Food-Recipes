@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Recipe extends AbstractEntity {
 	private String title;
-	private List<Integer> recipeCateIds;
+	private List<String> recipeCateIds;
 	private String content;
 	private int createrId;
 	private String featureImage;
@@ -19,6 +19,7 @@ public class Recipe extends AbstractEntity {
 	private Date updateTime;
 	private int status;
 	private String estimateTime;
+	private String videoUrl;
 
 	public String getTitle() {
 		return title;
@@ -28,11 +29,11 @@ public class Recipe extends AbstractEntity {
 		this.title = title;
 	}
 
-	public List<Integer> getRecipeCateIds() {
+	public List<String> getRecipeCateIds() {
 		return recipeCateIds;
 	}
 
-	public void setRecipeCateIds(List<Integer> recipeCateIds) {
+	public void setRecipeCateIds(List<String> recipeCateIds) {
 		this.recipeCateIds = recipeCateIds;
 	}
 
@@ -138,6 +139,14 @@ public class Recipe extends AbstractEntity {
 
 	public void setSavedUserIds(List<Integer> savedUserIds) {
 		this.savedUserIds = savedUserIds;
+	}
+
+	public String getVideoUrl() {
+		return videoUrl;
+	}
+
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
 	}
 
 }

@@ -38,7 +38,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 			prepareStatement.setInt(11, recipe.getCreaterId());
 			prepareStatement.setInt(12, Constant.STATUS.ACTIVE_VALUE);
 			prepareStatement.setString(13, recipe.getEstimateTime());
-			prepareStatement.setString(14, Utils.toSQlArray(recipe.getRecipeCateIds()));
+			prepareStatement.setString(14, Utils.toCateList(recipe.getRecipeCateIds()));
+			prepareStatement.setString(15, recipe.getVideoUrl());
 			prepareStatement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -58,7 +59,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 			prepareStatement.setDate(6, Utils.getCurrentSQLDate());
 			prepareStatement.setInt(7, recipe.getStatus());
 			prepareStatement.setString(8, recipe.getEstimateTime());
-			prepareStatement.setInt(9, recipe.getId());
+			prepareStatement.setString(9, recipe.getVideoUrl());
+			prepareStatement.setInt(10, recipe.getId());
 			prepareStatement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -100,6 +102,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
 				recipe.setViews(set.getInt(SQLInfo.RECIPE.VIEWS));
 				recipe.setEstimateTime(set.getString(SQLInfo.RECIPE.ESTIMATE_TIME));
+				recipe.setVideoUrl(set.getString(SQLInfo.RECIPE.VIDEO_URL));
+				recipe.setRecipeCateIds(Utils.toListString(set.getString(SQLInfo.RECIPE.RECIPE_CATE_IDS)));
 				return recipe;
 			}
 		} catch (SQLException e) {
@@ -130,6 +134,8 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
 				recipe.setViews(set.getInt(SQLInfo.RECIPE.VIEWS));
 				recipe.setEstimateTime(set.getString(SQLInfo.RECIPE.ESTIMATE_TIME));
+				recipe.setVideoUrl(set.getString(SQLInfo.RECIPE.VIDEO_URL));
+				recipe.setRecipeCateIds(Utils.toListString(set.getString(SQLInfo.RECIPE.RECIPE_CATE_IDS)));
 				result.add(recipe);
 			}
 			return result;
@@ -141,7 +147,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 
 	public boolean changeStatus(int id, int status) {
 		try {
-			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.UPDATE);
+			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.CHANGE_STATUS);
 			prepareStatement.setInt(1, status);
 			prepareStatement.setInt(2, id);
 			prepareStatement.execute();

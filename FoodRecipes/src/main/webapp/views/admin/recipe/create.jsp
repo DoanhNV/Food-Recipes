@@ -38,7 +38,7 @@
 		margin-right: 5px;
 	}
 	
-	#submitMaterial{
+	#submitMaterial {
 		margin-left: 82.7%;
 	}
 	
@@ -54,7 +54,7 @@
 		height:60px
 	}
 	
-	.mater-name{
+	.mater-name {
 		font-size: 11px;
 		color: black;
 		font-weight: bold;
@@ -87,13 +87,13 @@
 <div class="">
 	<div class="create create-left">
 		<div class="create-left-content">
-				<div class="recipe-create-title">Tên món ăn</div>
+				<div class="recipe-create-title">Tên món ăn <span class="required">*</span></div>
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="glyphicon glyphicon-pencil"></i></span> <input type="text" name="title"
 						class="form-control" placeholder="Nhập tên món ăn" required="required">
 				</div>
-				<div class="recipe-create-title">Ảnh đại diện</div>
+				<div class="recipe-create-title">Ảnh đại diện <span class="required">*</span></div>
 				<input type="file" id="upload-file-profile" name="featureImage"
 					class="file-upload-profile" style="display: none;" />
 				<button type="button" id="openfile" class="btn btn-upload">
@@ -104,7 +104,7 @@
 						alt="preview Profile image" />
 				</div>
 				<div class="clear"></div>
-				<div class="recipe-create-title">Thời gian</div>
+				<div class="recipe-create-title">Thời gian <span class="required">*</span></div>
 				<select class="form-control select" name="hour">
 					<c:forEach items="${recipe_hours }"  var="recipeHourItem">
 								<option value="${recipeHourItem.timeValue}">${recipeHourItem.timeName}</option>
@@ -116,14 +116,20 @@
 					</c:forEach>
 				</select>
 				<div class="clear"></div>
-				<div class="recipe-create-title">Chi phí (VNĐ)</div>
+				<div class="recipe-create-title">Chi phí (VNĐ) <span class="required">*</span></div>
 				<div class="input-group">
 					<span class="input-group-addon"><i
 						class="glyphicon glyphicon-pencil"></i></span> <input type="number" name="cost"
 						class="form-control" placeholder="VNĐ" required="required" style="width: 200px;">
 				</div>
+				<div class="recipe-create-title">Video (youtube url)</div>
+				<div class="input-group">
+					<span class="input-group-addon"><i
+						class="glyphicon glyphicon-pencil"></i></span> <input type="text" name="video" id="videoField"
+						class="form-control" placeholder="https://www.youtube.com/watch?v=KYOHHLaiuXk" style="width: 400px;">
+				</div>
 				<div class="clear"></div>
-				<div class="recipe-create-title">Nguyên liệu</div>
+				<div class="recipe-create-title">Nguyên liệu <span class="required">*</span></div>
 				<div class="cate-step-content" id="tagRecipeCate">
 				</div>
 				<div class="clear"></div>
@@ -132,7 +138,7 @@
 				</div>
 		</div>
 		<div class="clear"></div>
-		<div class="recipe-create-title">Các bước thực hiện</div>
+		<div class="recipe-create-title">Các bước thực hiện <span class="required">*</span></div>
 		<div class="create-left-content step-practise" id="step1">
 			<div class="step-post step-element-number">
 				<div class="number-title">1</div>
@@ -164,14 +170,14 @@
 	</div>
 </div>
 <div class="create create-right">
-	<div class="recipe-create-title">Phân loại</div>
+	<div class="recipe-create-title">Phân loại <span class="required">*</span></div>
 	<div class="cate-step">
 		<c:forEach items="${list_kind_cate }" var="list">
 			<div class="cate-step-title">${list.title}</div>
 			<div class="cate-step-content">
 				<c:forEach items="${list.cates}" var="cate" varStatus="status">
 					<div class="checkbox cate-check ">
-						<label><input type="checkbox" name="recipeCate" value="${cate.id}">${cate.title}</label>
+						<label><input type="checkbox" name="recipeCate" value="${cate.id}-${list.id}">${cate.title}</label>
 					</div>
 				</c:forEach>
 			</div>
@@ -187,7 +193,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
 		uploadProfileFile();
 		uploadStepFile();
 		addStep();
@@ -196,6 +201,24 @@
 		getMaterial();
 		chooseM();
 	});
+	
+	function validateMaterialIds(){
+		$('input[type="checkbox"][name="materialIds"]:checked').each(function(i){
+	         return true;
+	    });
+		alert("bạn cần chọn ít nhất 1 nguyên liệu.");
+		return false;
+	}
+	
+	function validateVideoURL(){
+		var prefix = "https://www.youtube.com/watch?v=";
+		var prefixLength = prefix.length;
+		if($("#videoField"). val().substring(0,prefixLength) !== prefix) {
+			alert("Định dạng url video không chính xác, vui lòng nhập vào định dạng youtube video!");
+			return false;
+		}
+		return true;
+	}
 	
 	function getMaterial(){
 		$("#submitMaterial").click(function(){
@@ -219,22 +242,21 @@
 		});
 	}
 	
-	function chooseM(){
+	function chooseM() {
 		$("#btnChooseM").click(function(){
 			$(".parent-pop").attr("style","display:block");
 		});
 	}
 	
-	function submitStrigger(){
-		$("#mainSubmit").click(function(){
-			if(validateCheckBox()){
+	function submitStrigger() {
+		$("#mainSubmit").click(function() {
+			if(validateCheckBox() && validateVideoURL() && validateMaterialIds()) {
 				$("#triggerSubmit").trigger("click");
 			}
-			
 		});
 	}
 	
-	function validateCheckBox(){
+	function validateCheckBox() {
 		var result = false;
 		$("input[type='checkbox'][name='recipeCate']").each(function() {
 			  if($(this).is(':checked')) {
@@ -304,7 +326,6 @@
 	}
 
 	function addStep() {
-
 		$("#addStep")
 				.off("click")
 				.click(

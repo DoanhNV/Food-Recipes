@@ -70,5 +70,6 @@ public class SQLInfo {
 		public static final String COST = "cost";
 		public static final String VIEWS = "views";
 		public static final String ESTIMATE_TIME = "estimate_time";
+		public static final String VIDEO_URL = "video_url";
 	}
 }

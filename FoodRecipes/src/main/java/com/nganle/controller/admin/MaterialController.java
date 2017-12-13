@@ -89,18 +89,8 @@ public class MaterialController {
 
 	@RequestMapping(value = "/doUpdate", method = RequestMethod.POST)
 	public String doUpdate(@ModelAttribute("material") Material material, @RequestParam("materialfile") MultipartFile file, HttpServletRequest request) {
-		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
-		File desFile = new File(filePath);
-		try {
-			if (file.getSize() != 0) {
-				FileCopyUtils.copy(file.getBytes(), desFile);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		if(file.getOriginalFilename() != null && !file.getOriginalFilename().isEmpty()) {
-			material.setFeatureImage(filePath);
-		}
+		String filePath = Utils.uploadToStorage(file);
+		material.setFeatureImage(filePath);
 		material.setCreateTime(new Date());
 		materialService.update(material);
 		return Utils.redirect("/material/list");
@@ -110,7 +100,7 @@ public class MaterialController {
 	public String changeStatus(@RequestParam("material-data") String userId,RedirectAttributes redirectAtt) {
 		String[] data = userId.split("-");
 		int status = 0;
-		if (data[1].equals("deactive")) {
+		if (data[1].equals(Constant.STATUS.DEACTIVE)) {
 			status = 1;
 		}
 		Material material = materialService.getById(Integer.parseInt(data[0]));

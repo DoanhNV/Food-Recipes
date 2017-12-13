@@ -3,6 +3,8 @@ package com.nganle.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.nganle.support.constant.Constant;
+
 public class Step {
 	private String text;
 	private String filePath;
@@ -46,14 +48,27 @@ public class Step {
 		int stepNumber = texts.size();
 		for (int i = 0; i < stepNumber; i++) {
 			String stepStr = "{";
-			stepStr += texts.get(i) + "||";
+			stepStr += texts.get(i) + Constant.STEP_ELEMENT_SEPARATOR;
 			stepStr += filePaths.get(i);
 			stepStr += "}";
 			result += stepStr;
 			if( i != (stepNumber -1)){
-				result += "*";
+				result += Constant.STEP_SEPARATOR;
 			}
 		}
 		return result + "]";
+	}
+	
+	public static List<Step> toListStep(String sqlStep){
+		List<Step> result = new ArrayList<Step>();
+		String standard = sqlStep.substring(1,sqlStep.length()-1);
+		String[] data = standard.split(Constant.STEP_SEPARATOR);
+		for (int i = 0; i < data.length; i++) {
+			String step = data[i];
+			String[] stepContent = step.split(Constant.STEP_ELEMENT_SEPARATOR);
+			Step currentStep = new Step(stepContent[0], stepContent[1]);
+			result.add(currentStep);
+		}
+		return result;
 	}
 }

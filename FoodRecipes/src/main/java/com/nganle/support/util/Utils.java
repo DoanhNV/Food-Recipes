@@ -76,6 +76,22 @@ public class Utils {
 		}
 		return result;
 	}
+	
+
+	public static String toCateList(List<String> list) {
+		if(list == null) {
+			return "";
+		}
+		String result = "";
+		int size = list.size();
+		for (int i = 0; i < size; i++) {
+			result += list.get(i);
+			if (i != size - 1) {
+				result += ",";
+			}
+		}
+		return result;
+	}
 
 	public static Date getCurrentSQLDate() {
 		return new Date(System.currentTimeMillis());
@@ -94,6 +110,18 @@ public class Utils {
 		String[] data = arr.split(",");
 		for (int i = 0; i < data.length; i++) {
 			result.add(Integer.parseInt(data[i]));
+		}
+		return result;
+	}
+	
+	public static List<String> toListString(String arr) {
+		List<String> result = new ArrayList<String>();
+		if(arr == null || arr  == "") {
+			return result;
+		}
+		String[] data = arr.split(",");
+		for (int i = 0; i < data.length; i++) {
+			result.add(data[i]);
 		}
 		return result;
 	}

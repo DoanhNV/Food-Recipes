@@ -3,6 +3,7 @@ package com.nganle.dto;
 public class RecipeCateBasic {
 	private int id;
 	private String title;
+	private String checked;
 
 	public RecipeCateBasic() {
 
@@ -12,6 +13,13 @@ public class RecipeCateBasic {
 		super();
 		this.id = id;
 		this.title = title;
+	}
+
+	public RecipeCateBasic(int id, String title, String checked) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.checked = checked;
 	}
 
 	public int getId() {
@@ -28,6 +36,14 @@ public class RecipeCateBasic {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
 	}
 
 }

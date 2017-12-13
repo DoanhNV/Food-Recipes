@@ -40,6 +40,7 @@ public class Constant {
 		public static final String RECIPE_HOUR = "recipe_hours";
 		public static final String RECIPE_MINUTE = "recipe_minutes";
 		public static final String LIST_RECIPE = "list_recipe";
+		public static final String LIST_STEP = "list_step";
 	}
 
 	public class STATUS {
@@ -56,4 +57,7 @@ public class Constant {
 	public class HTML_ATTRIBUTE {
 		public static final String CHECKED_VALUE = "checked";
 	}
+	
+	public static final String STEP_ELEMENT_SEPARATOR = "||";
+	public static final String STEP_SEPARATOR = "*";
 }

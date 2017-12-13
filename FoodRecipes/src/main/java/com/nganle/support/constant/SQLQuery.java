@@ -20,15 +20,17 @@ public class SQLQuery {
 													+ SQLInfo.FIELD_UPDATE_TIME + ","
 													+ SQLInfo.FIELD_STATUS + ") "+
 													"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		public static final String FIND_BY_ID = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME + " WHERE "+ SQLInfo.FIELD_ID + " = ?";
-		public static final String FIND_BY_USER_AND_PASS = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME + 
-															" WHERE "+ SQLInfo.USER.FIELD_USER_NAME + " = ? AND "
-															+ SQLInfo.USER.FIELD_MD5_PASSWORD + " = ?";
-		public static final String FIND_BY_USER_NAME = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME + 
-				" WHERE "+ SQLInfo.USER.FIELD_USER_NAME + " = ?";
+		public static final String FIND_BY_ID = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME 
+													+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
+		public static final String FIND_BY_USER_AND_PASS = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME 
+													+ " WHERE "+ SQLInfo.USER.FIELD_USER_NAME + " = ? AND "
+													+ SQLInfo.USER.FIELD_MD5_PASSWORD + " = ?";
+		public static final String FIND_BY_USER_NAME = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME 
+													+ " WHERE "+ SQLInfo.USER.FIELD_USER_NAME + " = ?";
 		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME;
 		
-		public static final String DELETE_BY_ID = "DELETE FROM "+ SQLInfo.USER.TABLE_NAME + " WHERE "+ SQLInfo.FIELD_ID + " = ?";
+		public static final String DELETE_BY_ID = "DELETE FROM "+ SQLInfo.USER.TABLE_NAME + " WHERE "
+													+ SQLInfo.FIELD_ID + " = ?";
 		public static final String UPDATE_STATUS = "UPDATE "+ SQLInfo.USER.TABLE_NAME + " SET "
 													+ SQLInfo.FIELD_STATUS +" = ? WHERE "
 													+ SQLInfo.FIELD_ID + " = ?";
@@ -173,7 +175,8 @@ public class SQLQuery {
 													+ SQLInfo.FIELD_CREATER_ID + ","
 													+ SQLInfo.FIELD_STATUS + ","
 													+ SQLInfo.RECIPE.ESTIMATE_TIME + ","
-													+ SQLInfo.RECIPE.RECIPE_CATE_IDS +")"
+													+ SQLInfo.RECIPE.RECIPE_CATE_IDS +","
+													+ SQLInfo.RECIPE.VIDEO_URL +")"
 													+ " VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		public static final String UPDATE = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
@@ -183,7 +186,8 @@ public class SQLQuery {
 													+ SQLInfo.RECIPE.COST + " = ?,"
 													+ SQLInfo.RECIPE.MATERIAL_IDS + " = ?,"
 													+ SQLInfo.FIELD_UPDATE_TIME + " = ?,"
-													+ SQLInfo.RECIPE.ESTIMATE_TIME + " = ?"
+													+ SQLInfo.RECIPE.ESTIMATE_TIME + " = ?,"
+													+ SQLInfo.RECIPE.VIDEO_URL +" = ?"
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
 		public static final String DELETE  = "DELETE FROM " + SQLInfo.RECIPE.TABLE_NAME 
 													+ " WHERE " + SQLInfo.FIELD_ID  + "= ?";
