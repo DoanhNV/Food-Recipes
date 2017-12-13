@@ -2,6 +2,7 @@ package com.nganle.support.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,10 +12,12 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.ui.ModelMap;
+import org.springframework.util.Base64Utils;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nganle.dto.TimeRecipe;
+import com.nganle.entity.Step;
 import com.nganle.support.constant.Constant;
 
 public class Utils {
@@ -135,9 +138,34 @@ public class Utils {
 				return filePath;
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("update no filePath!");
 		}
-		return null;
+		return "noFilePath";
+	}
+	
+	public static List<String> uploadToStorageAndCheckUpdate(List<MultipartFile> files,List<Step> listStep){
+		List<String> listpath = new ArrayList<String>();
+		for (int i = 0; i < files.size(); i++) {
+			MultipartFile file = files.get(i);
+			String filePath = Constant.FILE_STORE + file.getOriginalFilename();
+			File desFile = new File(filePath);
+			try {
+				if (file.getSize() != 0) {
+					FileCopyUtils.copy(file.getBytes(), desFile);
+					listpath.add(filePath);
+				}else {
+					if(i < listStep.size()) {
+						listpath.add(listStep.get(i).getFilePath());
+					}else {
+						listpath.add("nofilePath");
+					}
+				}
+			} catch (IOException e) {
+				System.out.println("update no file path!");
+			}
+		}
+		
+		return listpath;
 	}
 	
 	public static List<TimeRecipe> init(int max,String suffix){
@@ -148,12 +176,37 @@ public class Utils {
 		return result;
 	}
 	
+	public static List<TimeRecipe> initTime(int max,String suffix, int current){
+		List<TimeRecipe> result = new ArrayList<TimeRecipe>();
+		for (int i = 0; i < max+1; i++) {
+			TimeRecipe timeRecipe = new TimeRecipe(i, i + " " + suffix);
+			if( i == current) {
+				timeRecipe.setSelected("selected");
+			}
+			result.add(timeRecipe);
+		}
+		return result;
+	}
+	
 	public static Map<Integer,String> initMapTime(int max,String suffix){
 		Map<Integer,String> result = new HashMap<Integer,String>();
 		for (int i = 0; i < max+1; i++) {
 			result.put(i, i + " " + suffix);
 		}
 		return result;
+	}
+	
+	public static String convertToFileByte(String path) {
+		String fileByte = "data:image/png;base64,";
+		try {
+			byte[] fileBytes = Files.readAllBytes(new File(path).toPath());
+			byte[] code = Base64Utils.encode(fileBytes);
+			fileByte += new String(code, "UTF-8");
+			return fileByte;
+		} catch (IOException e) {
+			System.out.println("read no image!");
+		}
+		return null;
 	}
 	
 	

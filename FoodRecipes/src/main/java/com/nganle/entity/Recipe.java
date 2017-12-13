@@ -20,6 +20,7 @@ public class Recipe extends AbstractEntity {
 	private int status;
 	private String estimateTime;
 	private String videoUrl;
+	private int isSlide;
 
 	public String getTitle() {
 		return title;
@@ -147,6 +148,14 @@ public class Recipe extends AbstractEntity {
 
 	public void setVideoUrl(String videoUrl) {
 		this.videoUrl = videoUrl;
+	}
+
+	public int getIsSlide() {
+		return isSlide;
+	}
+
+	public void setIsSlide(int isSlide) {
+		this.isSlide = isSlide;
 	}
 
 }

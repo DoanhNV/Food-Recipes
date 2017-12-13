@@ -27,6 +27,16 @@
     border: 1px solid #4CAF50;
 }
 
+.green {
+	background-color: green;
+	color: white;
+}
+
+.yellow {
+	background-color: yellow;
+	color: balck;
+}
+
 .pagination a:hover:not(.active) {background-color: #ddd;}
 </style> 
 <script src="<%=request.getContextPath()%>/resources/asset/js/jquery-3.2.1.min.js"></script>	
@@ -64,10 +74,10 @@
                             <th class="column-title">Ảnh</th>
                             <th class="column-title">Ngày tạo</th>
                             <th class="column-title">Trạng thái</th>
-                            <th class="column-title">Lượt xem </th>
-                            <th class="column-title">Lượt thích </th>
-                            <th class="column-title">Lượt lưu</th>
-                            <th class="column-title">Lượt comment</th>
+                            <th class="column-title">Views </th>
+                            <th class="column-title">Like </th>
+                            <th class="column-title">Lưu</th>
+                            <th class="column-title">Comment</th>
                               <th class="column-title">Cập nhật</th>
                           </tr>
                         </thead>
@@ -85,9 +95,16 @@
 		                            <td class=" ">${recipe.likeNumber}</td>
 		                            <td class=" ">${recipe.saveNumber}</td>
 		                            <td class=" ">${recipe.commentNumber}</td>
-		                             <td class=" "> 
-		                              <span class="btn btn-primary btnUpdateM" data-id="${recipe.id}">Update</span>
-		                             <span class="btn btn-success btnChangeStatus" data-id="${recipe.id}" data-status="${recipe.status}">Đổi trạng thái</span>
+		                            <td class=" "> 
+		                              <span class="fa fa-pencil-square-o btn btn-primary btnUpdateM" data-id="${recipe.id}"></span>
+		                              <span class="fa fa-refresh btn btn-success btnChangeStatus" data-id="${recipe.id}" data-status="${recipe.status}"></span>
+		                              <span class="btn btn-danger fa fa-remove btnDelete" data-id="${recipe.id}"></span>
+		                              	<c:if test="${recipe.isSlide == 1}">
+		                              		 <span class="btn green fa fa-area-chart btnAddSlide" data-id="${recipe.id}"></span>
+		                              	</c:if>
+		                             	<c:if test="${recipe.isSlide == 0}">
+		                              		 <span class="btn yellow fa fa-area-chart btnRemoveSlide" data-id="${recipe.id}"></span>
+		                              	</c:if>
 		                             </td>
                           		</tr>
                         	</c:forEach>
@@ -122,19 +139,52 @@
 	$(document).ready(function(){
 		changeStatus();
 		update();
+		deleteUser();
+		addSlide();
+		removeSlide();
 	});
 	
 	function changeStatus(){
 		$(".btnChangeStatus").off("click").click(function(){
 			var page = $("#pageActive").data("id");
-			window.location.href = "../recipe/change-status?recipe-data="+$(this).data("id")+"-"+$(this).data("status")+"-"+page;
+			window.location.href = "../admin_recipe/change-status?recipe-data="+$(this).data("id")+"-"+$(this).data("status")+"-"+page;
 		});
 	}
 	
 	function update(){
 		$(".btnUpdateM").off().off("click").click(function(){
-			window.location.href = "../recipe/update?recipeid="+$(this).data("id");
+			window.location.href = "../admin_recipe/update?id="+$(this).data("id");
 		});
 	}
+	
+	function deleteUser(){
+		$(".btnDelete").off("click").click(function() {
+			var isAgree = confirm("Bạn thực sự muốn xóa công thức này?");
+			if(isAgree) {
+				window.location.href = "../admin_recipe/delete?id="+$(this).data("id");
+			}
+		});
+	}
+	
+	
+	function addSlide(){
+		$(".btnRemoveSlide").off("click").click(function(){
+			var slideValue = 1;
+			var page = $("#pageActive").data("id");
+			window.location.href = "../admin_recipe/change-slide?recipe-data="+$(this).data("id")+"-"+slideValue+"-"+page;
+		});
+	}
+	
+	function removeSlide(){
+		$(".btnAddSlide").off("click").click(function(){
+			var slideValue = 0;
+			var page = $("#pageActive").data("id");
+			window.location.href = "../admin_recipe/change-slide?recipe-data="+$(this).data("id")+"-"+slideValue+"-"+page;
+		});
+	}
+	
+	
+	
+	
 	
 </script>

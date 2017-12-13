@@ -51,4 +51,8 @@ public class RecipeServiceImpl  implements RecipeService{
 		return recipeDAO.addComment(id, commentId);
 	}
 
+	public boolean changeSlide(int id, int slideValue) {
+		return recipeDAO.changeSlide(id, slideValue);
+	}
+
 }

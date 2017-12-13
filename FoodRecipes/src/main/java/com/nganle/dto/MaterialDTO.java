@@ -25,6 +25,7 @@ public class MaterialDTO {
 	private String createTime;
 	private String status;
 	private User creater;
+	private String checked;
 
 	public int getId() {
 		return id;
@@ -74,6 +75,14 @@ public class MaterialDTO {
 		this.creater = creater;
 	}
 
+	public String getChecked() {
+		return checked;
+	}
+
+	public void setChecked(String checked) {
+		this.checked = checked;
+	}
+
 	public static List<MaterialDTO> toListDTO(List<Material> materials) {
 		List<MaterialDTO> result = new ArrayList<MaterialDTO>();
 		for (Material material : materials) {
@@ -100,6 +109,36 @@ public class MaterialDTO {
 		}
 		return result;
 	}
+	
+	public static List<MaterialDTO> toListCheckedDTO(List<Material> materials,List<Integer> checkedList) {
+		List<MaterialDTO> result = new ArrayList<MaterialDTO>();
+		for (Material material : materials) {
+			MaterialDTO dto = new MaterialDTO();
+			dto.setId(material.getId());
+			dto.setMaterialName(material.getMaterialName());
+			String fileByte = "data:image/png;base64,";
+			try {
+				byte[] fileBytes = Files.readAllBytes(new File(material.getFeatureImage()).toPath());
+				byte[] code = Base64Utils.encode(fileBytes);
+				fileByte += new String(code, "UTF-8");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			dto.setFeatureImage(fileByte);
+			dto.setCreateTime(DateFormator.format_yyyy_MM_dd_hh_mm(material.getCreateTime()));
+			User user = userDAO.getById(material.getCreaterId());
+			if (user != null) {
+				dto.setCreater(user);
+			}
+			String status = material.getStatus() == 1 ? Constant.STATUS.ACTIVE : Constant.STATUS.DEACTIVE;
+			dto.setStatus(status);
+			if(checkedList.contains(material.getId())) {
+				dto.setChecked(Constant.HTML_ATTRIBUTE.CHECKED_VALUE);
+			}
+			result.add(dto);
+		}
+		return result;
+	}
 
 	public static List<List<MaterialDTO>> toPageList(List<MaterialDTO> list) {
 		List<List<MaterialDTO>> result = new ArrayList<List<MaterialDTO>>();
@@ -117,5 +156,6 @@ public class MaterialDTO {
 		}
 		return result;
 	}
+	
 
 }

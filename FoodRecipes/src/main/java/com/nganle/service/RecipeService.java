@@ -22,4 +22,6 @@ public interface RecipeService {
 	public boolean addLike(int id, int userId);
 
 	public boolean addComment(int id, int commentId);
+	
+	public boolean changeSlide(int id,int slideValue);
 }

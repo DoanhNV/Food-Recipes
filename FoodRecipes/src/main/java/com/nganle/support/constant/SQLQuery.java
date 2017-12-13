@@ -177,7 +177,7 @@ public class SQLQuery {
 													+ SQLInfo.RECIPE.ESTIMATE_TIME + ","
 													+ SQLInfo.RECIPE.RECIPE_CATE_IDS +","
 													+ SQLInfo.RECIPE.VIDEO_URL +")"
-													+ " VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+													+ " VALUE(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		
 		public static final String UPDATE = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
 													+ SQLInfo.RECIPE.TITLE + " = ?,"
@@ -187,7 +187,8 @@ public class SQLQuery {
 													+ SQLInfo.RECIPE.MATERIAL_IDS + " = ?,"
 													+ SQLInfo.FIELD_UPDATE_TIME + " = ?,"
 													+ SQLInfo.RECIPE.ESTIMATE_TIME + " = ?,"
-													+ SQLInfo.RECIPE.VIDEO_URL +" = ?"
+													+ SQLInfo.RECIPE.VIDEO_URL +" = ?,"
+													+ SQLInfo.RECIPE.RECIPE_CATE_IDS +"= ?"
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
 		public static final String DELETE  = "DELETE FROM " + SQLInfo.RECIPE.TABLE_NAME 
 													+ " WHERE " + SQLInfo.FIELD_ID  + "= ?";
@@ -207,6 +208,9 @@ public class SQLQuery {
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
 		public static final String ADD_COMMENT_IDS = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
 													+ SQLInfo.RECIPE.COMMENT_IDS + "= ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
+		public static final String CHANGE_SLIDE = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
+													+ SQLInfo.RECIPE.IS_SLIDE + "= ?"
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
 	}
 }

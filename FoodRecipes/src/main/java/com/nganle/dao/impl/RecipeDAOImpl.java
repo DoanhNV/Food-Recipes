@@ -57,9 +57,9 @@ public class RecipeDAOImpl implements RecipeDAO {
 			prepareStatement.setDouble(4, recipe.getCost());
 			prepareStatement.setString(5, Utils.toSQlArray(recipe.getMaterialIds()));
 			prepareStatement.setDate(6, Utils.getCurrentSQLDate());
-			prepareStatement.setInt(7, recipe.getStatus());
-			prepareStatement.setString(8, recipe.getEstimateTime());
-			prepareStatement.setString(9, recipe.getVideoUrl());
+			prepareStatement.setString(7, recipe.getEstimateTime());
+			prepareStatement.setString(8, recipe.getVideoUrl());
+			prepareStatement.setString(9, Utils.toCateList(recipe.getRecipeCateIds()));
 			prepareStatement.setInt(10, recipe.getId());
 			prepareStatement.execute();
 			return true;
@@ -72,6 +72,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 	public boolean delete(int id) {
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.DELETE);
+			prepareStatement.setInt(1, id);
 			prepareStatement.execute();
 			return true;
 		} catch (SQLException e) {
@@ -104,6 +105,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setEstimateTime(set.getString(SQLInfo.RECIPE.ESTIMATE_TIME));
 				recipe.setVideoUrl(set.getString(SQLInfo.RECIPE.VIDEO_URL));
 				recipe.setRecipeCateIds(Utils.toListString(set.getString(SQLInfo.RECIPE.RECIPE_CATE_IDS)));
+				recipe.setIsSlide(set.getInt(SQLInfo.RECIPE.IS_SLIDE));
 				return recipe;
 			}
 		} catch (SQLException e) {
@@ -136,6 +138,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 				recipe.setEstimateTime(set.getString(SQLInfo.RECIPE.ESTIMATE_TIME));
 				recipe.setVideoUrl(set.getString(SQLInfo.RECIPE.VIDEO_URL));
 				recipe.setRecipeCateIds(Utils.toListString(set.getString(SQLInfo.RECIPE.RECIPE_CATE_IDS)));
+				recipe.setIsSlide(set.getInt(SQLInfo.RECIPE.IS_SLIDE));
 				result.add(recipe);
 			}
 			return result;
@@ -151,6 +154,7 @@ public class RecipeDAOImpl implements RecipeDAO {
 			prepareStatement.setInt(1, status);
 			prepareStatement.setInt(2, id);
 			prepareStatement.execute();
+			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -185,6 +189,18 @@ public class RecipeDAOImpl implements RecipeDAO {
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.ADD_COMMENT_IDS);
 			prepareStatement.setInt(1, commentId);
+			prepareStatement.setInt(2, id);
+			prepareStatement.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean changeSlide(int id, int slideValue) {
+		try {
+			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.CHANGE_SLIDE);
+			prepareStatement.setInt(1, slideValue);
 			prepareStatement.setInt(2, id);
 			prepareStatement.execute();
 		} catch (SQLException e) {

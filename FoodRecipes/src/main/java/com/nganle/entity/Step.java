@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.nganle.support.constant.Constant;
+import com.nganle.support.util.Utils;
 
 public class Step {
 	private String text;
@@ -64,7 +65,21 @@ public class Step {
 		String standard = sqlStep.substring(1,sqlStep.length()-1);
 		String[] data = standard.split(Constant.STEP_SEPARATOR);
 		for (int i = 0; i < data.length; i++) {
-			String step = data[i];
+			String step = data[i].substring(1, data[i].length()-1);
+			String[] stepContent = step.split(Constant.STEP_ELEMENT_SEPARATOR);
+			String fileByte = Utils.convertToFileByte( stepContent[1]);
+			Step currentStep = new Step(stepContent[0], fileByte);
+			result.add(currentStep);
+		}
+		return result;
+	}
+	
+	public static List<Step> toListStepV2(String sqlStep){
+		List<Step> result = new ArrayList<Step>();
+		String standard = sqlStep.substring(1,sqlStep.length()-1);
+		String[] data = standard.split(Constant.STEP_SEPARATOR);
+		for (int i = 0; i < data.length; i++) {
+			String step = data[i].substring(1, data[i].length()-1);
 			String[] stepContent = step.split(Constant.STEP_ELEMENT_SEPARATOR);
 			Step currentStep = new Step(stepContent[0], stepContent[1]);
 			result.add(currentStep);

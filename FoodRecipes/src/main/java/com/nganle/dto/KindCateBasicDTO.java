@@ -77,13 +77,9 @@ public class KindCateBasicDTO {
 			KindCateBasicDTO kbDTO = new KindCateBasicDTO(kind.getId(), kind.getKindTitle());
 			List<RecipeCateBasic> cates2 = new ArrayList<RecipeCateBasic>();
 			kbDTO.setCates(cates2);
-			boolean add = false;
 			for (RecipeCategory cate : cates) {
 				if (cate.getKindId() == kind.getId()) {
-					add = true;
 					cates2.add(new RecipeCateBasic(cate.getId(), cate.getCateTitle(),getCheckedValue(recipeChecked, kind.getId(), cate.getId())));
-				} else if (add) {
-					break;
 				}
 			}
 			result.add(kbDTO);

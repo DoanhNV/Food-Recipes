@@ -41,6 +41,11 @@ public class Constant {
 		public static final String RECIPE_MINUTE = "recipe_minutes";
 		public static final String LIST_RECIPE = "list_recipe";
 		public static final String LIST_STEP = "list_step";
+		public static final String RECIPE = "recipe";
+		public static final String COST = "cost";
+		public static final String LIST_CHECKED_MATERIAL = "list_checked_material";
+		public static final String ADDED_HOUR = "added_hour";
+		public static final String ADDED_MINUTE = "added_minute";
 	}
 
 	public class STATUS {
@@ -58,6 +63,6 @@ public class Constant {
 		public static final String CHECKED_VALUE = "checked";
 	}
 	
-	public static final String STEP_ELEMENT_SEPARATOR = "||";
-	public static final String STEP_SEPARATOR = "*";
+	public static final String STEP_ELEMENT_SEPARATOR = "###";
+	public static final String STEP_SEPARATOR = "@@";
 }

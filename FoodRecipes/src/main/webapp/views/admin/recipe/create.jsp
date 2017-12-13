@@ -177,7 +177,7 @@
 			<div class="cate-step-content">
 				<c:forEach items="${list.cates}" var="cate" varStatus="status">
 					<div class="checkbox cate-check ">
-						<label><input type="checkbox" name="recipeCate" value="${cate.id}-${list.id}">${cate.title}</label>
+						<label><input type="checkbox" name="recipeCate" value="${cate.id}-${list.kindId}">${cate.title}</label>
 					</div>
 				</c:forEach>
 			</div>
@@ -203,11 +203,14 @@
 	});
 	
 	function validateMaterialIds(){
+		var result = false;
 		$('input[type="checkbox"][name="materialIds"]:checked').each(function(i){
-	         return true;
+			result = true;
 	    });
-		alert("bạn cần chọn ít nhất 1 nguyên liệu.");
-		return false;
+		if(!result){
+			alert("bạn cần chọn ít nhất 1 nguyên liệu.");
+		}
+		return result;
 	}
 	
 	function validateVideoURL(){

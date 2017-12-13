@@ -22,6 +22,7 @@ public class RecipeDTO {
 	private int likeNumber;
 	private int saveNumber;
 	private int commentNumber;
+	private int isSlide;
 
 	public int getId() {
 		return id;
@@ -94,17 +95,25 @@ public class RecipeDTO {
 	public void setCommentNumber(int commentNumber) {
 		this.commentNumber = commentNumber;
 	}
-	
-	public static List<RecipeDTO> toListDTDO(List<Recipe> recipes){
+
+	public int getIsSlide() {
+		return isSlide;
+	}
+
+	public void setIsSlide(int isSlide) {
+		this.isSlide = isSlide;
+	}
+
+	public static List<RecipeDTO> toListDTDO(List<Recipe> recipes) {
 		List<RecipeDTO> result = new ArrayList<RecipeDTO>();
-		if(recipes == null ) {
+		if (recipes == null) {
 			return result;
 		}
 		for (Recipe recipe : recipes) {
 			RecipeDTO dto = new RecipeDTO();
 			dto.setId(recipe.getId());
 			dto.setTitle(recipe.getTitle());
-			
+
 			String fileByte = "data:image/png;base64,";
 			try {
 				byte[] fileBytes = Files.readAllBytes(new File(recipe.getFeatureImage()).toPath());
@@ -113,7 +122,7 @@ public class RecipeDTO {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
+
 			dto.setFeatureImage(fileByte);
 			dto.setCreateTime(DateFormator.format_yyyy_MM_dd_hh_mm(recipe.getCreateTime()));
 			dto.setViews(recipe.getViews());
@@ -122,23 +131,24 @@ public class RecipeDTO {
 			dto.setSaveNumber(recipe.getSavedUserIds().size());
 			String status = recipe.getStatus() == 1 ? Constant.STATUS.ACTIVE : Constant.STATUS.DEACTIVE;
 			dto.setStatus(status);
+			dto.setIsSlide(recipe.getIsSlide());
 			result.add(dto);
 		}
 		return result;
 	}
-	
-	public static List<List<RecipeDTO>> toPageList(List<RecipeDTO> list){
+
+	public static List<List<RecipeDTO>> toPageList(List<RecipeDTO> list) {
 		List<List<RecipeDTO>> result = new ArrayList<List<RecipeDTO>>();
 		List<RecipeDTO> element = new ArrayList<RecipeDTO>();
 		for (int i = 0; i < list.size(); i++) {
 			element.add(list.get(i));
-			if((i+1) % Constant.NUMBER_PERPAGE == 0) {
+			if ((i + 1) % Constant.NUMBER_PERPAGE == 0) {
 				result.add(element);
 				element = new ArrayList<RecipeDTO>();
 			}
 		}
-		
-		if(element.size() != 0 ) {
+
+		if (element.size() != 0) {
 			result.add(element);
 		}
 		return result;
