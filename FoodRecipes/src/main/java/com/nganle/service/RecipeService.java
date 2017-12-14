@@ -24,4 +24,6 @@ public interface RecipeService {
 	public boolean addComment(int id, int commentId);
 	
 	public boolean changeSlide(int id,int slideValue);
+	
+	public List<Recipe> getSlide();
 }

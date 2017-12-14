@@ -13,14 +13,13 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.nganle")
+@ComponentScan(basePackages = {"com.nganle"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public TilesConfigurer configTile() {
 		TilesConfigurer tileConfig = new TilesConfigurer();
-		tileConfig.setDefinitions(new String[] { "/WEB-INF/tiles.xml" });
-		tileConfig.setCheckRefresh(true);
+		tileConfig.setDefinitions(new String[] { "/WEB-INF/tiles.xml","/*/tiles.xml","*/tiles.xml" });
 		return tileConfig;
 	}
 	
