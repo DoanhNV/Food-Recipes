@@ -209,4 +209,38 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return false;
 	}
 
+	public List<Recipe> getSlide() {
+		List<Recipe> result = new ArrayList<Recipe>();
+		try {
+			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE.GET_SLIDE);
+			ResultSet set = prepareStatement.executeQuery();
+			while (set.next()) {
+				Recipe recipe = new Recipe();
+				recipe.setId(set.getInt(SQLInfo.FIELD_ID));
+				recipe.setTitle(set.getString(SQLInfo.RECIPE.TITLE));
+				recipe.setContent(set.getString(SQLInfo.RECIPE.CONTENT));
+				recipe.setFeatureImage(set.getString(SQLInfo.RECIPE.FEATURE_IMAGE));
+				recipe.setCost(set.getDouble(SQLInfo.RECIPE.COST));
+				recipe.setMaterialIds(Utils.toList(set.getString(SQLInfo.RECIPE.MATERIAL_IDS)));
+				recipe.setCommentIds(Utils.toList(set.getString(SQLInfo.RECIPE.COMMENT_IDS)));
+				recipe.setLikeIds(Utils.toList(set.getString(SQLInfo.RECIPE.LIKE_IDS)));
+				recipe.setSavedUserIds(Utils.toList(set.getString(SQLInfo.RECIPE.SAVED_USER_IDS)));
+				recipe.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
+				recipe.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				recipe.setCreaterId(set.getInt(SQLInfo.FIELD_CREATER_ID));
+				recipe.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
+				recipe.setViews(set.getInt(SQLInfo.RECIPE.VIEWS));
+				recipe.setEstimateTime(set.getString(SQLInfo.RECIPE.ESTIMATE_TIME));
+				recipe.setVideoUrl(set.getString(SQLInfo.RECIPE.VIDEO_URL));
+				recipe.setRecipeCateIds(Utils.toListString(set.getString(SQLInfo.RECIPE.RECIPE_CATE_IDS)));
+				recipe.setIsSlide(set.getInt(SQLInfo.RECIPE.IS_SLIDE));
+				result.add(recipe);
+			}
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

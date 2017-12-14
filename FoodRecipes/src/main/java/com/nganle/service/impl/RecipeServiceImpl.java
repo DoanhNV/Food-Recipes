@@ -55,4 +55,8 @@ public class RecipeServiceImpl  implements RecipeService{
 		return recipeDAO.changeSlide(id, slideValue);
 	}
 
+	public List<Recipe> getSlide() {
+		return recipeDAO.getSlide();
+	}
+
 }

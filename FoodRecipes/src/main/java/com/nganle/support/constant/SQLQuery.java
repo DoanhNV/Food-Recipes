@@ -212,5 +212,8 @@ public class SQLQuery {
 		public static final String CHANGE_SLIDE = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
 													+ SQLInfo.RECIPE.IS_SLIDE + "= ?"
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
+		public static final String GET_SLIDE = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME
+													+ " WHERE " + SQLInfo.RECIPE.IS_SLIDE + " = 1" ;
+		public static final String GET_TOP_VIEW = "SELECT ";
 	}
 }

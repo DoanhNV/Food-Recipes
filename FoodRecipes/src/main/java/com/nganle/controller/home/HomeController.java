@@ -1,7 +1,5 @@
 package com.nganle.controller.home;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -9,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
 	@RequestMapping("/")
-	public String loadIndex(HttpServletRequest request) {
+	public String loadIndex() {
 		return "redirect:/home/index";
 	}
 
 	@RequestMapping("/home/index")
-	public String loadHome(HttpServletRequest request) {
+	public String loadHome() {
 		return "home.index";
 	}
 
