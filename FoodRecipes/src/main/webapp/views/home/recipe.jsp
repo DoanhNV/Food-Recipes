@@ -88,24 +88,57 @@
 					<a href="#"><div class="choose">Cùng tác giả </div></a><br/>
 				</div>
 				<div class="post-recipe-info">
-					<img src="<%=request.getContextPath()%>/resources/asset/img/recipe12196-635673001070169902.jpg" class="post-recipe-bg"/>
+					<img src="https://media.cooky.vn/recipe/g2/15800/s360x225/recipe15800-635812128905211750.jpg" class="post-recipe-bg"/>
 					<div class="recipe-element-info">
-						<span class="post-recipe-title"><a href="#">Bánh sandwich khoai tây</a></span>
+						<span class="post-recipe-title"><a href="#">Bánh Trung thu hình thú cưng</a></span>
 						<div class="clear"></div>
-						<span class="post-recipes-view"><b>129k </b>lượt xem</span>
+						<span class="post-recipes-view"><b>10k </b>lượt xem</span>
 						<div class="clear"></div>
 						<span class="post-recipes-date">2017/11/21</span>
 					</div>
 				</div>
 				<div class="clear"></div>
 				<div class="post-recipe-info">
-					<img src="<%=request.getContextPath()%>/resources/asset/img/recipe12196-635673001070169902.jpg" class="post-recipe-bg"/>
+					<img src="https://media.cooky.vn/recipe/g1/669/s400x400/recipe669-635519913531386016.jpg" class="post-recipe-bg"/>
 					<div class="recipe-element-info">
-						<span class="post-recipe-title"><a href="#">Bánh sandwich khoai tây</a></span>
+						<span class="post-recipe-title"><a href="#">1 Đĩa cơm tấm hoàn chỉnh </a></span>
 						<div class="clear"></div>
 						<span class="post-recipes-view"><b>129k </b>lượt xem</span>
 						<div class="clear"></div>
-						<span class="post-recipes-date">2017/11/21</span>
+						<span class="post-recipes-date">2017/12/28</span>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="post-recipe-info">
+					<img src="https://media.cooky.vn/recipe/g2/17379/s400x400/recipe17379-636021885158718844.jpg" class="post-recipe-bg"/>
+					<div class="recipe-element-info">
+						<span class="post-recipe-title"><a href="#">Món ăn ngon chế biến...</a></span>
+						<div class="clear"></div>
+						<span class="post-recipes-view"><b>5k </b>lượt xem</span>
+						<div class="clear"></div>
+						<span class="post-recipes-date">2017/05/17</span>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="post-recipe-info">
+					<img src="https://media.cooky.vn/recipe/g2/15516/s360x225/recipe15516-635755034011938618.jpg" class="post-recipe-bg"/>
+					<div class="recipe-element-info">
+						<span class="post-recipe-title"><a href="#">Trái cây nhúng Chocolate</a></span>
+						<div class="clear"></div>
+						<span class="post-recipes-view"><b>6k </b>lượt xem</span>
+						<div class="clear"></div>
+						<span class="post-recipes-date">2017/11/01</span>
+					</div>
+				</div>
+				<div class="clear"></div>
+				<div class="post-recipe-info">
+					<img src="https://media.cooky.vn/collections/g13/123144/s360x225/collection123144-636378124100155756.jpg" class="post-recipe-bg"/>
+					<div class="recipe-element-info">
+						<span class="post-recipe-title"><a href="#">Làm Flan ngon tuyệt cú mèo..</a></span>
+						<div class="clear"></div>
+						<span class="post-recipes-view"><b>1k </b>lượt xem</span>
+						<div class="clear"></div>
+						<span class="post-recipes-date">2016/01/22</span>
 					</div>
 				</div>
 			</div>
