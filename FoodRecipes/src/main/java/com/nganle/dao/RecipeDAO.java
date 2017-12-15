@@ -26,4 +26,12 @@ public interface RecipeDAO {
 	public boolean changeSlide(int id,int slideValue);
 	
 	public List<Recipe> getSlide();
+	
+	public List<Recipe> getTopViews(int number);
+	
+	public List<Recipe> searchByTitle(String title);
+	
+	public List<Recipe> searchByCate(List<String> listSqlCate);
+	
+	public List<Recipe> searchByMaterial(String listSqlMaterial);
 }

@@ -209,5 +209,17 @@ public class Utils {
 		return null;
 	}
 	
+	public static String toSqlLikes(List<String> listKindCate){
+		String result = "";
+		int size = listKindCate.size();
+		for (int i = 0; i < size; i++) {
+			result +=  " LIKE %" + listKindCate.get(i) + "%";
+			if(i != size - 1) {
+				result += " AND ";
+			}
+		}
+		return result;
+	}
+	
 	
 }

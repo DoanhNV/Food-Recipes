@@ -214,6 +214,14 @@ public class SQLQuery {
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
 		public static final String GET_SLIDE = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME
 													+ " WHERE " + SQLInfo.RECIPE.IS_SLIDE + " = 1" ;
-		public static final String GET_TOP_VIEW = "SELECT ";
+		public static final String GET_TOP_VIEW = "SELECT TOP ? FROM " + SQLInfo.RECIPE.TABLE_NAME 
+													+ " ORDER BY " + SQLInfo.RECIPE.VIEWS + " DESC ";
+		public static final String SEARCH_BY_TITLE = " SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME 
+													+ " WHERE " + SQLInfo.RECIPE.TITLE + " LIKE %?%" ;
+		public static final String SEARCH_BY_CATE = " SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME
+													+ " WHERE " + SQLInfo.RECIPE.RECIPE_CATE_IDS + " ? "; 			//special - multiple like
+		public static final String SEARCH_BY_MATERIAL = "SELECT * FROM "+SQLInfo.RECIPE.TABLE_NAME + 
+													" WHERE "+ SQLInfo.RECIPE.MATERIAL_IDS + " ? ";					//special - multiple like
+		
 	}
 }
