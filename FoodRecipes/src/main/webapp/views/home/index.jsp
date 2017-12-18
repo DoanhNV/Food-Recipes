@@ -1,186 +1,77 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>	
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="utf-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<style>
+	.recipet {
+		height: 273px !important;
+	}
+</style>
 			<div class="clear"></div>
 			<div class="content-container">
 				<div class="top-content row">
-					<div class="slide col-md-8">
-						<div class="title-slide-element"><a href="#"><h4>Bánh dứa đài loan</h4></a></div>
-						<div class="title-slide-element category-slide"><span class="glyphicon glyphicon-list-alt"></span><a href="#">Ngọt</a></div>
-						<div class="triangle-topleft"></div>
-						<div class="triangle-bottomright "></div>
+					<div class="slide-bound" >
+					<c:forEach items="${slide }" var="slide">
+						<div class="slide col-md-8" style="background-image: url('${slide.featureImage }');">
+							<div class="title-slide-element"><a href="../recipe/detail?id=${slide.id}"><h4>${slide.title }</h4></a></div>
+							<div class="clear"></div>
+							<div class="title-slide-element category-slide"><span class="glyphicon glyphicon-list-alt"></span><a href="../recipe/search?kind=1&data=${slide.cateId}">${slide.cateName }</a></div>
+							<div class="triangle-topleft"></div>
+						</div>
+					</c:forEach>
 					</div>
 					<div class="top-user col-md-4">
+						<c:forEach items="${top_recipe }" var="top">
 						<div class="top-recipe">
-							<div class="bound-image"><img src="<%=request.getContextPath()%>/resources/asset/img/cooky-article-cover-b4256.jpg" class="recipe-image"/></div>
+							<div class="bound-image"><img src="${top.featureImage }" class="recipe-image"/></div>
 							<div class="recipe-info">
-								<div class="recipe-top-title"><a href="#">chả ếch thái lan thơm giòn</a></div>
-								<div class="author-top">Ngô Văn Doanh</div>
-								<div class="view-top"><span class="glyphicon glyphicon-signal"></span>&nbsp views: 1021</div>
+								<div class="recipe-top-title"><a href="../recipe/detail?id=${top.id}">${top.title }</a></div>
+								<div class="author-top">${top.createTime }</div>
+								<div class="view-top"><span class="glyphicon glyphicon-signal"></span>&nbsp views: ${top.views }</div>
 							</div>
 						</div>
-						<div class="clear"></div>
-						<div class="top-recipe">
-							<div class="bound-image"><img src="https://media.cooky.vn/recipe/g3/25352/s320x320/recipe-cover-r25352.jpg" class="recipe-image"/></div>
-							<div class="recipe-info">
-								<div class="recipe-top-title"><a href="#">Bánh crepe lá dứa nhân kem</a></div>
-								<div class="author-top">Nguyễn Lan Nhi</div>
-								<div class="view-top"> <span class="glyphicon glyphicon-signal"></span>&nbsp views: 853</div>
-							</div>
-						</div>
-						<div class="clear"></div>
-						<div class="top-recipe">
-							<div class="bound-image"><img src="https://media.cooky.vn/recipe/g3/25328/s320x320/recipe-cover-r25328.jpg" class="recipe-image"/></div>
-							<div class="recipe-info">
-								<div class="recipe-top-title"><a href="#">Chân gà xả tắc</a></div>
-								<div class="author-top">Phạm Thế Anh</div>
-								<div class="view-top"> <span class="glyphicon glyphicon-signal"></span>&nbsp views: 853</div>
-							</div>
-						</div>
-						<div class="clear"></div>
-						<div class="top-recipe">
-							<div class="bound-image"><img src="https://media.cooky.vn/recipe/g3/25377/s320x320/recipe-cover-r25377.jpg" class="recipe-image"/></div>
-							<div class="recipe-info">
-								<div class="recipe-top-title"><a href="#">Cá trứng chiên xù béo giòn</a></div>
-								<div class="author-top">Bùi Quan Đạo</div>
-								<div class="view-top"> <span class="glyphicon glyphicon-signal"></span>&nbsp views: 853</div>
-							</div>
-						</div>
+						</c:forEach>
 					</div>
 				</div>
 				<div class="clear"></div>
 				<div class="category-container row">
+					<c:forEach items="${recipecate }" var="cate">
 					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g3/20662/s320x320/recipe20662-636360895766543787.jpg" class="cate-child-bg"/>
+						<a href="../recipe/search?kind=1&data=${cate.id}">
+							<img src="${cate.image }" class="cate-child-bg"/>
 							<div class="element-child">
-								<h4>Thủy hải sản</h4>
-								<h5>số món: 15</h5>
+								<h4>${cate.title }</h4>
+								<h5>số món: ${cate.numberOfRecipes}</h5>
 							</div>
 						</a>
 					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/article/s270x270/cooky-article-cover-b4298.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Món Chay</h4>
-								<h5>số món: 20</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g3/25266/s320x200/recipe-cover-r25266.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Khai vị</h4>
-								<h5>số món: 59</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g2/18311/s320x320/recipe18311-636114494427576498.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Món ngọt</h4>
-								<h5>số món: 11</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g3/25270/s320x200/recipe-cover-r25270.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Món chính</h4>
-								<h5>số món: 25</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g3/25191/s320x200/recipe-cover-r25191.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Nhanh-dễ</h4>
-								<h5>số món: 60</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g2/18729/s320x320/recipe18729-636180826609992561.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Ăn sáng</h4>
-								<h5>số món: 9</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g1/5326/s320x320/recipe5326-636028989045957432.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Đồ nhậu</h4>
-								<h5>số món: 22</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g2/13840/s320x320/recipe13840-635984779213694208.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Lẩu</h4>
-								<h5>số món: 7</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g2/18311/s320x320/recipe18311-636114494427576498.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Lễ-Tiệc</h4>
-								<h5>số món: 41</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g1/4467/s320x320/recipe4467-635836124629198999.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Bún-Mì-Phở</h4>
-								<h5>số món: 13</h5>
-							</div>
-						</a>
-					</div>
-					<div class="cate-element col-md-2">
-						<a href="#">
-							<img src="https://media.cooky.vn/recipe/g2/17796/s320x320/recipe17796-636066099811010546.jpg" class="cate-child-bg"/>
-							<div class="element-child">
-								<h4>Ăn vặt</h4>
-								<h5>số món: 12</h5>
-							</div>
-						</a>
-					</div>
+					</c:forEach>
 				</div>
 				<div class="clear"></div>
 				<div class="center-content">
 					
 					<div class="recipe-container">
 						<div class="cate-title">
-							<h2>Công thức nổi bật</h2>
+							<h2>Công thứ mới nhất</h2>
 						</div>
 						<div class="left">
-							<div class="recipe">
-								<a href="recipe.html">
-									<img src="https://media.cooky.vn/recipe/g1/5999/s320x320/recipe5999-636395324889618533.jpg" class="recipe-bg"/>
-								</a>
-								<div class="content-recipe-info">
-									<span class="glyphicon glyphicon-time"></span>&nbsp 1h15p
-									<span class="glyphicon  glyphicon-usd"></span>&nbsp 200.000
-									<span class="glyphicon  glyphicon-signal"></span>&nbsp 1134
+							<c:forEach items="${top_new_recipe }" var="tRecipe">
+								<div class="recipe recipet">
+									<a href="../recipe/detail?id=${tRecipe.id }">
+										<img src="${tRecipe.featureImage }" class="recipe-bg"/>
+									</a>
+									<div class="content-recipe-info">
+										<span class="glyphicon glyphicon-time"></span>&nbsp ${tRecipe.time }
+										<span class="glyphicon  glyphicon-usd"></span>&nbsp ${tRecipe.cost }
+										<span class="glyphicon  glyphicon-signal"></span>&nbsp ${tRecipe.views }
+									</div>
+									<div class="main-recipe-info">
+										<h4>${tRecipe.title }</h4>
+										<h6>Đăng ngày:<a href="#"> ${tRecipe.createTime }</a></h6>
+									</div>
 								</div>
-								<div class="main-recipe-info">
-									<h4>Trứng ốp la đậu hũ</h4>
-									<h6>công thức bởi:<a href="#"> Phương Quyên</a></h6>
-								</div>
-							</div>
-							<div class="recipe">
+							</c:forEach>
+							<div class="recipe recipet">
 								<a href="#">
 									<img src="https://media.cooky.vn/recipe/g2/18934/s320x320/recipe18934-636223327393486258.jpg" class="recipe-bg"/>
 								</a>
@@ -194,7 +85,7 @@
 									<h6>công thức bởi:<a href="#"> Chúng ta cùng ăn</a></h6>
 								</div>
 							</div>
-							<div class="recipe">
+							<div class="recipe recipet">
 								<a href="#">
 									<img src="https://media.cooky.vn/recipe/g2/19418/s320x320/recipe19418-636264018759086036.jpg" class="recipe-bg"/>
 								</a>
@@ -208,8 +99,7 @@
 									<h6>công thức bởi:<a href="#"> Đầu bếp tý hon</a></h6>
 								</div>
 							</div>
-							<div class="clear"></div>
-							<div class="recipe">
+							<div class="recipe recipet">
 								<a href="#">
 									<img src="https://media.cooky.vn/recipe/g3/25266/s320x200/recipe-cover-r25266.jpg" class="recipe-bg"/>
 								</a>
@@ -223,7 +113,7 @@
 									<h6>công thức bởi:<a href="#"> Tô Vĩnh uyên</a></h6>
 								</div>
 							</div>
-							<div class="recipe">
+							<div class="recipe recipet">
 								<a href="#">
 									<img src="https://media.cooky.vn/recipe/g2/18132/s320x320/cooky-recipe-636099895938041859.jpg" class="recipe-bg"/>
 								</a>
@@ -237,7 +127,7 @@
 									<h6>công thức bởi:<a href="#"> Nguyễn Linh Anh</a></h6>
 								</div>
 							</div>
-							<div class="recipe">
+							<div class="recipe recipet">
 								<a href="#">
 									<img src="https://media.cooky.vn/recipe/g2/18230/s320x320/cooky-recipe-636114352782603712.jpg" class="recipe-bg"/>
 								</a>
@@ -257,61 +147,30 @@
 					<div class="top-content-user">
 						<div>
 							<h3>Top User</h3>
-							<div class="user-index-image"><img src="https://media.cooky.vn/usr/g10/97254/avt/c60x60/cooky-avatar-636483256984738595.jpg" class="user-index-bg"/></div>
+							<c:forEach items="${listuser }" var="user" varStatus="status">
+								<div class="user-index-image">
+								<c:choose>
+									<c:when test="${user.featureImage eq '/resources/asset/img/cooker.png' }">
+										<img src="<%=request.getContextPath()%>${user.featureImage}" class="user-index-bg"/>
+									</c:when>
+									<c:otherwise>
+											<img src="${user.featureImage}" class="user-index-bg"/>
+									</c:otherwise>
+								</c:choose>
+								</div>
 								<div class="user-index-info">
-									<div class="uer-info-name"><a href="#">Nguyễn Thị Linh Anh</a></div>
+									<div class="uer-info-name"><a href="../user/profile?id=${user.id }">${user.fullName}</a></div>
 								<div class="clear"></div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-heart"></span>&nbsp care: 678</div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-pencil"></span>&nbsp recipes: 3</div>
+								<div class="view-body-user"><span class="glyphicon glyphicon-heart"></span>&nbsp lưu: ${user.recipeSavedNumber }</div>
+								<div class="view-body-user"><span class="glyphicon glyphicon-pencil"></span>&nbsp mẹo: ${user.tipSavedNumber}</div>
 								<div class="clear"></div>
-							</div>
-							<div class="clear"></div>
-							<hr style="border: solid 1px green" />
-							<div class="user-index-image"><img src="https://media.cooky.vn/usr/g10/95333/avt/c60x60/cooky-avatar-636473757932641796.jpg" class="user-index-bg"/></div>
-								<div class="user-index-info">
-									<div class="uer-info-name"><a href="#">Nguyễn Hồng Đăng</a></div>
+								</div>
 								<div class="clear"></div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-heart"></span>&nbsp care: 678</div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-pencil"></span>&nbsp recipes: 3</div>
-							</div>
-							<div class="clear"></div>
-							<hr style="border: solid 1px green" />
-							<div class="user-index-image"><img src="https://media.cooky.vn/usr/g10/96128/avt/c60x60/cooky-avatar-636478601117304400.jpg" class="user-index-bg"/></div>
-								<div class="user-index-info">
-									<div class="uer-info-name"><a href="#">Trương Phương Nhi</a></div>
-								<div class="clear"></div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-heart"></span>&nbsp care: 678</div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-pencil"></span>&nbsp recipes: 3</div>
-							</div>
-							<div class="clear"></div>
-							<hr style="border: solid 1px green" />
-							<div class="user-index-image"><img src="https://media.cooky.vn/usr/g10/95340/avt/c200x200/cooky-avatar-636473763699815926.jpg" class="user-index-bg"/></div>
-								<div class="user-index-info">
-									<div class="uer-info-name"><a href="#">Thị gà hầm nấm</a></div>
-								<div class="clear"></div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-heart"></span>&nbsp care: 678</div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-pencil"></span>&nbsp recipes: 3</div>
-							</div>
-							<div class="clear"></div>
-							<hr style="border: solid 1px green" />
-							<div class="user-index-image"><img src="https://media.cooky.vn/usr/g10/95348/avt/c60x60/cooky-avatar-636473769550138201.jpg" class="user-index-bg"/></div>
-								<div class="user-index-info">
-									<div class="uer-info-name"><a href="#">Lá cải</a></div>
-								<div class="clear"></div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-heart"></span>&nbsp care: 678</div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-pencil"></span>&nbsp recipes: 3</div>
-							</div>
-							<div class="clear"></div>
-							<hr style="border: solid 1px green" />
-							<div class="user-index-image"><img src="https://media.cooky.vn/usr/g1/4286/avt/c60x60/cooky-avatar-635545814830308707.jpg" class="user-index-bg"/></div>
-								<div class="user-index-info">
-									<div class="uer-info-name"><a href="#">Mai Nhi</a></div>
-								<div class="clear"></div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-heart"></span>&nbsp care: 678</div>
-								<div class="view-body-user"><span class="glyphicon glyphicon-pencil"></span>&nbsp recipes: 3</div>
-							</div>
+								<c:if test="${status.index != (fn:length(listuser) - 1) }">
+									<hr style="border: solid 1px green" />
+								</c:if>
+							</c:forEach>
 						</div>
-						
 					</div>	
 				</div>				
 				<div class="clear"></div>
@@ -319,12 +178,14 @@
 					<h2>Nguyên liệu nổi bật</h2>
 				</div>
 				<div class="content-material row">
-					<div class="material-element col-md-1">
-						<a href="#">
-							<img src="http://muckho.vn/wp-content/uploads/2015/11/muc-ong.jpg" class="material-bg img-circle"/>
-							<h4>mực</h4>
-						</a>
-					</div>
+					<c:forEach items="${listmaterial}" var="material">
+						<div class="material-element col-md-1">
+							<a href="../recipe/search?kind=2&data=${material.id}">
+								<img src="${material.featureImage}" class="material-bg img-circle"/>
+								<h4>${material.materialName}</h4>
+							</a>
+						</div>
+					</c:forEach>
 					<div class="material-element col-md-1">
 						<a href="#">
 							<img src="https://znews-photo-td.zadn.vn/w660/Uploaded/lepx/2016_09_23/FarmedSalmon.jpg" class="material-bg img-circle"/>
@@ -475,19 +336,21 @@
 					<h2>Công thức nổi bật</h2>
 				</div>
 				<div class="tips-container">
-					<div class="recipe tips">
-						<a href="#">
-							<img src="https://media.cooky.vn/article/s240x240/cooky-article-cover-b4340.jpg" class="recipe-bg"/>
-						</a>
-						<div class="content-recipe-info">
-							<span class="glyphicon  glyphicon-signal"></span>&nbsp 1000
+					<c:forEach items="${list_tip}" var="tip" varStatus="status">
+						<div class="recipe tips">
+							<a href="../search/tip?kind=id&id=${tip.id}">
+								<img src="${tip.featureImage }" class="recipe-bg"/>
+							</a>
+							<div class="content-recipe-info">
+								<span class="glyphicon  glyphicon-signal"></span>&nbsp ${tip.views }
+							</div>
+							<div class="main-recipe-info">
+								<h4>${tip.title }</h4>
+								<h6>công thức bởi:<a href="../home/index"> FoodRecipes</a></h6>
+								<h6>Danh mục:<a href="../search/tip?kind=cate&id=${tip.cateId}"> ${tip.cateName }</a></h6>
+							</div>
 						</div>
-						<div class="main-recipe-info">
-							<h4>Bỏ túi cách nấu bún riêu cua đậm đà hương vị mà ai đi xa cũng nhớ về</h4>
-							<h6>công thức bởi:<a href="#"> Ngô Văn Doanh</a></h6>
-							<h6>Danh mục:<a href="#"> mẹo vặt cuộc sống</a></h6>
-						</div>
-					</div>
+					</c:forEach>
 					<div class="recipe tips">
 						<a href="#">
 							<img src="https://media.cooky.vn/article/s240x240/cooky-article-cover-b4339.jpg" class="recipe-bg"/>
@@ -583,5 +446,38 @@
 				</div>
 			</div>
 		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				slideShow();
+			});
+			
+			function slideShow(){
+				var slides = $(".slide");
+				for(var i = 1; i < slides.length; i ++){
+					var currentStyle = $(slides[i]).css( "background-image");
+					$(slides[i]).attr("style","background-image:"+currentStyle+";display:none");
+				}
+				var index = 0;
+				setInterval(() => {
+					showSlide(slides,index);
+					if(index == (slides.length - 1)){
+						index = 0;
+					}else{
+						index++;
+					}
+				}, 3000);
+			}
+			
+			function showSlide(slides,index){
+				for(var i = 0; i < slides.length; i ++){
+					var currentStyle = $(slides[i]).css( "background-image");
+					if(index == i){
+						$(slides[i]).attr("style","background-image:"+currentStyle+";display:block");
+					}else {
+						$(slides[i]).attr("style","background-image:"+currentStyle+";display:none");
+					}
+				}
+			}
+		</script>
 
 

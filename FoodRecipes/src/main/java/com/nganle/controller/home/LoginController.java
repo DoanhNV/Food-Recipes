@@ -1,8 +1,5 @@
 package com.nganle.controller.home;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nganle.entity.User;
 import com.nganle.service.UserService;
+import com.nganle.support.EntitySupport;
+import com.nganle.support.constant.Constant;
+import com.nganle.support.constant.ResultView;
+import com.nganle.support.util.Utils;
 
 @Controller
 @RequestMapping("/user")
 public class LoginController {
 
-	private static final String DEFAULT_IMAGE = "/resources/asset/img/cooker.png";
+	
 	private static final String EXIST_USERNAME = "tên đăng nhập đã tồn tại!";
 	private static final String INCORRECT_LOGIN = "tên đăng nhập hoặc mật khẩu không chính xác!";
 
@@ -39,18 +40,14 @@ public class LoginController {
 
 	@RequestMapping(value = "/doRegister", method = RequestMethod.POST)
 	public String doRegister(@ModelAttribute("registerUser") User user, HttpServletRequest request, ModelMap model) {
-		user.setBirthday(new Date());
-		user.setCreateTime(new Date(System.currentTimeMillis()));
-		user.setUpdateTime(new Date(System.currentTimeMillis()));
-		user.setRecipeSavedIds(new ArrayList<String>());
-		user.setTipSavedIds(new ArrayList<String>());
-		user.setProfileImage(DEFAULT_IMAGE);
+		EntitySupport.initRegisterUser(user);
 		boolean isCreated = userService.create(user);
 		if (!isCreated) {
-			model.addAttribute("userexist", EXIST_USERNAME);
-			return "user.register";
+			Utils.setErrorMessage(model, "userexist", EXIST_USERNAME);
+			model.addAttribute(Constant.ATTRIBUTE_NAME.USER, user);
+			return ResultView.HOME.REGISTER;
 		}
-		return "redirect:/user/login";
+		return Utils.redirect("/user/login");
 	}
 
 	@RequestMapping("/doLogin")
@@ -58,8 +55,9 @@ public class LoginController {
 		User resultUser = userService.login(user.getUserName(), user.getPassword());
 		if (resultUser != null) {
 			HttpSession sessions = request.getSession();
-			sessions.setAttribute("sessionUser", resultUser);
-			return "redirect:/home/index";
+			EntitySupport.transferToByteImage(resultUser);
+			sessions.setAttribute(Constant.SESSION_NAME.USER_SESSION,resultUser);
+			return Utils.redirect("/home/index");
 		}
 		model.addAttribute("incorrectInfo",INCORRECT_LOGIN);
 		return "user.login";
@@ -68,9 +66,8 @@ public class LoginController {
 	
 	@RequestMapping("/logout")
 	public String doLogout( HttpServletRequest request) {
-		HttpSession sessions = request.getSession();
-		sessions.removeAttribute("sessionUser");
-		return "redirect:/home/index";
+		Utils.destroySession( request.getSession(), Constant.SESSION_NAME.USER_SESSION);
+		return Utils.redirect("/home/index");
 	}
 
 }

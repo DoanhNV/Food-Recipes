@@ -1,7 +1,6 @@
 package com.nganle.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +15,7 @@ import com.nganle.entity.TipCategory;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.SQLInfo;
 import com.nganle.support.constant.SQLQuery;
+import com.nganle.support.util.Utils;
 
 @Repository
 public class TipCateDAOImpl implements TipCateDAO {
@@ -25,9 +25,8 @@ public class TipCateDAOImpl implements TipCateDAO {
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.TIP_CATE.CREATE);
 			prepareStatement.setString(1, cate.getCateName());
-			Date currentDate = new Date(System.currentTimeMillis());
-			prepareStatement.setDate(2, currentDate);
-			prepareStatement.setDate(3, currentDate);
+			prepareStatement.setTimestamp(2, Utils.getCurrentSQLDate());
+			prepareStatement.setTimestamp(3, Utils.getCurrentSQLDate());
 			prepareStatement.setInt(4, cate.getNumberOfTips());
 			prepareStatement.setInt(5, cate.getCreaterid());
 			prepareStatement.setInt(6, Constant.STATUS.ACTIVE_VALUE);
@@ -43,8 +42,7 @@ public class TipCateDAOImpl implements TipCateDAO {
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.TIP_CATE.UPDATE);
 			prepareStatement.setString(1, cate.getCateName());
-			Date currentDate = new Date(System.currentTimeMillis());
-			prepareStatement.setDate(2, currentDate);
+			prepareStatement.setTimestamp(2, Utils.getCurrentSQLDate());
 			prepareStatement.setInt(3, cate.getStatus());
 			prepareStatement.setInt(4, cate.getId());
 			prepareStatement.execute();
@@ -76,8 +74,8 @@ public class TipCateDAOImpl implements TipCateDAO {
 				TipCategory cate = new TipCategory();
 				cate.setId(set.getInt(SQLInfo.FIELD_ID));
 				cate.setCateName(set.getString(SQLInfo.TIP_CATE.FIELD_CATE_NAME));
-				cate.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				cate.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				cate.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				cate.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				cate.setNumberOfTips(set.getInt(SQLInfo.TIP_CATE.FIELD_NUMBER_OF_TIPS));
 				cate.setCreaterid(set.getInt(SQLInfo.FIELD_CREATER_ID));
 				cate.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
@@ -98,8 +96,8 @@ public class TipCateDAOImpl implements TipCateDAO {
 				TipCategory cate = new TipCategory();
 				cate.setId(set.getInt(SQLInfo.FIELD_ID));
 				cate.setCateName(set.getString(SQLInfo.TIP_CATE.FIELD_CATE_NAME));
-				cate.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				cate.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				cate.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				cate.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				cate.setNumberOfTips(set.getInt(SQLInfo.TIP_CATE.FIELD_NUMBER_OF_TIPS));
 				cate.setCreaterid(set.getInt(SQLInfo.FIELD_CREATER_ID));
 				cate.setStatus(set.getInt(SQLInfo.FIELD_STATUS));

@@ -17,7 +17,7 @@ public interface RecipeDAO {
 	
 	public boolean changeStatus(int id,int status);
 	
-	public boolean addSavedId(int id, int userId);
+	public boolean addSavedId(int id,List<Integer> savedUserIds);
 	
 	public boolean addLike(int id,int userId);
 	
@@ -33,5 +33,11 @@ public interface RecipeDAO {
 	
 	public List<Recipe> searchByCate(List<String> listSqlCate);
 	
-	public List<Recipe> searchByMaterial(String listSqlMaterial);
+	public List<Recipe> searchByMaterial(List<Integer> listSqlMaterial,int limit);
+	
+	public List<Recipe> getTopNews(int limit);
+	
+	public List<Recipe> searchByListId(String listSqlId);
+	
+	public boolean increaseView(int id);
 }

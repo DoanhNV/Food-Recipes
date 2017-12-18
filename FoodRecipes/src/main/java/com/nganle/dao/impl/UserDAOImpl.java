@@ -1,10 +1,10 @@
 package com.nganle.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +16,7 @@ import com.nganle.entity.User;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.SQLInfo;
 import com.nganle.support.constant.SQLQuery;
+import com.nganle.support.util.Utils;
 
 @Repository
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
@@ -29,29 +30,37 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 			prepare.setString(3, user.getEmail());
 			prepare.setString(4, user.getPassword());
 			prepare.setString(5, user.getPassword());
-			Date birthDay = new Date(user.getBirthday().getTime());
-			prepare.setDate(6, birthDay);
-			prepare.setString(7, user.getRecipeSavedIds().toString()); // Json
-			prepare.setString(8, user.getTipSavedIds().toString()); // json
-			prepare.setString(9, user.getProfileImage());
-			prepare.setInt(10, user.getNumberOfRecipe());
-			prepare.setBoolean(11, user.isAdmin());
-			Date createTime = new Date(user.getCreateTime().getTime());
-			prepare.setDate(12, createTime);
-			Date updateTime = new Date(user.getUpdateTime().getTime());
-			prepare.setDate(13, updateTime);
-			prepare.setInt(14, Constant.STATUS.ACTIVE_VALUE);
+			prepare.setTimestamp(6,  new Timestamp(user.getBirthday().getTime()));
+			prepare.setString(7, user.getProfileImage());
+			prepare.setInt(8, user.getNumberOfRecipe());
+			prepare.setBoolean(9, user.isAdmin());
+			prepare.setTimestamp(10, Utils.getCurrentSQLDate());
+			prepare.setTimestamp(11, Utils.getCurrentSQLDate());
+			prepare.setInt(12, Constant.STATUS.ACTIVE_VALUE);
 			prepare.execute();
 			return true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return false;
 	}
 
 	public boolean update(User user) {
-		// TODO Auto-generated method stub
+		try {
+			PreparedStatement prepare = connection.prepareStatement(SQLQuery.USER.UPDATE);
+			prepare.setString(1, user.getFullName());
+			prepare.setString(2, user.getEmail());
+			prepare.setString(3, user.getPassword());
+			prepare.setString(4, user.getPassword());
+			prepare.setString(5, user.getProfileImage());
+			prepare.setTimestamp(6, new Timestamp(user.getBirthday().getTime()));
+			prepare.setTimestamp(7,Utils.getCurrentSQLDate());
+			prepare.setInt(8, user.getId());
+			prepare.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 
@@ -62,21 +71,20 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 			ResultSet set = prepare.executeQuery();
 			if (set.next()) {
 				User user = new User();
+				user.setId(set.getInt(SQLInfo.FIELD_ID));
 				user.setUserName(set.getString(SQLInfo.USER.FIELD_USER_NAME));
 				user.setEmail(set.getString(SQLInfo.USER.FIELD_EMAIL));
 				user.setMd5Password(set.getString(SQLInfo.USER.FIELD_MD5_PASSWORD));
 				user.setPassword(set.getString(SQLInfo.USER.FIELD_ORIGINAL_PASSWORD));
 				user.setFullName(set.getString(SQLInfo.USER.FIELD_FULL_NAME));
-				user.setBirthday(set.getDate(SQLInfo.USER.FIELD_BIRTHDAY));
-				/*
-				 * user.setUserName(set.getString(SQLInfo.USER.FIELD_RECIPE_SAVE_IDS));
-				 * user.setUserName(set.getString(SQLInfo.USER.FIELD_TIPE_SAVE_IDS));
-				 */
+				user.setBirthday(set.getTimestamp(SQLInfo.USER.FIELD_BIRTHDAY));
+				user.setRecipeSavedIds(Utils.toListString(set.getString(SQLInfo.USER.FIELD_RECIPE_SAVE_IDS)));
+				user.setTipSavedIds(Utils.toListString(set.getString(SQLInfo.USER.FIELD_TIP_SAVE_IDS)));
 				user.setProfileImage(set.getString(SQLInfo.USER.FIELD_PROFILE_IMAGE));
 				user.setNumberOfRecipe(set.getInt(SQLInfo.USER.FIELD_NUMBER_OF_RECIPE));
 				user.setAdmin(set.getBoolean(SQLInfo.USER.FIELD_IS_ADMIN));
-				user.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				user.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				user.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				user.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				user.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
 				return user;
 			}
@@ -99,7 +107,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 				user.setMd5Password(set.getString(SQLInfo.USER.FIELD_MD5_PASSWORD));
 				user.setPassword(set.getString(SQLInfo.USER.FIELD_ORIGINAL_PASSWORD));
 				user.setFullName(set.getString(SQLInfo.USER.FIELD_FULL_NAME));
-				user.setBirthday(set.getDate(SQLInfo.USER.FIELD_BIRTHDAY));
+				user.setBirthday(set.getTimestamp(SQLInfo.USER.FIELD_BIRTHDAY));
 				/*
 				 * user.setUserName(set.getString(SQLInfo.USER.FIELD_RECIPE_SAVE_IDS));
 				 * user.setUserName(set.getString(SQLInfo.USER.FIELD_TIPE_SAVE_IDS));
@@ -107,8 +115,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 				user.setProfileImage(set.getString(SQLInfo.USER.FIELD_PROFILE_IMAGE));
 				user.setNumberOfRecipe(set.getInt(SQLInfo.USER.FIELD_NUMBER_OF_RECIPE));
 				user.setAdmin(set.getBoolean(SQLInfo.USER.FIELD_IS_ADMIN));
-				user.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				user.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				user.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				user.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				user.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
 				result.add(user);
 			}
@@ -145,7 +153,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 				user.setMd5Password(set.getString(SQLInfo.USER.FIELD_MD5_PASSWORD));
 				user.setPassword(set.getString(SQLInfo.USER.FIELD_ORIGINAL_PASSWORD));
 				user.setFullName(set.getString(SQLInfo.USER.FIELD_FULL_NAME));
-				user.setBirthday(set.getDate(SQLInfo.USER.FIELD_BIRTHDAY));
+				user.setBirthday(set.getTimestamp(SQLInfo.USER.FIELD_BIRTHDAY));
 				/*
 				 * user.setUserName(set.getString(SQLInfo.USER.FIELD_RECIPE_SAVE_IDS));
 				 * user.setUserName(set.getString(SQLInfo.USER.FIELD_TIPE_SAVE_IDS));
@@ -153,8 +161,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 				user.setProfileImage(set.getString(SQLInfo.USER.FIELD_PROFILE_IMAGE));
 				user.setNumberOfRecipe(set.getInt(SQLInfo.USER.FIELD_NUMBER_OF_RECIPE));
 				user.setAdmin(set.getBoolean(SQLInfo.USER.FIELD_IS_ADMIN));
-				user.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				user.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				user.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				user.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				user.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
 				return user;
 			}
@@ -184,6 +192,85 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 			prepare.execute();
 			return true;
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public List<User> getTopOrder(int limit, String field, String order) {
+		List<User> result = new ArrayList<User>();
+		try {
+			PreparedStatement prepare = connection.prepareStatement(SQLQuery.USER.GET_TOP_ORDER);
+			prepare.setString(1, field);
+			prepare.setString(2,order);
+			prepare.setInt(3, limit);
+			ResultSet set = prepare.executeQuery();
+			while (set.next()) {
+				User user = new User();
+				user.setId(set.getInt(SQLInfo.FIELD_ID));
+				user.setUserName(set.getString(SQLInfo.USER.FIELD_USER_NAME));
+				user.setEmail(set.getString(SQLInfo.USER.FIELD_EMAIL));
+				user.setMd5Password(set.getString(SQLInfo.USER.FIELD_MD5_PASSWORD));
+				user.setPassword(set.getString(SQLInfo.USER.FIELD_ORIGINAL_PASSWORD));
+				user.setFullName(set.getString(SQLInfo.USER.FIELD_FULL_NAME));
+				user.setBirthday(set.getTimestamp(SQLInfo.USER.FIELD_BIRTHDAY));
+				user.setRecipeSavedIds(Utils.toListString(set.getString(SQLInfo.USER.FIELD_RECIPE_SAVE_IDS)));
+				user.setTipSavedIds(Utils.toListString(set.getString(SQLInfo.USER.FIELD_TIP_SAVE_IDS)));
+				user.setProfileImage(set.getString(SQLInfo.USER.FIELD_PROFILE_IMAGE));
+				user.setNumberOfRecipe(set.getInt(SQLInfo.USER.FIELD_NUMBER_OF_RECIPE));
+				user.setAdmin(set.getBoolean(SQLInfo.USER.FIELD_IS_ADMIN));
+				user.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				user.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
+				user.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
+				result.add(user);
+			}
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public List<User> findInList(List<Integer> ids) {
+		List<User> result = new ArrayList<User>();
+		try {
+			String formatQuery = String.format(SQLQuery.USER.FIND_IN_LIST,  Utils.toSqlInListFromInt(ids));
+			PreparedStatement prepare = connection.prepareStatement(formatQuery);
+			ResultSet set = prepare.executeQuery();
+			while (set.next()) {
+				User user = new User();
+				user.setId(set.getInt(SQLInfo.FIELD_ID));
+				user.setUserName(set.getString(SQLInfo.USER.FIELD_USER_NAME));
+				user.setEmail(set.getString(SQLInfo.USER.FIELD_EMAIL));
+				user.setMd5Password(set.getString(SQLInfo.USER.FIELD_MD5_PASSWORD));
+				user.setPassword(set.getString(SQLInfo.USER.FIELD_ORIGINAL_PASSWORD));
+				user.setFullName(set.getString(SQLInfo.USER.FIELD_FULL_NAME));
+				user.setBirthday(set.getTimestamp(SQLInfo.USER.FIELD_BIRTHDAY));
+				user.setRecipeSavedIds(Utils.toListString(set.getString(SQLInfo.USER.FIELD_RECIPE_SAVE_IDS)));
+				user.setTipSavedIds(Utils.toListString(set.getString(SQLInfo.USER.FIELD_TIP_SAVE_IDS)));
+				user.setProfileImage(set.getString(SQLInfo.USER.FIELD_PROFILE_IMAGE));
+				user.setNumberOfRecipe(set.getInt(SQLInfo.USER.FIELD_NUMBER_OF_RECIPE));
+				user.setAdmin(set.getBoolean(SQLInfo.USER.FIELD_IS_ADMIN));
+				user.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				user.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
+				user.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
+				result.add(user);
+			}
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public boolean saveRecipe(List<String> recipeSavedIds,int id) {
+		try {
+			PreparedStatement prepare = connection.prepareStatement(SQLQuery.USER.SAVED_RECIPE);
+			prepare.setString(1, Utils.toCateList(recipeSavedIds));
+			prepare.setInt(2, id);
+			prepare.execute();
+			return true;
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;

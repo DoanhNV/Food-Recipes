@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nganle.entity.User;
 import com.nganle.service.UserService;
+import com.nganle.support.EntitySupport;
 import com.nganle.support.constant.Message;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
@@ -32,7 +33,7 @@ public class AdminController {
 	@RequestMapping("/index")
 	public String loadIndex(HttpServletRequest request) {
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
-			return "redirect:/admin/login";
+			return Utils.redirect("/admin/login");
 		}
 		return ResultView.ADMIN.INDEX;
 	}
@@ -55,6 +56,7 @@ public class AdminController {
 			Utils.setErrorMessage(model, "admin_login_fail", Message.ADMIN_LOGIN_FAIL);
 			return ResultView.ADMIN.LOGIN;
 		}
+		EntitySupport.transferToByteImage(admin);
 		Utils.setSession(request.getSession(), ADMIN_SESSION, admin);
 		return "redirect:/admin/index";
 	}

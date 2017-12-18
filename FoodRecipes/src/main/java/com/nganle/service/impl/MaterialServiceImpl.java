@@ -36,4 +36,8 @@ public class MaterialServiceImpl extends AbstractService implements MaterialServ
 		return materialDAO.deleteById(id);
 	}
 
+	public List<Material> getTopLimit(int limit, String field, String order) {
+		return materialDAO.getTopLimit(limit, field, order);
+	}
+
 }

@@ -11,7 +11,15 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="<%=request.getContextPath()%><c:out value="${sessionScope.admin_session.profileImage}" />" alt=""><c:out value="${sessionScope.admin_session.userName}" />
+                    <c:choose>
+					<c:when test="${sessionScope.admin_session.profileImage eq '/resources/asset/img/cooker.png'}">
+					 	<img src="<%=request.getContextPath()%><c:out value="${sessionScope.admin_session.profileImage}" />" alt="">
+					</c:when>
+					<c:otherwise>
+						 <img src="<c:out value="${sessionScope.admin_session.profileImage}" />" alt="">
+					</c:otherwise>
+				</c:choose>
+                    <c:out value="${sessionScope.admin_session.userName}" />
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

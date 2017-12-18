@@ -79,7 +79,8 @@ public class KindCateBasicDTO {
 			kbDTO.setCates(cates2);
 			for (RecipeCategory cate : cates) {
 				if (cate.getKindId() == kind.getId()) {
-					cates2.add(new RecipeCateBasic(cate.getId(), cate.getCateTitle(),getCheckedValue(recipeChecked, kind.getId(), cate.getId())));
+					cates2.add(new RecipeCateBasic(cate.getId(), cate.getCateTitle(),
+							getCheckedValue(recipeChecked, kind.getId(), cate.getId())));
 				}
 			}
 			result.add(kbDTO);
@@ -95,15 +96,36 @@ public class KindCateBasicDTO {
 
 		};
 	}
-	
-	public static String getCheckedValue(List<String> recipeChecked,int kindId,int cateId){
+
+	public static String getCheckedValue(List<String> recipeChecked, int kindId, int cateId) {
 		for (String str : recipeChecked) {
 			String[] data = str.split("-");
-			if(Integer.parseInt(data[1]) == kindId && Integer.parseInt(data[0]) == cateId){
+			if (Integer.parseInt(data[1]) == kindId && Integer.parseInt(data[0]) == cateId) {
 				return "checked";
 			}
 		}
 		return null;
+	}
+
+	public static List<KindCateBasicDTO> toListDTOFooter(List<KindOfCate> kinds, List<RecipeCategory> cates,
+			int kindNumber, int cateNumber) {
+		List<KindCateBasicDTO> result = new ArrayList<KindCateBasicDTO>();
+		kindNumber = kinds.size() > kindNumber ? kindNumber : kinds.size();
+		for (int i = 0; i < kindNumber; i++) {
+			KindOfCate kind = kinds.get(i);
+			KindCateBasicDTO dto = new KindCateBasicDTO(kind.getKindTitle());
+			List<RecipeCateBasic> cateList = new ArrayList<RecipeCateBasic>();
+			cateNumber = cates.size() > cateNumber ? cateNumber: cates.size();
+			for (int j = 0; j < cateNumber; j++) {
+				RecipeCategory cate = cates.get(j);
+				if (cate.getKindId() == kind.getId()) {
+					cateList.add(new RecipeCateBasic(cate.getId(),cate.getCateTitle(),cate.getNumberOfRecipe()));
+				}
+			}
+			dto.setCates(cateList);
+			result.add(dto);
+		}
+		return result;
 	}
 
 }

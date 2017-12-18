@@ -1,6 +1,6 @@
 package com.nganle.entity;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class TipCategory extends AbstractEntity {
 	private String cateName;

@@ -1,19 +1,27 @@
 package com.nganle.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Comment extends AbstractEntity {
-	private int content;
+public class Comment extends AbstractEntity implements Serializable  {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String content;
 	private int userId;
 	private Date createTime;
 	private Date updateTime;
 	private int status;
+	private int recipeId;
 
-	public int getContent() {
+	public String getContent() {
 		return content;
 	}
 
-	public void setContent(int content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 
@@ -47,6 +55,14 @@ public class Comment extends AbstractEntity {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public int getRecipeId() {
+		return recipeId;
+	}
+
+	public void setRecipeId(int recipeId) {
+		this.recipeId = recipeId;
 	}
 
 }

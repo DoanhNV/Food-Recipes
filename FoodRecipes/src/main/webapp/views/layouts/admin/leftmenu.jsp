@@ -13,9 +13,16 @@
 		<!-- menu profile quick info -->
 		<div class="profile clearfix">
 			<div class="profile_pic">
-				<img
-					src="<%=request.getContextPath()%><c:out value="${sessionScope.admin_session.profileImage}" />"
-					alt="..." class="img-circle profile_img">
+				<c:choose>
+					<c:when test="${sessionScope.admin_session.profileImage eq '/resources/asset/img/cooker.png'}">
+					<img src="<%=request.getContextPath()%><c:out value="${sessionScope.admin_session.profileImage}" />"
+						alt="..." class="img-circle profile_img">
+					</c:when>
+					<c:otherwise>
+						<img src="<c:out value="${sessionScope.admin_session.profileImage}" />"
+						alt="..." class="img-circle profile_img">
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<div class="profile_info">
 				<span>Welcome,</span>

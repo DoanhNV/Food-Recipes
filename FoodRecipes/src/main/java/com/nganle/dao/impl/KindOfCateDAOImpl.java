@@ -1,7 +1,6 @@
 package com.nganle.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,6 +16,7 @@ import com.nganle.entity.KindOfCate;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.SQLInfo;
 import com.nganle.support.constant.SQLQuery;
+import com.nganle.support.util.Utils;
 
 @Repository
 public class KindOfCateDAOImpl extends AbstractDAO implements KindOfCateDAO {
@@ -26,9 +26,8 @@ public class KindOfCateDAOImpl extends AbstractDAO implements KindOfCateDAO {
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.KINDOFCATE.CREATE);
 			prepareStatement.setString(1, kindOfCate.getKindTitle());
-			Date date = new Date(System.currentTimeMillis());
-			prepareStatement.setDate(2, date);
-			prepareStatement.setDate(3, date);
+			prepareStatement.setTimestamp(2, Utils.getCurrentSQLDate());
+			prepareStatement.setTimestamp(3, Utils.getCurrentSQLDate());
 			prepareStatement.setInt(4, kindOfCate.getCreaterId());
 			prepareStatement.setInt(5, Constant.STATUS.ACTIVE_VALUE);
 			prepareStatement.execute();
@@ -43,8 +42,7 @@ public class KindOfCateDAOImpl extends AbstractDAO implements KindOfCateDAO {
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.KINDOFCATE.UPDATE);
 			prepareStatement.setString(1, kindOfCate.getKindTitle());
-			Date date = new Date(System.currentTimeMillis());
-			prepareStatement.setDate(2, date);
+			prepareStatement.setTimestamp(2, Utils.getCurrentSQLDate());
 			prepareStatement.setInt(3, kindOfCate.getStatus());
 			prepareStatement.setInt(4, kindOfCate.getId());
 			prepareStatement.execute();
@@ -97,8 +95,8 @@ public class KindOfCateDAOImpl extends AbstractDAO implements KindOfCateDAO {
 				KindOfCate kind = new KindOfCate();
 				kind.setId(set.getInt(SQLInfo.FIELD_ID));
 				kind.setKindTitle(set.getString(SQLInfo.KIND_OF_CATE.FIELD_KIND_TITLE));
-				kind.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				kind.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				kind.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				kind.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				kind.setCreaterId(set.getInt(SQLInfo.FIELD_CREATER_ID));
 				kind.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
 				kinds.add(kind);

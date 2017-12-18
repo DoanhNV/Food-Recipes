@@ -11,8 +11,6 @@ public class SQLQuery {
 													+ SQLInfo.USER.FIELD_MD5_PASSWORD + ","
 													+ SQLInfo.USER.FIELD_ORIGINAL_PASSWORD + ","
 													+ SQLInfo.USER.FIELD_BIRTHDAY + ","
-													+ SQLInfo.USER.FIELD_RECIPE_SAVE_IDS + ","
-													+ SQLInfo.USER.FIELD_TIPE_SAVE_IDS + ","
 													+ SQLInfo.USER.FIELD_PROFILE_IMAGE + ","
 													+ SQLInfo.USER.FIELD_NUMBER_OF_RECIPE + ","
 													+ SQLInfo.USER.FIELD_IS_ADMIN + ","
@@ -34,6 +32,24 @@ public class SQLQuery {
 		public static final String UPDATE_STATUS = "UPDATE "+ SQLInfo.USER.TABLE_NAME + " SET "
 													+ SQLInfo.FIELD_STATUS +" = ? WHERE "
 													+ SQLInfo.FIELD_ID + " = ?";
+		public static final String GET_TOP_ORDER = " SELECT * FROM " + SQLInfo.USER.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_STATUS  +" = 1 "
+													+ " ORDER BY ? ? "
+													+ " LIMIT ?";
+		public static final String FIND_IN_LIST = "SELECT * FROM " + SQLInfo.USER.TABLE_NAME 
+													+ " WHERE " + SQLInfo.FIELD_ID + " IN %s";
+		public static final String UPDATE = " UPDATE " + SQLInfo.USER.TABLE_NAME + " SET "
+													+ SQLInfo.USER.FIELD_FULL_NAME + "= ?,"
+													+ SQLInfo.USER.FIELD_EMAIL + "= ?,"
+													+ SQLInfo.USER.FIELD_ORIGINAL_PASSWORD + "= ?,"
+													+ SQLInfo.USER.FIELD_MD5_PASSWORD + "= ?,"
+													+ SQLInfo.USER.FIELD_PROFILE_IMAGE + "= ?,"
+													+ SQLInfo.USER.FIELD_BIRTHDAY + "= ?,"
+													+ SQLInfo.FIELD_UPDATE_TIME + "= ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "= ?"; 
+		public static final String 	SAVED_RECIPE = " UPDATE " + SQLInfo.USER.TABLE_NAME + " SET "
+													+  SQLInfo.USER.FIELD_RECIPE_SAVE_IDS + " = ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "=?";	
 	}
 	
 	
@@ -59,6 +75,12 @@ public class SQLQuery {
 				+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
 		
 		public static final String LIST_ALL = "SELECT * FROM " + SQLInfo.MATERIAL.TABLE_NAME;
+		
+		public static final String GET_TOP_LIMIT = "SELECT * FROM "+ SQLInfo.MATERIAL.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_STATUS + "= 1"
+													+ " ORDER BY ? ?"
+													+ " LIMIT ?";
+		
 	}
 	
 	
@@ -157,7 +179,19 @@ public class SQLQuery {
 		public static final String GET_BY_ID = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME
 													+ " WHERE " + SQLInfo.FIELD_ID +" = ?";
 		
-		public static final String LIST_ALL = "SELECT *  FROM "+ SQLInfo.TIP.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME;
+		
+		public static final String GET_TOP_LIMIT = "SELECT * FROM " + SQLInfo.TIP.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_STATUS + "= 1"
+													+ " ORDER BY ? ?"
+													+ " LIMIT ?";
+		public static final String SEARCH_BY_LIST_ID = "SELECT * FROM " + SQLInfo.TIP.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_ID  + " IN %s";
+		public static final String SEARCH_BY_CATE_ID = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME
+													+ " WHERE %s";
+		public static final String 	GET_SUGGEST = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_ID +" != ? "
+													+ " LIMIT ?";
 	}
 	
 	public class RECIPE {
@@ -214,14 +248,45 @@ public class SQLQuery {
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
 		public static final String GET_SLIDE = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME
 													+ " WHERE " + SQLInfo.RECIPE.IS_SLIDE + " = 1" ;
-		public static final String GET_TOP_VIEW = "SELECT TOP ? FROM " + SQLInfo.RECIPE.TABLE_NAME 
-													+ " ORDER BY " + SQLInfo.RECIPE.VIEWS + " DESC ";
+		public static final String GET_TOP_VIEW = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME 
+													+ " ORDER BY " + SQLInfo.RECIPE.VIEWS + " DESC LIMIT ?";
 		public static final String SEARCH_BY_TITLE = " SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME 
-													+ " WHERE " + SQLInfo.RECIPE.TITLE + " LIKE %?%" ;
+													+ " WHERE  %s collate utf8_unicode_ci" ;
 		public static final String SEARCH_BY_CATE = " SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME
-													+ " WHERE " + SQLInfo.RECIPE.RECIPE_CATE_IDS + " ? "; 			//special - multiple like
-		public static final String SEARCH_BY_MATERIAL = "SELECT * FROM "+SQLInfo.RECIPE.TABLE_NAME + 
-													" WHERE "+ SQLInfo.RECIPE.MATERIAL_IDS + " ? ";					//special - multiple like
+													+ " WHERE  %s  "; 			//special - multiple like
+		public static final String SEARCH_BY_MATERIAL = "SELECT * FROM "+ SQLInfo.RECIPE.TABLE_NAME + 
+													" WHERE %s  LIMIT %d";													//special - multiple like
+		public static final String GET_TOP_NEWS = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME 
+													+ " WHERE " + SQLInfo.RECIPE.IS_SLIDE + " = 0"
+													+ " AND " +  SQLInfo.FIELD_STATUS + " = 1"
+													+ " ORDER BY " + SQLInfo.FIELD_CREATE_TIME + " DESC "
+													+ " LIMIT ? ";
+		public static final String SEARCH_BY_LIST_ID = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME
+													+ " WHERE " + SQLInfo.FIELD_ID + " IN %s";
+		public static final String INCREASE_VIEW = " UPDATE " + SQLInfo.RECIPE.TABLE_NAME 
+													+ " SET " + SQLInfo.RECIPE.VIEWS + " = " + SQLInfo.RECIPE.VIEWS + " + 1"
+													+ " WHERE " + SQLInfo.FIELD_ID + " = ?";
 		
+	}
+	
+	public class COMMENT {
+		public static final String CREATE = "INSERT INTO " + SQLInfo.COMMENT.TABLE_NAME + "("
+													+ SQLInfo.COMMENT.CONTENT + ","
+													+ SQLInfo.COMMENT.RECIPE_ID + ","
+													+ SQLInfo.COMMENT.USER_ID + ","
+													+ SQLInfo.FIELD_CREATE_TIME + ","
+													+ SQLInfo.FIELD_UPDATE_TIME + ","
+													+ SQLInfo.FIELD_STATUS + ")"
+													+ " VALUE(?,?,?,?,?,?)";
+		public static final String UPDATE = "UPDATE" + SQLInfo.COMMENT.TABLE_NAME + " SET "
+													+ SQLInfo.COMMENT.CONTENT + "= ?,"
+													+ SQLInfo.FIELD_UPDATE_TIME + "= ?,"
+													+ SQLInfo.FIELD_STATUS + "= ?"
+													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
+		public static final String DELETE = "DELETE FROM " + SQLInfo.COMMENT.TABLE_NAME 
+													+ "WHERE " + SQLInfo.FIELD_ID + "= ?";
+		public static final String GET_BY_RECIPE_ID = "SELECT * FROM " + SQLInfo.COMMENT.TABLE_NAME
+													+ " WHERE "+ SQLInfo.COMMENT.RECIPE_ID + "= ?";
+		public static final String LIST_ALL = "SELECT * FROM " + SQLInfo.COMMENT.TABLE_NAME;
 	}
 }

@@ -10,11 +10,11 @@ import com.nganle.entity.Recipe;
 import com.nganle.service.RecipeService;
 
 @Service
-public class RecipeServiceImpl  implements RecipeService{
-	
+public class RecipeServiceImpl implements RecipeService {
+
 	@Autowired
 	private RecipeDAO recipeDAO;
-	
+
 	public boolean create(Recipe recipe) {
 		return recipeDAO.create(recipe);
 	}
@@ -39,8 +39,8 @@ public class RecipeServiceImpl  implements RecipeService{
 		return recipeDAO.changeStatus(id, status);
 	}
 
-	public boolean addSavedId(int id, int userId) {
-		return recipeDAO.addSavedId(id, userId);
+	public boolean addSavedId(int id,List<Integer> savedUserIds) {
+		return recipeDAO.addSavedId(id, savedUserIds);
 	}
 
 	public boolean addLike(int id, int userId) {
@@ -57,6 +57,34 @@ public class RecipeServiceImpl  implements RecipeService{
 
 	public List<Recipe> getSlide() {
 		return recipeDAO.getSlide();
+	}
+
+	public List<Recipe> getTopViews(int number) {
+		return recipeDAO.getTopViews(number);
+	}
+
+	public List<Recipe> searchByTitle(String title) {
+		return recipeDAO.searchByTitle(title);
+	}
+
+	public List<Recipe> searchByCate(List<String> listSqlCate) {
+		return recipeDAO.searchByCate(listSqlCate);
+	}
+
+	public List<Recipe> searchByMaterial(List<Integer> listSqlMaterial,int limit) {
+		return recipeDAO.searchByMaterial(listSqlMaterial,limit);
+	}
+
+	public List<Recipe> getTopNews(int limit) {
+		return recipeDAO.getTopNews(limit);
+	}
+
+	public List<Recipe> searchByListId(String listSqlId) {
+		return recipeDAO.searchByListId(listSqlId);
+	}
+
+	public boolean increaseView(int id) {
+		return recipeDAO.increaseView(id);
 	}
 
 }

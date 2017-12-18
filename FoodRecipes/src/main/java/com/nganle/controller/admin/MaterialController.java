@@ -3,6 +3,7 @@ package com.nganle.controller.admin;
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.CURRENT_PAGE;
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.FISRT_PAGE;
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.LAST_PAGE;
+import static com.nganle.support.constant.Constant.SESSION_NAME.ADMIN_SESSION;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,8 @@ import com.nganle.service.MaterialService;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
+import com.nganle.support.validate.Validator;
+
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.*;
 
 @Controller
@@ -42,6 +45,9 @@ public class MaterialController {
 	@RequestMapping(value = "/doCreate", method = RequestMethod.POST)
 	public String doCreate(@ModelAttribute("material") Material material,
 			@RequestParam("materialfile") MultipartFile file, HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
 		File desFile = new File(filePath);
 		try {
@@ -68,7 +74,10 @@ public class MaterialController {
 	}
 
 	@RequestMapping("/list")
-	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page) {
+	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<Material> materials = materialService.listAll();
 		List<MaterialDTO> listDTO = MaterialDTO.toListDTO(materials);
 		List<List<MaterialDTO>> pageList = MaterialDTO.toPageList(listDTO);
@@ -81,7 +90,10 @@ public class MaterialController {
 	}
 
 	@RequestMapping("/update")
-	public String update(@RequestParam("materialid") int id, ModelMap model) {
+	public String update(@RequestParam("materialid") int id, ModelMap model ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		Material material = materialService.getById(id);
 		model.addAttribute(Constant.ATTRIBUTE_NAME.MATERIAL, material);
 		return ResultView.MATERIAL.UPDATE;
@@ -89,6 +101,9 @@ public class MaterialController {
 
 	@RequestMapping(value = "/doUpdate", method = RequestMethod.POST)
 	public String doUpdate(@ModelAttribute("material") Material material, @RequestParam("materialfile") MultipartFile file, HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String filePath = Utils.uploadToStorage(file);
 		material.setFeatureImage(filePath);
 		material.setCreateTime(new Date());
@@ -97,7 +112,10 @@ public class MaterialController {
 	}
 	
 	@RequestMapping(value = "/change-status")
-	public String changeStatus(@RequestParam("material-data") String userId,RedirectAttributes redirectAtt) {
+	public String changeStatus(@RequestParam("material-data") String userId,RedirectAttributes redirectAtt,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = userId.split("-");
 		int status = 0;
 		if (data[1].equals(Constant.STATUS.DEACTIVE)) {
@@ -111,7 +129,10 @@ public class MaterialController {
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String delete(@RequestParam("material-data") int id) {
+	public String delete(@RequestParam("material-data") int id ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		materialService.deleteById(id);
 		return Utils.redirect("/material/list");
 	}

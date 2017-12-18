@@ -35,4 +35,20 @@ public class TipServiceImpl implements TipService {
 		return tipDAO.listAll();
 	}
 
+	public List<Tip> getTopLimit(int limit, String field, String order) {
+		return tipDAO.getTopLimit(limit, field, order);
+	}
+
+	public List<Tip> searchByListId(String listSQLId) {
+		return tipDAO.searchByListId(listSQLId);
+	}
+
+	public List<Tip> searchByCateId(int cateId) {
+		return tipDAO.searchByCateId(cateId);
+	}
+
+	public List<Tip> getSuggest(int id, int limit) {
+		return tipDAO.getSuggest(id, limit);
+	}
+
 }

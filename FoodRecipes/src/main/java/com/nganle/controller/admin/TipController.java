@@ -1,11 +1,14 @@
 package com.nganle.controller.admin;
 
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.*;
+import static com.nganle.support.constant.Constant.SESSION_NAME.ADMIN_SESSION;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,33 +29,42 @@ import com.nganle.service.TipService;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
+import com.nganle.support.validate.Validator;
 
 @Controller
 @RequestMapping("/tip")
 public class TipController {
-	
+
 	@Autowired
 	private TipService tipService;
-	
+
 	@Autowired
 	private TipCateService cateService;
-	
+
 	@RequestMapping("/create")
-	public String create(ModelMap model) {
+	public String create(ModelMap model, HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<TipCategory> cates = cateService.listAll();
 		model.addAttribute(Constant.ATTRIBUTE_NAME.TIP_CATE, cates);
 		return ResultView.TIP.CREATE;
 	}
-	
+
 	@RequestMapping("/doCreate")
-	public String doCreate(@ModelAttribute("tip") Tip tip,@RequestParam("cateids") List<Integer> cates,@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content) {
+	public String doCreate(@ModelAttribute("tip") Tip tip, @RequestParam("cateids") List<Integer> cates,
+			@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content,
+			HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
 		File desFile = new File(filePath);
 		try {
 			if (file.getSize() != 0) {
 				FileCopyUtils.copy(file.getBytes(), desFile);
 			}
-			if(file.getOriginalFilename() != null && !file.getOriginalFilename().isEmpty()) {
+			if (file.getOriginalFilename() != null && !file.getOriginalFilename().isEmpty()) {
 				tip.setFeatureImage(filePath);
 			}
 			tip.setContent(content);
@@ -63,9 +75,13 @@ public class TipController {
 		}
 		return Utils.redirect("/tip/list");
 	}
-	
+
 	@RequestMapping("/list")
-	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page) {
+	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page,
+			HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<Tip> tips = tipService.listAll();
 		List<TipDTO> listDTO = TipDTO.toListDTO(tips);
 		List<List<TipDTO>> pageList = TipDTO.toPageList(listDTO);
@@ -76,9 +92,12 @@ public class TipController {
 		model.addAttribute(LAST_PAGE, pageList.size());
 		return ResultView.TIP.LIST_ALL;
 	}
-	
+
 	@RequestMapping("/update")
-	public String update(@RequestParam("id") int id,ModelMap model) {
+	public String update(@RequestParam("id") int id, ModelMap model, HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		Tip tip = tipService.getById(id);
 		List<TipCategory> cates = cateService.listAll();
 		List<Integer> tipCateIds = tip.getTipCateIds();
@@ -88,21 +107,25 @@ public class TipController {
 			bCate.setId(cate.getId());
 			bCate.setTitle(cate.getCateName());
 			for (int cateId : tipCateIds) {
-				if(cateId == cate.getId()) {
+				if (cateId == cate.getId()) {
 					bCate.setChecked(Constant.HTML_ATTRIBUTE.CHECKED_VALUE);
 					break;
 				}
 			}
 			basicCate.add(bCate);
 		}
-		model.addAttribute(Constant.ATTRIBUTE_NAME.BASIC_CATE,basicCate);
-		model.addAttribute(Constant.ATTRIBUTE_NAME.TIP,tip);
+		model.addAttribute(Constant.ATTRIBUTE_NAME.BASIC_CATE, basicCate);
+		model.addAttribute(Constant.ATTRIBUTE_NAME.TIP, tip);
 		return ResultView.TIP.UPDATE;
 	}
-	
-	
+
 	@RequestMapping("/doUpdate")
-	public String doUpdate(@ModelAttribute("tip") Tip tip,@RequestParam("cateids") List<Integer> cates,@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content) {
+	public String doUpdate(@ModelAttribute("tip") Tip tip, @RequestParam("cateids") List<Integer> cates,
+			@RequestParam("profileImage") MultipartFile file, @RequestParam("editor1") String content,
+			HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		Tip updateTip = tipService.getById(tip.getId());
 		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
 		File desFile = new File(filePath);
@@ -110,10 +133,10 @@ public class TipController {
 			if (file.getSize() != 0) {
 				FileCopyUtils.copy(file.getBytes(), desFile);
 			}
-			if(file.getOriginalFilename() != null && !file.getOriginalFilename().isEmpty()) {
+			if (file.getOriginalFilename() != null && !file.getOriginalFilename().isEmpty()) {
 				updateTip.setFeatureImage(filePath);
 			}
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -123,21 +146,28 @@ public class TipController {
 		tipService.update(updateTip);
 		return Utils.redirect("/tip/list");
 	}
-	
+
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("id") int id) {
+	public String delete(@RequestParam("id") int id, HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		tipService.delete(id);
-		return Utils.redirect("/tip/list"); 
+		return Utils.redirect("/tip/list");
 	}
-	
+
 	@RequestMapping("/change-status")
-	public String changeStatus(@RequestParam("tip-data") String tipDatas,RedirectAttributes redirectAtt) {
+	public String changeStatus(@RequestParam("tip-data") String tipDatas, RedirectAttributes redirectAtt,
+			HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = tipDatas.split("-");
 		Tip tip = tipService.getById(Integer.parseInt(data[0]));
 		int status = tip.getStatus() == 1 ? 0 : 1;
 		tip.setStatus(status);
 		tipService.update(tip);
 		redirectAtt.addFlashAttribute("page", data[1]);
-		return Utils.redirect("/tip/list"); 
+		return Utils.redirect("/tip/list");
 	}
 }

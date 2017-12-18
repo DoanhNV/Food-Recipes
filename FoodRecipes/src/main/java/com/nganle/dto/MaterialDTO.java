@@ -85,6 +85,9 @@ public class MaterialDTO {
 
 	public static List<MaterialDTO> toListDTO(List<Material> materials) {
 		List<MaterialDTO> result = new ArrayList<MaterialDTO>();
+		if(materials == null) {
+			return result;
+		}
 		for (Material material : materials) {
 			MaterialDTO dto = new MaterialDTO();
 			dto.setId(material.getId());

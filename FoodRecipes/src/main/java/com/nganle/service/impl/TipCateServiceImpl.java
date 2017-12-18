@@ -1,4 +1,4 @@
-package com.nganle.dao.impl;
+package com.nganle.service.impl;
 
 import java.util.List;
 

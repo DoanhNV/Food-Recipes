@@ -124,7 +124,21 @@
 	<definition name="admin.recipe.list" extends="base.admin">
 		<put-attribute name="body" value="/views/admin/recipe/list.jsp" />
 	</definition>
+	<!-- User -->
+	<definition name="user.detail" extends="base.definition">
+		<put-attribute name="body" value="/views/home/user/user.jsp" />
+	</definition>
 	
+	<!-- search -->
+	<definition name="recipe.search" extends="base.definition">
+		<put-attribute name="body" value="/views/home/recipesearch.jsp" />
+	</definition>
 	
-
+	<!-- tip -->
+	<definition name="tip.search" extends="base.definition">
+		<put-attribute name="body" value="/views/home/tip/tip.jsp" />
+	</definition>
+	<definition name="tip.detail" extends="base.definition">
+		<put-attribute name="body" value="/views/home/tip/tipdetail.jsp" />
+	</definition>
 </tiles-definitions>  

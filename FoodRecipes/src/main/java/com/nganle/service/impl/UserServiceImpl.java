@@ -48,4 +48,16 @@ public class UserServiceImpl extends AbstractService implements UserService {
 		return userDAO.changeStatus(userId, status);
 	}
 
+	public List<User> getTopOrder(int limit, String field, String order) {
+		return userDAO.getTopOrder(limit, field, order);
+	}
+
+	public List<User> findInList(List<Integer> ids) {
+		return userDAO.findInList(ids);
+	}
+
+	public boolean saveRecipe(List<String> recipeSavedIds, int id) {
+		return userDAO.saveRecipe(recipeSavedIds, id);
+	}
+
 }

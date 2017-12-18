@@ -20,4 +20,10 @@ public interface UserDAO {
 	public boolean isExistByUserName(String userName);
 	
 	public boolean changeStatus(int userId,int status);
+	
+	public List<User> getTopOrder(int limit,String field,String order);
+	
+	public List<User> findInList(List<Integer> ids);
+	
+	public boolean saveRecipe(List<String> recipeSavedIds,int id);
 }

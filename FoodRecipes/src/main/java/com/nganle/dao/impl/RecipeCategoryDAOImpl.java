@@ -1,7 +1,6 @@
 package com.nganle.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +15,7 @@ import com.nganle.entity.RecipeCategory;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.SQLInfo;
 import com.nganle.support.constant.SQLQuery;
+import com.nganle.support.util.Utils;
 
 @Repository
 public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
@@ -27,9 +27,8 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE_CATE.CREATE);
 			prepareStatement.setString(1, cate.getCateTitle());
 			prepareStatement.setInt(2, cate.getKindId());
-			Date currentDate = new Date(System.currentTimeMillis());
-			prepareStatement.setDate(3, currentDate);
-			prepareStatement.setDate(4, currentDate);
+			prepareStatement.setTimestamp(3, Utils.getCurrentSQLDate());
+			prepareStatement.setTimestamp(4, Utils.getCurrentSQLDate());
 			prepareStatement.setInt(5,cate.getNumberOfRecipe());
 			prepareStatement.setInt(6, cate.getCreaterId());
 			prepareStatement.setInt(7, Constant.STATUS.ACTIVE_VALUE);
@@ -46,8 +45,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE_CATE.UPDATE);
 			prepareStatement.setString(1, cate.getCateTitle());
 			prepareStatement.setInt(2, cate.getKindId());
-			Date currentDate = new Date(System.currentTimeMillis());
-			prepareStatement.setDate(3, currentDate);
+			prepareStatement.setTimestamp(3, Utils.getCurrentSQLDate());
 			prepareStatement.setInt(4, cate.getStatus());
 			prepareStatement.setInt(5, cate.getId());
 			prepareStatement.execute();
@@ -80,8 +78,8 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 				cate.setId(set.getInt(SQLInfo.FIELD_ID));
 				cate.setCateTitle(set.getString(SQLInfo.RECIPE_CATE.FIELD_CATE_TITLE));
 				cate.setKindId(set.getInt(SQLInfo.RECIPE_CATE.FIELD_KIND_ID));
-				cate.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				cate.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				cate.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				cate.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				cate.setNumberOfRecipe(set.getInt(SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE));
 				cate.setCreaterId(set.getInt(SQLInfo.FIELD_CREATER_ID));
 				cate.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
@@ -103,8 +101,8 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 				cate.setId(set.getInt(SQLInfo.FIELD_ID));
 				cate.setCateTitle(set.getString(SQLInfo.RECIPE_CATE.FIELD_CATE_TITLE));
 				cate.setKindId(set.getInt(SQLInfo.RECIPE_CATE.FIELD_KIND_ID));
-				cate.setCreateTime(set.getDate(SQLInfo.FIELD_CREATE_TIME));
-				cate.setUpdateTime(set.getDate(SQLInfo.FIELD_UPDATE_TIME));
+				cate.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				cate.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
 				cate.setNumberOfRecipe(set.getInt(SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE));
 				cate.setCreaterId(set.getInt(SQLInfo.FIELD_CREATER_ID));
 				cate.setStatus(set.getInt(SQLInfo.FIELD_STATUS));

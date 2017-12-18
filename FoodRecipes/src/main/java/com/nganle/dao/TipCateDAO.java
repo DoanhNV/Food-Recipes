@@ -15,4 +15,5 @@ public interface TipCateDAO {
 	public TipCategory getById(int id);
 
 	public List<TipCategory> listAll();
+
 }

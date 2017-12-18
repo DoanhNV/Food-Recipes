@@ -1,8 +1,11 @@
 package com.nganle.controller.admin;
 
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.*;
+import static com.nganle.support.constant.Constant.SESSION_NAME.ADMIN_SESSION;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,7 @@ import com.nganle.service.TipCateService;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
+import com.nganle.support.validate.Validator;
 
 @Controller
 @RequestMapping("/tipcate")
@@ -28,18 +32,27 @@ public class TipCateController {
 	private TipCateService cateService;
 
 	@RequestMapping("/create")
-	public String create() {
+	public String create(HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		return ResultView.TIP_CATE.CREATE;
 	}
 
 	@RequestMapping(value = "/doCreate", method = RequestMethod.POST)
-	public String doCreate(@ModelAttribute("tipcate") TipCategory cate) {
+	public String doCreate(@ModelAttribute("tipcate") TipCategory cate ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		cateService.create(cate);
 		return Utils.redirect("/tipcate/list");
 	}
 
 	@RequestMapping(value = "/list")
-	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page) {
+	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<TipCategory> cates = cateService.listAll();
 		List<TipCateDTO> listDTO = TipCateDTO.toListDTO(cates);
 		List<List<TipCateDTO>> pageList = TipCateDTO.toPageList(listDTO);
@@ -52,14 +65,20 @@ public class TipCateController {
 	}
 	
 	@RequestMapping("/update")
-	public String update(@RequestParam("id") int id,ModelMap model) {
+	public String update(@RequestParam("id") int id,ModelMap model ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		TipCategory cate = cateService.getById(id);
 		model.addAttribute(TIP_CATE, cate);
 		return ResultView.TIP_CATE.UPDATE;
 	}
 	
 	@RequestMapping("/doUpdate")
-	public String doUpdate(@ModelAttribute("tipcate") TipCategory cate) {
+	public String doUpdate(@ModelAttribute("tipcate") TipCategory cate ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		TipCategory upcateCate = cateService.getById(cate.getId());
 		if(upcateCate != null) {
 			upcateCate.setCateName(cate.getCateName());
@@ -69,7 +88,10 @@ public class TipCateController {
 	}
 	
 	@RequestMapping("/change-status")
-	public String doUpdate(@RequestParam("tip-data") String tipData,RedirectAttributes redirectAtt) {
+	public String doUpdate(@RequestParam("tip-data") String tipData,RedirectAttributes redirectAtt ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = tipData.split("-");
 		TipCategory upcateCate = cateService.getById(Integer.parseInt(data[0]));
 		int status = data[1].equals(Constant.STATUS.ACTIVE) ? 0 : 1;
@@ -81,7 +103,10 @@ public class TipCateController {
 	
 
 	@RequestMapping("/delete")
-	public String update(@RequestParam("id") int id) {
+	public String update(@RequestParam("id") int id ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		cateService.delete(id);
 		return Utils.redirect("/tipcate/list");
 	}

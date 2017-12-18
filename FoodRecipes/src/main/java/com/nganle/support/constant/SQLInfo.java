@@ -17,7 +17,7 @@ public class SQLInfo {
 		public static final String FIELD_ORIGINAL_PASSWORD = "original_password";
 		public static final String FIELD_BIRTHDAY = "birth_day";
 		public static final String FIELD_RECIPE_SAVE_IDS = "recipe_save_ids";
-		public static final String FIELD_TIPE_SAVE_IDS = "tips_save_ids";
+		public static final String FIELD_TIP_SAVE_IDS = "tips_save_ids";
 		public static final String FIELD_PROFILE_IMAGE = "profile_image";
 		public static final String FIELD_NUMBER_OF_RECIPE = "number_of_recipe";
 		public static final String FIELD_IS_ADMIN = "is_admin";
@@ -72,5 +72,12 @@ public class SQLInfo {
 		public static final String ESTIMATE_TIME = "estimate_time";
 		public static final String VIDEO_URL = "video_url";
 		public static final String IS_SLIDE = "is_slide";
+	}
+	
+	public class COMMENT {
+		public static final String TABLE_NAME = "comment";
+		public static final String CONTENT = "content";
+		public static final String USER_ID = "user_id";
+		public static final String RECIPE_ID = "recipe_id";
 	}
 }

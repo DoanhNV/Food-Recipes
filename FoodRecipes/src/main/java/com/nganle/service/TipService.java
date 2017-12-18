@@ -15,4 +15,12 @@ public interface TipService {
 	public Tip getById(int id);
 
 	public List<Tip> listAll();
+	
+	public List<Tip> getTopLimit(int limit, String field, String order);
+	
+	public List<Tip> searchByListId(String listSQLId);
+	
+	public List<Tip> searchByCateId(int cateId) ;
+	
+	public List<Tip> getSuggest(int id, int limit);
 }

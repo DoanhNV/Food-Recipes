@@ -35,6 +35,8 @@ public class ResultView {
 		public static final String CREATE = "admin.tip.create";
 		public static final String UPDATE = "admin.tip.update";
 		public static final String LIST_ALL = "admin.tip.list";
+		public static final String TIP_VIEW = "tip.search";
+		public static final String TIP_DETAIL  = "tip.detail";
 	}
 	
 	public class ADMIN_RECIPE {
@@ -42,4 +44,19 @@ public class ResultView {
 		public static final String UPDATE = "admin.recipe.update";
 		public static final String LIST_ALL = "admin.recipe.list";
 	}
+	
+	public class HOME {
+		public static final String INDEX = "home.index";
+		public static final String REGISTER = "user.register";
+	}
+	
+	public class RECIPE {
+		public static final String RECIPE_DETAIL = "home.recipe";
+		public static final String SEARCH = "recipe.search";
+	}
+	
+	public class USER {
+		public static final String USER_DETAIL = "user.detail";
+	}
+	
 }

@@ -4,9 +4,17 @@ public class RecipeCateBasic {
 	private int id;
 	private String title;
 	private String checked;
+	private int recipeNumber;
 
 	public RecipeCateBasic() {
 
+	}
+
+	public RecipeCateBasic(int id, String title, int recipeNumber) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.recipeNumber = recipeNumber;
 	}
 
 	public RecipeCateBasic(int id, String title) {
@@ -44,6 +52,14 @@ public class RecipeCateBasic {
 
 	public void setChecked(String checked) {
 		this.checked = checked;
+	}
+
+	public int getRecipeNumber() {
+		return recipeNumber;
+	}
+
+	public void setRecipeNumber(int recipeNumber) {
+		this.recipeNumber = recipeNumber;
 	}
 
 }

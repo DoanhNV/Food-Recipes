@@ -2,6 +2,8 @@ package com.nganle.controller.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,8 +17,10 @@ import com.nganle.entity.User;
 import com.nganle.service.UserService;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
+import com.nganle.support.validate.Validator;
 
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.*;
+import static com.nganle.support.constant.Constant.SESSION_NAME.ADMIN_SESSION;
 
 @Controller
 @RequestMapping("/user")
@@ -26,7 +30,10 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping("/list")
-	public String getUsers(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page) {
+	public String getUsers(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<User> users = userService.listAll();
 		List<UserDTO> listDTO = UserDTO.toListDTO(users);
 		List<List<UserDTO>> pageList = UserDTO.pageListUser(listDTO);
@@ -39,13 +46,19 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String delete(@RequestParam("userid") int userId) {
+	public String delete(@RequestParam("userid") int userId ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		userService.delete(userId);
-		return "redirect:/user/list";
+		return Utils.redirect("/user/list");
 	}
 
 	@RequestMapping(value = "/change-status", method = RequestMethod.POST)
-	public String changeStatus(@RequestParam("userid") String userId,RedirectAttributes redirectAtt) {
+	public String changeStatus(@RequestParam("userid") String userId,RedirectAttributes redirectAtt ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = userId.split("-");
 		int status = 0;
 		if (data[1].equals("deactive")) {
@@ -53,6 +66,6 @@ public class UserController {
 		}
 		userService.changeStatus(Integer.parseInt(data[0]), status);
 		redirectAtt.addAttribute("page", Integer.parseInt(data[2]));
-		return "redirect:/user/list";
+		return Utils.redirect("/user/list");
 	}
 }

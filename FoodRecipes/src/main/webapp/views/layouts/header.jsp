@@ -9,18 +9,26 @@
 						<li><a href="../home/index"><img src="<%=request.getContextPath()%>/resources/asset/img/head-logo.jpg"  class="head-logo"/></a></li>
 						<li>
 							<div class="search-block row">
-								<input type="text"  class="search-box col-md-10"/>
+								<input type="text" value="${search_key }" class="search-box col-md-10" id="txtKeyWord"/>
 								<button type="button" class="btn btn-success btn-search col-md-2">
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</div>
 						</li>
-						<li>
+						<li style="float: right;">
 							<div class="head-right">
-								<button type="button" class="btn btn-success" id="btnCreateRecipe">
-								  <span class="glyphicon glyphicon-plus"></span> Tạo công thức
-								</button>
-								
+								<div class="user-profile" id="btnCreateRecipe" >
+									<a href="../user/profile?id=${sessionScope.sessionUser.id }">
+									<c:choose>
+										<c:when test="${sessionScope.sessionUser.profileImage eq '/resources/asset/img/cooker.png'}">
+											<img src="<%=request.getContextPath()%>${sessionScope.sessionUser.profileImage}" style="width:50px;height:50px" />
+										</c:when>
+										<c:otherwise>
+											<img src="${sessionScope.sessionUser.profileImage}" style="width:50px;height;50px" />
+										</c:otherwise>
+									</c:choose>
+									</a>
+								</div>
 								<c:choose>
 								    <c:when test="${empty sessionScope.sessionUser}">
 								    	<button type="button" class="btn btn-success" id="btnLogin">
@@ -40,8 +48,8 @@
 				<nav class="menu">
 					<ul>
 						<li><a href="../home/index"><span class="glyphicon glyphicon glyphicon-home"></span></a></li>
-						<li><a href="../recipe/create-recipe">Công thức</a></li>
-						<li><a href="../recipe/detail">Cộng đồng</a></li>
+						<li><a href="../recipe/search">Công thức</a></li>
+						<li><a href="../tipv1/view">Mẹo vặt</a></li>
 						<li><a href="#">Bộ sưu tập</a></li>
 						<li><a href="#">Video</a></li>
 						<li><a href="#">Blog</a></li>
@@ -50,16 +58,11 @@
 			</div>
 <script type="text/javascript">
 	$(document).ready(function(){
-		gotoCreateRecipe();
 		gotoLogin();
 		logOut();
+		searchByTitle();
 	});
 
-	function gotoCreateRecipe(){
-		$("#btnCreateRecipe").unbind().on("click",function(){
-			redirect("recipe/create-recipe");
-		});
-	}
 	
 	function gotoLogin(){
 		$("#btnLogin").unbind().on("click",function(){
@@ -76,5 +79,22 @@
 
 	function redirect(url){
 		window.location.href = "../"+url;
+	}
+	
+	function searchByTitle(){
+		$('#txtKeyWord').keypress(function (e) {
+			 var key = e.which;
+			 var data = $(this).val();
+			 if(data == ""){
+				 return;
+			 }
+			 if(key == 13) {   // the enter key code
+				 searchTitle("recipe/search",3,data);
+			  }
+			});   
+	}
+	
+	function searchTitle(url,kind,data){
+		window.location.href = "../"+ url +"?kind="+ kind +"&data=" + data;
 	}
 </script>

@@ -1,8 +1,11 @@
 package com.nganle.controller.admin;
 
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.*;
+import static com.nganle.support.constant.Constant.SESSION_NAME.ADMIN_SESSION;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +25,7 @@ import com.nganle.service.RecipeCategoryService;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
+import com.nganle.support.validate.Validator;
 
 @Controller
 @RequestMapping("/recipecate")
@@ -34,7 +38,10 @@ public class RecipeCateController {
 	private KindOfCateService kindService;
 
 	@RequestMapping("/create")
-	public String create(ModelMap model) {
+	public String create(ModelMap model ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<KindOfCate> kinds = kindService.listAll();
 		List<KindOfCateDTO> listDTO = KindOfCateDTO.toListDTO(kinds);
 		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_KIND, listDTO);
@@ -42,13 +49,19 @@ public class RecipeCateController {
 	}
 
 	@RequestMapping(value = "/doCreate", method = RequestMethod.POST)
-	public String doCreate(@ModelAttribute("recipecate") RecipeCategory cate) {
+	public String doCreate(@ModelAttribute("recipecate") RecipeCategory cate ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		cateService.create(cate);
 		return Utils.redirect("/recipecate/list");
 	}
 
 	@RequestMapping(value = "/list")
-	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page) {
+	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<RecipeCategory> cates = cateService.listAll();
 		List<RecipeCateDTO> listDTO = RecipeCateDTO.toListDTO(cates);
 		List<List<RecipeCateDTO>> pageList = RecipeCateDTO.toPageList(listDTO);
@@ -61,7 +74,10 @@ public class RecipeCateController {
 	}
 
 	@RequestMapping("/update")
-	public String update(@RequestParam("recipecate-data") String cateData, ModelMap model) {
+	public String update(@RequestParam("recipecate-data") String cateData, ModelMap model ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = cateData.split("-");
 		RecipeCategory cate = cateService.getById(Integer.parseInt(data[0]));
 		List<KindOfCate> kinds = kindService.listAll();
@@ -72,7 +88,10 @@ public class RecipeCateController {
 	}
 
 	@RequestMapping("/doUpdate")
-	public String doUpdate(@ModelAttribute("recipecate") RecipeCategory cate) {
+	public String doUpdate(@ModelAttribute("recipecate") RecipeCategory cate ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		RecipeCategory updateCate = cateService.getById(cate.getId());
 		updateCate.setCateTitle(cate.getCateTitle());
 		updateCate.setKindId(cate.getKindId());
@@ -81,13 +100,19 @@ public class RecipeCateController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@ModelAttribute("id") int id) {
+	public String delete(@ModelAttribute("id") int id ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION )) {
+			return Utils.redirect("/admin/login");
+		}
 		cateService.delete(id);
 		return Utils.redirect("/recipecate/list");
 	}
 	
 	@RequestMapping("/change-status")
-	public String changeStatus(@RequestParam("recipecate-data") String cateData,RedirectAttributes redirectAtt) {
+	public String changeStatus(@RequestParam("recipecate-data") String cateData,RedirectAttributes redirectAtt ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = cateData.split("-");
 		RecipeCategory cate = cateService.getById(Integer.parseInt(data[0]));
 		int status = data[1].equals(Constant.STATUS.ACTIVE) ? 0 : 1;

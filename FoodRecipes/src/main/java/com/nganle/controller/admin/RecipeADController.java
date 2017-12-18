@@ -1,9 +1,12 @@
 package com.nganle.controller.admin;
 
 import static com.nganle.support.constant.Constant.ATTRIBUTE_NAME.*;
+import static com.nganle.support.constant.Constant.SESSION_NAME.ADMIN_SESSION;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +30,7 @@ import com.nganle.service.RecipeService;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
+import com.nganle.support.validate.Validator;
 
 @Controller
 @RequestMapping("/admin_recipe")
@@ -42,7 +46,10 @@ public class RecipeADController {
 	private RecipeService recipeService;
 
 	@RequestMapping("/create")
-	public String create(ModelMap model) {
+	public String create(ModelMap model ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<KindCateBasicDTO> listDTO = KindCateBasicDTO.toListDTO(kindService.listAll(), cateService.listAll());
 		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_KIND_CATE, listDTO);
 		List<Material> materials = materialService.listAll();
@@ -61,7 +68,10 @@ public class RecipeADController {
 							@RequestParam("cost") double cost ,
 							@RequestParam("recipeCate") List<String> listKindCate,
 							@RequestParam("stepText") List<String> stepTexts,
-							@RequestParam("video") String videoUrl){
+							@RequestParam("video") String videoUrl ,HttpServletRequest request){
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		Recipe recipe = new Recipe();
 		List<String> filePaths = new ArrayList<String>();
 		for (MultipartFile file : stepImgs) {
@@ -86,7 +96,10 @@ public class RecipeADController {
 	
 	
 	@RequestMapping("/list")
-	public String getUsers(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page) {
+	public String getUsers(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		List<Recipe> recipes = recipeService.listAll();
 		List<RecipeDTO> listDTDO = RecipeDTO.toListDTDO(recipes);
 		List<List<RecipeDTO>> pageList = RecipeDTO.toPageList(listDTDO);
@@ -99,7 +112,10 @@ public class RecipeADController {
 	}
 	
 	@RequestMapping("/change-status")
-	public String changeStatus(@RequestParam("recipe-data") String recipeData,RedirectAttributes redirectAttr ) {
+	public String changeStatus(@RequestParam("recipe-data") String recipeData,RedirectAttributes redirectAttr,HttpServletRequest request ) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = recipeData.split("-");
 		String statusStr = data[1];
 		int recipeId = Integer.parseInt(data[0]);
@@ -114,7 +130,10 @@ public class RecipeADController {
 	}
 	
 	@RequestMapping("/update")
-	public String update(@RequestParam("id") int recipeId,ModelMap model) {
+	public String update(@RequestParam("id") int recipeId,ModelMap model,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		Recipe recipe = recipeService.getById(recipeId);
 		recipe.setFeatureImage(Utils.convertToFileByte(recipe.getFeatureImage()));
 		List<Step> listStep = Step.toListStep(recipe.getContent());
@@ -136,7 +155,10 @@ public class RecipeADController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@RequestParam("id") int id) {
+	public String delete(@RequestParam("id") int id ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		recipeService.delete(id);
 		return Utils.redirect("/admin_recipe/list");
 	}
@@ -151,7 +173,10 @@ public class RecipeADController {
 							@RequestParam("recipeCate") List<String> listKindCate,
 							@RequestParam("stepText") List<String> stepTexts,
 							@RequestParam("video") String videoUrl,
-							@RequestParam("id") int id){
+							@RequestParam("id") int id ,HttpServletRequest request){
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		Recipe recipe = recipeService.getById(id);
 		List<Step> listStep = Step.toListStepV2(recipe.getContent());
 		List<String> filePaths = Utils.uploadToStorageAndCheckUpdate(stepImgs,listStep);
@@ -173,7 +198,10 @@ public class RecipeADController {
 	}
 	
 	@RequestMapping("/change-slide")
-	public String changeSlide(@RequestParam("recipe-data") String recipeData,RedirectAttributes recirectAttr) {
+	public String changeSlide(@RequestParam("recipe-data") String recipeData,RedirectAttributes recirectAttr ,HttpServletRequest request) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
+			return Utils.redirect("/admin/login");
+		}
 		String[] data = recipeData.split("-");
 		int recipeId = Integer.parseInt(data[0]);
 		int slideValue = Integer.parseInt(data[1]);

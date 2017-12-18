@@ -18,5 +18,10 @@ public interface UserService {
 	public User login(String userName, String password);
 	
 	public boolean changeStatus(int userId, int status);
-
+	
+	public List<User> getTopOrder(int limit,String field,String order);
+	
+	public List<User> findInList(List<Integer> ids);
+	
+	public boolean saveRecipe(List<String> recipeSavedIds,int id);
 }

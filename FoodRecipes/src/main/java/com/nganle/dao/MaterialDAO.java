@@ -14,4 +14,6 @@ public interface MaterialDAO {
 	public List<Material> listAll();
 	
 	public boolean deleteById(int id);
+	
+	public List<Material> getTopLimit(int limit,String field, String order);
 }

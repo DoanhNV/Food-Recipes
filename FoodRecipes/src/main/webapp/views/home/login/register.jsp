@@ -10,7 +10,7 @@
 						  <label for="usr" >Tên đăng nhập:</label>
 						  <div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-							<input type="text" class="form-control" name="userName" id="txtUserName"  placeholder="Tên đăng nhập">
+							<input type="text"  value="${user_register.userName }" class="form-control" name="userName" id="txtUserName"  placeholder="Tên đăng nhập">
 						  </div>
 						  <label id="txtUserNameErr"  class="txtErr">
 						  	<c:if test="${not empty userexist}">
@@ -30,7 +30,7 @@
 						  <label for="usr" >Email:</label>
 						 <div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-							<input id="txtEmail" name="email" type="password" class="form-control" name="password" placeholder="Email">
+							<input id="txtEmail" value="${user_register.email }" name="email" type="email" class="form-control" name="password" placeholder="Email">
 						 </div>
 							<label id="txtEmailErr"  class="txtErr" ></label>
 						</div>
@@ -38,7 +38,7 @@
 						  <label for="usr" >Tên hiển thị:</label>
 						 <div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-							<input id="txtFullName" name="fullName" type="password" class="form-control" name="password" placeholder="tên hiển thị">
+							<input id="txtFullName" name="fullName" value="${user_register.fullName }" type="text" class="form-control" name="password" placeholder="tên hiển thị">
 						 </div>
 							<label id="txtFullNameErr" class="txtErr" ></label>
 						</div>
@@ -68,29 +68,50 @@
 					if($("#txtUserName").val().trim() == ""){
 						$("#txtUserNameErr").text("Bạn phải nhập tên đăng nhập");
 						result = false;
-					}else{
-						$("#txtUserNameErr").text("");
+					}else {
+						var check = validateLength("#txtUserName","#txtUserNameErr",8,25,"Tên đăng nhập phải lớn hơn 8 và nhỏ hơn 25");
+						if(check){
+							$("#txtUserNameErr").text("");
+						} else {
+							result = false;
+						}
 					}
 					
 					if($("#txtPassword").val().trim() == ""){
 						$("#txtPasswordErr").text("Bạn phải nhập tên mật khẩu");
 						result = false;
 					}else{
-						$("#txtPasswordErr").text("");
+						var check = validateLength("#txtPassword","#txtPasswordErr",8,25,"Mật khẩu phải lớn hơn 8 và nhỏ hơn 25");
+						if(check){
+							$("#txtPasswordErr").text("");
+						} else {
+							result = false;
+						}
 					}
 					
 					if($("#txtEmail").val().trim() == ""){
 						$("#txtEmailErr").text("Bạn phải nhập email");
 						result = false;
 					}else{
-						$("#txtEmailErr").text("");
+						if(validateEmail($("#txtEmail").val().trim())){
+							$("#txtEmailErr").text("");
+						}else{
+							$("#txtEmailErr").text("Địa chỉ email không hợp lệ");
+							result = false;
+						}
+						
 					}
 					
 					if($("#txtFullName").val().trim() == ""){
 						$("#txtFullNameErr").text("Bạn phải nhập tên hiển thị");
 						result = false;
 					}else{
-						$("#txtFullNameErr").text("");
+						var check = validateLength("#txtFullName","#txtFullNameErr",8,25,"Tên hiển thị phải lớn hơn 8 và nhỏ hơn 25");
+						if(check){
+							$("#txtFullNameErr").text("");
+						}else {
+							result = false;
+						}
 					}
 				return result;
 			}
@@ -102,6 +123,19 @@
 						$("#registerForm").submit();
 					}
 				});
+			}
+			
+			function validateEmail(email) {
+			    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			    return re.test(email.toLowerCase());
+			}
+			
+			function validateLength(dom,domErr,min,max,errorMessage){
+				if($(dom).val().trim().length < min || $(dom).val().trim().length > max){
+					$(domErr).text(errorMessage);
+					return false;
+				}
+				return true;
 			}
 			
 		</script>

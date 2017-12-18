@@ -4,6 +4,8 @@ public class Constant {
 
 	public class SESSION_NAME {
 		public static final String ADMIN_SESSION = "admin_session";
+		public static final String USER_SESSION = "sessionUser";
+		public static final String FOOTER_SESSION = "footer_session";
 	}
 
 	public class ATTRIBUTE_NAME {
@@ -17,6 +19,7 @@ public class Constant {
 		public static final String LIST_MATERIAL = "listmaterial";
 		public static final String DISPLAY_PAGE = "materialpages";
 		public static final String MATERIAL = "material";
+		public static final String lIST_MATERIAL_TITLE = "list_material_title";
 
 		// kind of cate
 		public static final String LIST_KIND = "listkind";
@@ -34,6 +37,7 @@ public class Constant {
 		public static final String LIST_TIP= "list_tip";
 		public static final String TIP = "tip";
 		public static final String BASIC_CATE = "basic_cate";
+		public static final String TIP_SUGGEST = "tip_suggest";
 		
 		// Recipe
 		public static final String LIST_KIND_CATE = "list_kind_cate";
@@ -46,6 +50,18 @@ public class Constant {
 		public static final String LIST_CHECKED_MATERIAL = "list_checked_material";
 		public static final String ADDED_HOUR = "added_hour";
 		public static final String ADDED_MINUTE = "added_minute";
+		
+		// home
+		public static final String SLIDE = "slide";
+		public static final String TOP_RECIPE = "top_recipe";
+		public static final String TOP_NEW_RECIPE = "top_new_recipe";
+		public static final String RECIPE_DETAIL = "recipe_detail";
+		public static final String RECIPE_DETAIL_SUGGEST = "recipe_detail_suggest";
+		public static final String USER = "user_register";
+		public static final String LIST_COMMENT = "list_comment";
+		public static final String USER_PROFILE = "user_profile";
+		public static final String KIND_CATE = "kind_cate";
+		public static final String SEARCH_KEY = "search_key";
 	}
 
 	public class STATUS {
@@ -56,6 +72,8 @@ public class Constant {
 	}
 
 	public static final int NUMBER_PERPAGE = 2;
+	public static final int NUMBER_PER_PAGE_SEARCH = 16;
+	public static final int NUMBER_PER_PAGE_TIP_SEARCH = 12;
 
 	public static final String FILE_STORE = "D:/upload/";
 	
@@ -65,4 +83,17 @@ public class Constant {
 	
 	public static final String STEP_ELEMENT_SEPARATOR = "###";
 	public static final String STEP_SEPARATOR = "@@";
+	public static final String ESTIMATE_TIME_SEPARATOR = "@";
+	public static final String HOUR_SUFFIX = "h";
+	public static final String MINUTE_SUFFIX = "P";
+	
+	public class SQL_CHARACTER {
+		public static final String DESC = "DESC";
+	}
+	
+	public static final int MAX_SUGGEST_TITLE_LENGTH = 25;
+	
+	public class HOME {
+		public static final String DEFAULT_IMAGE = "/resources/asset/img/cooker.png";
+	}
 }
