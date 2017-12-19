@@ -91,6 +91,7 @@ public class RecipeADController {
 		recipe.setRecipeCateIds(listKindCate);
 		recipe.setVideoUrl(videoUrl);
 		recipeService.create(recipe);
+		cateService.increateNumberOfRecipe(Utils.toListCateId(listKindCate));
 		return Utils.redirect("/admin_recipe/list");
 	}
 	
@@ -194,6 +195,7 @@ public class RecipeADController {
 		recipe.setRecipeCateIds(listKindCate);
 		recipe.setVideoUrl(videoUrl);
 		recipeService.update(recipe);
+		cateService.increateNumberOfRecipe(Utils.toListCateId(listKindCate));
 		return Utils.redirect("/admin_recipe/list");
 	}
 	

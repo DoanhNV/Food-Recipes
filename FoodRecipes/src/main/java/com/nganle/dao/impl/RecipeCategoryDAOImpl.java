@@ -115,4 +115,16 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 		return null;
 	}
 
+	public boolean increateNumberOfRecipe(List<String> listId) {
+		try {
+			String formatQuery = String.format(SQLQuery.RECIPE_CATE.INCREASE_NUMBER_RECIPE, Utils.toSqlInList(listId));
+			PreparedStatement prepareStatement = connection.prepareStatement(formatQuery);
+			prepareStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

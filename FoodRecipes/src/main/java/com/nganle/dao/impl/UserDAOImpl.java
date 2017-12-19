@@ -233,6 +233,9 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
 	public List<User> findInList(List<Integer> ids) {
 		List<User> result = new ArrayList<User>();
+		if(ids== null || ids.size() == 0) {
+			return result;
+		}
 		try {
 			String formatQuery = String.format(SQLQuery.USER.FIND_IN_LIST,  Utils.toSqlInListFromInt(ids));
 			PreparedStatement prepare = connection.prepareStatement(formatQuery);

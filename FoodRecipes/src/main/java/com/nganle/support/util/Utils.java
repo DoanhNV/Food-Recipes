@@ -323,5 +323,16 @@ public class Utils {
 		}
 		return result;
 	}
+	
+	public static List<String> toListCateId(List<String> listKindCate){
+		List<String> result = new ArrayList<String>();
+		if(listKindCate == null ) {
+			return result;
+		}
+		for (String kindCate : listKindCate) {
+			result.add(kindCate.split("-")[0]);
+		}
+		return result;
+	}
 
 }

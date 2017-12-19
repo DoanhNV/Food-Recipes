@@ -15,4 +15,6 @@ public interface RecipeCategoryService {
 	public RecipeCategory getById(int id);
 
 	public List<RecipeCategory> listAll();
+	
+	public boolean increateNumberOfRecipe(List<String> listId);
 }

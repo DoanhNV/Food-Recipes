@@ -51,4 +51,8 @@ public class TipServiceImpl implements TipService {
 		return tipDAO.getSuggest(id, limit);
 	}
 
+	public boolean increateView(int id) {
+		return tipDAO.increateView(id);
+	}
+
 }

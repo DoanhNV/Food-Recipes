@@ -247,4 +247,16 @@ public class TipDAOImpl implements TipDAO {
 		return null;
 	}
 
+	public boolean increateView(int id) {
+		try {
+			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.TIP.INCRREASE_VIEW);
+			prepareStatement.setInt(1, id);
+			prepareStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

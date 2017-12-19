@@ -120,7 +120,7 @@ public class RecipeDTO {
 				byte[] code = Base64Utils.encode(fileBytes);
 				fileByte += new String(code, "UTF-8");
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("no image");
 			}
 
 			dto.setFeatureImage(fileByte);

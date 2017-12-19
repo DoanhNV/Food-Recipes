@@ -23,4 +23,6 @@ public interface TipService {
 	public List<Tip> searchByCateId(int cateId) ;
 	
 	public List<Tip> getSuggest(int id, int limit);
+	
+	public boolean increateView(int id);
 }

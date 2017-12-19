@@ -127,6 +127,10 @@ public class SQLQuery {
 													+ " WHERE "+ SQLInfo.FIELD_ID +  "=?";
 		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.RECIPE_CATE.TABLE_NAME;
 		
+		public static final String INCREASE_NUMBER_RECIPE = " UPDATE " + SQLInfo.RECIPE_CATE.TABLE_NAME
+													+ " SET " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " = " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " + 1"
+													+ " WHERE " + SQLInfo.FIELD_ID + " IN %s";
+		
 	}
 	
 	public class TIP_CATE {
@@ -192,6 +196,9 @@ public class SQLQuery {
 		public static final String 	GET_SUGGEST = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME
 													+ " WHERE " + SQLInfo.FIELD_ID +" != ? "
 													+ " LIMIT ?";
+		public static final String 	INCRREASE_VIEW = " UPDATE " + SQLInfo.TIP.TABLE_NAME 
+													+ " SET " +  SQLInfo.TIP.VIEW + " = " + SQLInfo.TIP.VIEW + " + 1"
+													+ " WHERE " + SQLInfo.FIELD_ID + " = ?";
 	}
 	
 	public class RECIPE {

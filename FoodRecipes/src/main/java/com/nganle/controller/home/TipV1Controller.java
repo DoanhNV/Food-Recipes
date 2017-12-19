@@ -60,6 +60,7 @@ public class TipV1Controller {
 	public String viewDetail(@RequestParam("id") int id,ModelMap model) {
 		Tip tip = tipService.getById(id);
 		List<Tip> suggestList = tipService.getSuggest(id, 5);
+		tipService.increateView(id);
 		model.addAttribute(Constant.ATTRIBUTE_NAME.TIP, TipForHomeDTO.toListDTODetail(tip));
 		model.addAttribute(Constant.ATTRIBUTE_NAME.TIP_SUGGEST, TipForHomeDTO.toListDTO(suggestList));
 		return ResultView.TIP.TIP_DETAIL;
