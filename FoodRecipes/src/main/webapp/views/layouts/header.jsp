@@ -10,7 +10,7 @@
 						<li>
 							<div class="search-block row">
 								<input type="text" value="${search_key }" class="search-box col-md-10" id="txtKeyWord"/>
-								<button type="button" class="btn btn-success btn-search col-md-2">
+								<button type="button" id="btnSearchText" class="btn btn-success btn-search col-md-2">
 								  <span class="glyphicon glyphicon-search"></span>
 								</button>
 							</div>
@@ -19,14 +19,16 @@
 							<div class="head-right">
 								<div class="user-profile" id="btnCreateRecipe" >
 									<a href="../user/profile?id=${sessionScope.sessionUser.id }">
-									<c:choose>
-										<c:when test="${sessionScope.sessionUser.profileImage eq '/resources/asset/img/cooker.png'}">
-											<img src="<%=request.getContextPath()%>${sessionScope.sessionUser.profileImage}" style="width:50px;height:50px" />
-										</c:when>
-										<c:otherwise>
-											<img src="${sessionScope.sessionUser.profileImage}" style="width:50px;height;50px" />
-										</c:otherwise>
-									</c:choose>
+									<c:if test="${sessionScope.sessionUser != null}">
+										<c:choose>
+											<c:when test="${sessionScope.sessionUser.profileImage eq '/resources/asset/img/cooker.png'}">
+												<img src="<%=request.getContextPath()%>${sessionScope.sessionUser.profileImage}" style="width:50px;height:50px;margin-top: 0px;" />
+											</c:when>
+											<c:otherwise>
+												<img src="${sessionScope.sessionUser.profileImage}" style="width:50px;height:50px;margin-top: 0px;" />
+											</c:otherwise>
+										</c:choose>
+									</c:if>
 									</a>
 								</div>
 								<c:choose>
@@ -50,9 +52,9 @@
 						<li><a href="../home/index"><span class="glyphicon glyphicon glyphicon-home"></span></a></li>
 						<li><a href="../recipe/search">Công thức</a></li>
 						<li><a href="../tipv1/view">Mẹo vặt</a></li>
-						<li><a href="#">Bộ sưu tập</a></li>
-						<li><a href="#">Video</a></li>
-						<li><a href="#">Blog</a></li>
+						<c:forEach items="${sessionScope.menu_session }" var="cate">
+							<li><a href="../recipe/search?kind=1&data=${cate.id}">${cate.cateTitle }</a></li>
+						</c:forEach>
 					</ul>
 				</nav>
 			</div>
@@ -61,6 +63,7 @@
 		gotoLogin();
 		logOut();
 		searchByTitle();
+		searchByTitleClick();
 	});
 
 	
@@ -92,6 +95,16 @@
 				 searchTitle("recipe/search",3,data);
 			  }
 			});   
+	}
+	
+	function searchByTitleClick(){
+		$("#btnSearchText").click(function(){
+			 var data = $("#txtKeyWord").val();
+			 if(data == ""){
+				 return;
+			 }
+			 searchTitle("recipe/search",3,data);
+		});
 	}
 	
 	function searchTitle(url,kind,data){

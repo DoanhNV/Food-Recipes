@@ -38,6 +38,8 @@
 			$(document).ready(function(){
 				gotoRegister();
 				doLogin();
+				doLoginEnter();
+				doLoginEnter2();
 			})
 			
 			function gotoRegister(){
@@ -72,6 +74,31 @@
 						$("#loginForm").attr("action","../user/doLogin");
 						$("#loginForm").submit();
 					}
+				});
+			}
+			
+			function doLoginEnter(){
+				$('#txtUserName').keypress(function (e) {
+					 var key = e.which;
+					 if(key == 13) {   // the enter key code
+						 if(validateLogin()){
+								$("#loginForm").attr("action","../user/doLogin");
+								$("#loginForm").submit();
+						}
+					  }
+				});   
+			}
+			
+			
+			function doLoginEnter2(){
+				$('#txtPassword').keypress(function (e) {
+					 var key = e.which;
+					 if(key == 13) {   // the enter key code
+						 if(validateLogin()){
+								$("#loginForm").attr("action","../user/doLogin");
+								$("#loginForm").submit();
+						}
+					  }
 				});
 			}
 		</script>

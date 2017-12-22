@@ -3,6 +3,40 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+	.post-recipes-date {
+	    font-size: 12px;
+	    color: green;
+	}
+	
+	.user-comment-bg {
+	    width: 46px;
+	    height: 44px;
+	    border-radius: 40px;
+	    float: left;
+	}
+	
+	.step-content {
+		border-radius: 4px;
+    	background-color: #eceafd;
+    	padding-top: 10px;
+    	 border: none !important;
+	}
+	
+	.post-center { 
+		border-bottom: oldlace;
+		background-color: #fdf9f9;
+	}
+	
+	.method-title {
+		background-color: #7ff3cc;
+	}
+	
+	.step-image2 {
+	    width: 100%;
+	    height: 369px;
+	}
+</style>
 <div class="clear">
 			</div>
 			<div class="post post-center">
@@ -16,7 +50,7 @@
 					<span class="cate-purpose">Thời gian:</span><b>${recipe_detail.estimateTime } </b>
 					<span class="cate-purpose">Đăng ngày:</span><b>${recipe_detail.createTime }</b>
 				</div>
-				<h1>${recipe_detail.title }</h1>
+				<h1 style="font-family: 'Times'">${recipe_detail.title }</h1>
 					<c:choose>
 						<c:when test="${sessionScope.sessionUser != null && fn:contains(recipe_detail.listSavedId,sessionScope.sessionUser.id) }">
 							<div class="post-recipe-save" data-id="${recipe_detail.id }">
@@ -31,7 +65,7 @@
 					</c:choose>
 				
 				
-				<hr class="separator-content"/>
+				<hr class="style-seven"/>
 				<h2 class="post-material-title">Nguyên liệu</h2>
 				<div class="post-material">
 					<ul>
@@ -53,6 +87,7 @@
 						</c:if>
 					</div>
 					</div>
+					<div class="clear"></div>
 				</c:forEach>
 				<div class="clear"></div>
 				<div class="method-title"></div>
@@ -97,7 +132,7 @@
 			</div>
 			<div class="post post-right">
 				<div class="choose-container">
-					<h3>Cùng nguyên liệu</h3>
+					<h3 style="font-family:'Droid Sans';">Cùng nguyên liệu</h3>
 				</div>
 				<c:forEach items="${recipe_detail_suggest }" var="recipe">
 					<div class="post-recipe-info">
@@ -112,49 +147,6 @@
 					</div>
 					<div class="clear"></div>
 				</c:forEach>
-				<div class="post-recipe-info">
-					<img src="https://media.cooky.vn/recipe/g1/669/s400x400/recipe669-635519913531386016.jpg" class="post-recipe-bg"/>
-					<div class="recipe-element-info">
-						<span class="post-recipe-title"><a href="#">1 Đĩa cơm tấm hoàn chỉnh </a></span>
-						<div class="clear"></div>
-						<span class="post-recipes-view"><b>129k </b>lượt xem</span>
-						<div class="clear"></div>
-						<span class="post-recipes-date">2017/12/28</span>
-					</div>
-				</div>
-				<div class="clear"></div>
-				<div class="post-recipe-info">
-					<img src="https://media.cooky.vn/recipe/g2/17379/s400x400/recipe17379-636021885158718844.jpg" class="post-recipe-bg"/>
-					<div class="recipe-element-info">
-						<span class="post-recipe-title"><a href="#">Món ăn ngon chế biến...</a></span>
-						<div class="clear"></div>
-						<span class="post-recipes-view"><b>5k </b>lượt xem</span>
-						<div class="clear"></div>
-						<span class="post-recipes-date">2017/05/17</span>
-					</div>
-				</div>
-				<div class="clear"></div>
-				<div class="post-recipe-info">
-					<img src="https://media.cooky.vn/recipe/g2/15516/s360x225/recipe15516-635755034011938618.jpg" class="post-recipe-bg"/>
-					<div class="recipe-element-info">
-						<span class="post-recipe-title"><a href="#">Trái cây nhúng Chocolate</a></span>
-						<div class="clear"></div>
-						<span class="post-recipes-view"><b>6k </b>lượt xem</span>
-						<div class="clear"></div>
-						<span class="post-recipes-date">2017/11/01</span>
-					</div>
-				</div>
-				<div class="clear"></div>
-				<div class="post-recipe-info">
-					<img src="https://media.cooky.vn/collections/g13/123144/s360x225/collection123144-636378124100155756.jpg" class="post-recipe-bg"/>
-					<div class="recipe-element-info">
-						<span class="post-recipe-title"><a href="#">Làm Flan ngon tuyệt cú mèo..</a></span>
-						<div class="clear"></div>
-						<span class="post-recipes-view"><b>1k </b>lượt xem</span>
-						<div class="clear"></div>
-						<span class="post-recipes-date">2016/01/22</span>
-					</div>
-				</div>
 			</div>
 		</div>
 		<script type="text/javascript">

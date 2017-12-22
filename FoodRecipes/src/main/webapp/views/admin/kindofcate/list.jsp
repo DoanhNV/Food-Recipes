@@ -74,8 +74,8 @@
 		                            <td class=" ">${kind.createTime}</td>
 		                            <td class=" ">${kind.status}</td>
 		                             <td class=" "> 
-		                              <span class="btn btn-primary btnUpdateM" data-id="${kind.id}">Update</span>
-		                             <span class="btn btn-success btnChangeStatus" data-id="${kind.id}" data-status="${kind.status}">Đổi trạng thái</span>
+		                              <span class="fa fa-pencil-square-o btn btn-primary btnUpdateM" data-id="${kind.id}"></span>
+		                             <span class="fa fa-refresh btn btn-success btnChangeStatus" data-id="${kind.id}" data-status="${kind.status}"></span>
 		                             </td>
                           		</tr>
                         	</c:forEach>

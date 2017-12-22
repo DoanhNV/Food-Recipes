@@ -6,6 +6,7 @@ public class Constant {
 		public static final String ADMIN_SESSION = "admin_session";
 		public static final String USER_SESSION = "sessionUser";
 		public static final String FOOTER_SESSION = "footer_session";
+		public static final String MENU_SESSION = "menu_session";
 	}
 
 	public class ATTRIBUTE_NAME {
@@ -50,6 +51,7 @@ public class Constant {
 		public static final String LIST_CHECKED_MATERIAL = "list_checked_material";
 		public static final String ADDED_HOUR = "added_hour";
 		public static final String ADDED_MINUTE = "added_minute";
+		public static final String LIST_KIND_CATE_BUFFER = "list_kind_cate_buffer";
 		
 		// home
 		public static final String SLIDE = "slide";
@@ -62,6 +64,10 @@ public class Constant {
 		public static final String USER_PROFILE = "user_profile";
 		public static final String KIND_CATE = "kind_cate";
 		public static final String SEARCH_KEY = "search_key";
+		public static final String DATA_BUFFER = "data_buffer";
+		
+		//error
+		public static final String EXIST_RECIPE_WITH_CATE = "exist_recipe_with_cate";
 	}
 
 	public class STATUS {
@@ -71,11 +77,11 @@ public class Constant {
 		public static final String DEACTIVE = "deactive";
 	}
 
-	public static final int NUMBER_PERPAGE = 2;
+	public static final int NUMBER_PERPAGE = 8;
 	public static final int NUMBER_PER_PAGE_SEARCH = 16;
 	public static final int NUMBER_PER_PAGE_TIP_SEARCH = 12;
 
-	public static final String FILE_STORE = "D:/upload/";
+	public static final String FILE_STORE = "F:/upload/";
 	
 	public class HTML_ATTRIBUTE {
 		public static final String CHECKED_VALUE = "checked";

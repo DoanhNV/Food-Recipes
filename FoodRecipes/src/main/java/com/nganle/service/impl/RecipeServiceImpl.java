@@ -87,4 +87,8 @@ public class RecipeServiceImpl implements RecipeService {
 		return recipeDAO.increaseView(id);
 	}
 
+	public boolean checkExistByCateId(int id) {
+		return recipeDAO.checkExistByCateId(id);
+	}
+
 }

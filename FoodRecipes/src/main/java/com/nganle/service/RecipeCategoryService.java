@@ -17,4 +17,8 @@ public interface RecipeCategoryService {
 	public List<RecipeCategory> listAll();
 	
 	public boolean increateNumberOfRecipe(List<String> listId);
+	
+	public boolean decreateNumberOfRecipe(List<String> listId);
+	
+	public List<RecipeCategory> listMenu(int limit);
 }

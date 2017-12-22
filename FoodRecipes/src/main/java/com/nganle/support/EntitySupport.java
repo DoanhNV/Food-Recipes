@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.nganle.dao.impl.RecipeCategoryDAOImpl;
 import com.nganle.dto.MaterialSerchDTO;
 import com.nganle.dto.RecipeCateSearchDTO;
 import com.nganle.entity.Comment;
 import com.nganle.entity.KindOfCate;
+import com.nganle.entity.RecipeCategory;
 import com.nganle.entity.User;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.util.Utils;
 
 public class EntitySupport {
+	
+	public static final List<RecipeCategory> LIST_MENU = new RecipeCategoryDAOImpl().listMenu(4);
 	
 	public static User initUser() {
 		User user = new User();
@@ -83,5 +87,17 @@ public class EntitySupport {
 				}
 			}
 		}
+	}
+	
+	public static List<String> getListIdFfromKindCate(List<String> listKindCate){
+		List<String> result = new ArrayList<String>();
+		if(listKindCate == null) {
+			return result;
+		}
+		for (String kindCate : listKindCate) {
+			result.add(kindCate.split("-")[0]);
+		}
+		return result;
+		
 	}
 }

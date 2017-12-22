@@ -173,58 +173,6 @@
 						</div>
 					</div>
 			</c:forEach> 
-				<div class="recipe tips">
-						<a href="#">
-							<img src="https://media.cooky.vn/article/s270x270/cooky-article-cover-b4298.jpg" class="recipe-bg"/>
-						</a>
-						<div class="content-recipe-info">
-							<span class="glyphicon  glyphicon-signal"></span>&nbsp 1000
-						</div>
-						<div class="main-recipe-info">
-							<h4>Những thực phẩm càng đen nhưng lại càng bổ dưỡng</h4>
-							<h6>công thức bởi:<a href="#"> Phương Hoàng</a></h6>
-							<h6>Danh mục:<a href="#">Mẹo vặt quanh ta</a></h6>
-						</div>
-					</div>
-					<div class="recipe tips">
-						<a href="#">
-							<img src="https://media.cooky.vn/article/s270x270/cooky-article-cover-b4299.jpg" class="recipe-bg"/>
-						</a>
-						<div class="content-recipe-info">
-							<span class="glyphicon  glyphicon-signal"></span>&nbsp 1000
-						</div>
-						<div class="main-recipe-info">
-							<h4>Cách sơ chế sợi hủ tiếu ngon, dai, không bở và bết dính cho </h4>
-							<h6>công thức bởi:<a href="#">Mai Linh</a></h6>
-							<h6>Danh mục:<a href="#"> Gia đình</a></h6>
-						</div>
-					</div>
-					<div class="recipe tips">
-						<a href="#">
-							<img src="https://media.cooky.vn/article/s270x270/cooky-article-cover-b4302.jpg" class="recipe-bg"/>
-						</a>
-						<div class="content-recipe-info">
-							<span class="glyphicon  glyphicon-signal"></span>&nbsp 1000
-						</div>
-						<div class="main-recipe-info">
-							<h4>Lợi ích vàng của tâm sen và sử dụng sao cho đúng cách để </h4>
-							<h6>công thức bởi:<a href="#">Khánh Hoàng</a></h6>
-							<h6>Danh mục:<a href="#">Tiết kiệm</a></h6>
-						</div>
-					</div>
-					<div class="recipe tips">
-						<a href="#">
-							<img src="https://media.cooky.vn/article/s270x270/cooky-article-cover-b4302.jpg" class="recipe-bg"/>
-						</a>
-						<div class="content-recipe-info">
-							<span class="glyphicon  glyphicon-signal"></span>&nbsp 1000
-						</div>
-						<div class="main-recipe-info">
-							<h4>Lợi ích vàng của tâm sen và sử dụng sao cho đúng cách để </h4>
-							<h6>công thức bởi:<a href="#">Khánh Hoàng</a></h6>
-							<h6>Danh mục:<a href="#">Tiết kiệm</a></h6>
-						</div>
-					</div>
 		</div>
 		<div class="clear"></div>
 						<c:if test="${list_tip != null && fn:length(list_tip) != 0 }">

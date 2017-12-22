@@ -80,8 +80,8 @@
 		                            <td class=" ">${user.status}</td>
 		                            <td class=" ">${user.createDate}</td>
 		                             <td class=" "> 
-		                             <span class="btn btn-success btnChangeStatus" data-id="${user.userId}" data-status="${user.status}">Đổi trạng thái</span>
-		                             <span class="btn btn-danger btnDelete" data-id="${user.userId}">Xóa</span>
+		                             <span class="fa fa-refresh btn btn-success btnChangeStatus" data-id="${user.userId}" data-status="${user.status}"></span>
+		                             <span class="fa fa-remove btn btn-danger btnDelete" data-id="${user.userId}"></span>
 		                             </td>
                           		</tr>
                         	</c:forEach>

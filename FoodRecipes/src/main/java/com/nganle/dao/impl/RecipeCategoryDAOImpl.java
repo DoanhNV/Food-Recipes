@@ -19,9 +19,9 @@ import com.nganle.support.util.Utils;
 
 @Repository
 public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
-	
+
 	private Connection connection = DBConnection.getConnection();
-	
+
 	public boolean create(RecipeCategory cate) {
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE_CATE.CREATE);
@@ -29,7 +29,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 			prepareStatement.setInt(2, cate.getKindId());
 			prepareStatement.setTimestamp(3, Utils.getCurrentSQLDate());
 			prepareStatement.setTimestamp(4, Utils.getCurrentSQLDate());
-			prepareStatement.setInt(5,cate.getNumberOfRecipe());
+			prepareStatement.setInt(5, cate.getNumberOfRecipe());
 			prepareStatement.setInt(6, cate.getCreaterId());
 			prepareStatement.setInt(7, Constant.STATUS.ACTIVE_VALUE);
 			prepareStatement.execute();
@@ -73,7 +73,7 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE_CATE.GET_BY_ID);
 			prepareStatement.setInt(1, id);
 			ResultSet set = prepareStatement.executeQuery();
-			if(set.next()) {
+			if (set.next()) {
 				RecipeCategory cate = new RecipeCategory();
 				cate.setId(set.getInt(SQLInfo.FIELD_ID));
 				cate.setCateTitle(set.getString(SQLInfo.RECIPE_CATE.FIELD_CATE_TITLE));
@@ -92,11 +92,11 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 	}
 
 	public List<RecipeCategory> listAll() {
-		List<RecipeCategory>  result = new ArrayList<RecipeCategory>();
+		List<RecipeCategory> result = new ArrayList<RecipeCategory>();
 		try {
 			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE_CATE.LIST_ALL);
 			ResultSet set = prepareStatement.executeQuery();
-			while(set.next()) {
+			while (set.next()) {
 				RecipeCategory cate = new RecipeCategory();
 				cate.setId(set.getInt(SQLInfo.FIELD_ID));
 				cate.setCateTitle(set.getString(SQLInfo.RECIPE_CATE.FIELD_CATE_TITLE));
@@ -116,6 +116,9 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 	}
 
 	public boolean increateNumberOfRecipe(List<String> listId) {
+		if (listId == null || listId.size() == 0) {
+			return false;
+		}
 		try {
 			String formatQuery = String.format(SQLQuery.RECIPE_CATE.INCREASE_NUMBER_RECIPE, Utils.toSqlInList(listId));
 			PreparedStatement prepareStatement = connection.prepareStatement(formatQuery);
@@ -125,6 +128,40 @@ public class RecipeCategoryDAOImpl implements RecipeCategoryDAO {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public boolean decreateNumberOfRecipe(List<String> listId) {
+		if (listId == null || listId.size() == 0) {
+			return false;
+		}
+		try {
+			String formatQuery = String.format(SQLQuery.RECIPE_CATE.DECREASE_NUMBER_RECIPE, Utils.toSqlInList(listId));
+			PreparedStatement prepareStatement = connection.prepareStatement(formatQuery);
+			prepareStatement.execute();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public List<RecipeCategory> listMenu(int limit) {
+		List<RecipeCategory> result = new ArrayList<RecipeCategory>();
+		try {
+			PreparedStatement prepareStatement = connection.prepareStatement(SQLQuery.RECIPE_CATE.GET_RANDOM_MENU);
+			prepareStatement.setInt(1, limit);
+			ResultSet set = prepareStatement.executeQuery();
+			while (set.next()) {
+				RecipeCategory cate = new RecipeCategory();
+				cate.setId(set.getInt(SQLInfo.FIELD_ID));
+				cate.setCateTitle(set.getString(SQLInfo.RECIPE_CATE.FIELD_CATE_TITLE));
+				result.add(cate);
+			}
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

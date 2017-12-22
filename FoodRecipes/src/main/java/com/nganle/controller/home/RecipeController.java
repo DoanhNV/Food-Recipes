@@ -132,11 +132,13 @@ public class RecipeController {
 			List<String> listRecipeCate = Utils.toListRecipeCate(cateIds);
 			recipes = recipeService.searchByCate(listRecipeCate);
 			EntitySupport.checkedCate(listCate, cateIds);
+			model.addAttribute(Constant.ATTRIBUTE_NAME.DATA_BUFFER, data);
 		} else if (kind == 2) {
 			List<Integer> materialIds = Utils.toListCateId(data.split("@"));
 			recipes = recipeService.searchByMaterial(materialIds, 1000);
 			List<String> titles = EntitySupport.checkedMaterial(listMaterial, materialIds);
 			model.addAttribute(Constant.ATTRIBUTE_NAME.lIST_MATERIAL_TITLE, titles);
+			model.addAttribute(Constant.ATTRIBUTE_NAME.DATA_BUFFER, data);
 		} else if (kind == 3) {
 			recipes = recipeService.searchByTitle(data);
 			model.addAttribute(Constant.ATTRIBUTE_NAME.SEARCH_KEY,data);

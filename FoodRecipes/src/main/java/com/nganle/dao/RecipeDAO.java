@@ -40,4 +40,6 @@ public interface RecipeDAO {
 	public List<Recipe> searchByListId(String listSqlId);
 	
 	public boolean increaseView(int id);
+	
+	public boolean checkExistByCateId(int id);
 }

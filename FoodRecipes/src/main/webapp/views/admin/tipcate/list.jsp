@@ -76,9 +76,9 @@
 		                            <td class=" ">${tipcate.createTime}</td>
 		                            <td class=" ">${tipcate.status}</td>
 		                             <td class=" "> 
-		                              <span class="btn btn-primary btnUpdateM" data-id="${tipcate.id}">Update</span>
-		                             <span class="btn btn-success btnChangeStatus" data-id="${tipcate.id}" data-status="${tipcate.status}">Đổi trạng thái</span>
-		                             <span class="btn btn-danger btnDelete" data-id="${tipcate.id}">Xóa</span>
+		                              <span class="fa fa-pencil-square-o btn btn-primary btnUpdateM" data-id="${tipcate.id}"></span>
+		                             <span class="fa fa-refresh btn btn-success btnChangeStatus" data-id="${tipcate.id}" data-status="${tipcate.status}"></span>
+		                             <span class="fa fa-remove btn btn-danger btnDelete" data-id="${tipcate.id}"></span>
 		                             </td>
                           		</tr>
                         	</c:forEach>

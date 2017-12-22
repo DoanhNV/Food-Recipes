@@ -131,6 +131,14 @@ public class SQLQuery {
 													+ " SET " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " = " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " + 1"
 													+ " WHERE " + SQLInfo.FIELD_ID + " IN %s";
 		
+		public static final String DECREASE_NUMBER_RECIPE = " UPDATE " + SQLInfo.RECIPE_CATE.TABLE_NAME
+													+ " SET " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " = " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " - 1"
+													+ " WHERE " + SQLInfo.FIELD_ID + " IN %s";
+		public static final String GET_RANDOM_MENU = "SELECT "+SQLInfo.RECIPE_CATE.FIELD_CATE_TITLE + "," + SQLInfo.FIELD_ID
+													+ " FROM " + SQLInfo.RECIPE_CATE.TABLE_NAME
+													+ " ORDER BY RAND() "
+													+ " LIMIT ?";
+		
 	}
 	
 	public class TIP_CATE {
@@ -273,6 +281,8 @@ public class SQLQuery {
 		public static final String INCREASE_VIEW = " UPDATE " + SQLInfo.RECIPE.TABLE_NAME 
 													+ " SET " + SQLInfo.RECIPE.VIEWS + " = " + SQLInfo.RECIPE.VIEWS + " + 1"
 													+ " WHERE " + SQLInfo.FIELD_ID + " = ?";
+		public static final String GET_BY_CATE_ID = "SELECT * FROM "+ SQLInfo.RECIPE.TABLE_NAME
+													+ " WHERE "+ SQLInfo.RECIPE.RECIPE_CATE_IDS + " LIKE %s";
 		
 	}
 	

@@ -462,4 +462,16 @@ public class RecipeDAOImpl implements RecipeDAO {
 		return false;
 	}
 
+	public boolean checkExistByCateId(int id) {
+		try {
+			String formatQuery = String.format(SQLQuery.RECIPE.GET_BY_CATE_ID, "'%"+id+"-%'");
+			PreparedStatement prepareStatement = connection.prepareStatement(formatQuery);
+			ResultSet set = prepareStatement.executeQuery();
+			return set.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

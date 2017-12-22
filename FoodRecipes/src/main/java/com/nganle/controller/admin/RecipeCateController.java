@@ -22,7 +22,9 @@ import com.nganle.entity.KindOfCate;
 import com.nganle.entity.RecipeCategory;
 import com.nganle.service.KindOfCateService;
 import com.nganle.service.RecipeCategoryService;
+import com.nganle.service.RecipeService;
 import com.nganle.support.constant.Constant;
+import com.nganle.support.constant.Message;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
 import com.nganle.support.validate.Validator;
@@ -33,12 +35,13 @@ public class RecipeCateController {
 
 	@Autowired
 	private RecipeCategoryService cateService;
-
 	@Autowired
 	private KindOfCateService kindService;
+	@Autowired
+	private RecipeService recipeService;
 
 	@RequestMapping("/create")
-	public String create(ModelMap model ,HttpServletRequest request) {
+	public String create(ModelMap model, HttpServletRequest request) {
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
 		}
@@ -49,7 +52,7 @@ public class RecipeCateController {
 	}
 
 	@RequestMapping(value = "/doCreate", method = RequestMethod.POST)
-	public String doCreate(@ModelAttribute("recipecate") RecipeCategory cate ,HttpServletRequest request) {
+	public String doCreate(@ModelAttribute("recipecate") RecipeCategory cate, HttpServletRequest request) {
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
 		}
@@ -58,7 +61,9 @@ public class RecipeCateController {
 	}
 
 	@RequestMapping(value = "/list")
-	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page ,HttpServletRequest request) {
+	public String listAll(ModelMap model, @RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = Constant.ATTRIBUTE_NAME.EXIST_RECIPE_WITH_CATE, required = false, defaultValue = "") String mesageError,
+			HttpServletRequest request) {
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
 		}
@@ -70,11 +75,12 @@ public class RecipeCateController {
 		model.addAttribute(CURRENT_PAGE, page);
 		model.addAttribute(FISRT_PAGE, 1);
 		model.addAttribute(LAST_PAGE, pageList.size());
+		model.addAttribute(Constant.ATTRIBUTE_NAME.EXIST_RECIPE_WITH_CATE, mesageError);
 		return ResultView.RECIPE_CATE.LIST_ALL;
 	}
 
 	@RequestMapping("/update")
-	public String update(@RequestParam("recipecate-data") String cateData, ModelMap model ,HttpServletRequest request) {
+	public String update(@RequestParam("recipecate-data") String cateData, ModelMap model, HttpServletRequest request) {
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
 		}
@@ -88,7 +94,7 @@ public class RecipeCateController {
 	}
 
 	@RequestMapping("/doUpdate")
-	public String doUpdate(@ModelAttribute("recipecate") RecipeCategory cate ,HttpServletRequest request) {
+	public String doUpdate(@ModelAttribute("recipecate") RecipeCategory cate, HttpServletRequest request) {
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
 		}
@@ -98,18 +104,23 @@ public class RecipeCateController {
 		cateService.update(updateCate);
 		return Utils.redirect("/recipecate/list");
 	}
-	
+
 	@RequestMapping("/delete")
-	public String delete(@ModelAttribute("id") int id ,HttpServletRequest request) {
-		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION )) {
+	public String delete(@ModelAttribute("id") int id, HttpServletRequest request, RedirectAttributes model) {
+		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
+		}
+		if (recipeService.checkExistByCateId(id)) {
+			model.addAttribute(Constant.ATTRIBUTE_NAME.EXIST_RECIPE_WITH_CATE, Message.EXIST_RECIPE_WITH_CATE);
+			return Utils.redirect("/recipecate/list");
 		}
 		cateService.delete(id);
 		return Utils.redirect("/recipecate/list");
 	}
-	
+
 	@RequestMapping("/change-status")
-	public String changeStatus(@RequestParam("recipecate-data") String cateData,RedirectAttributes redirectAtt ,HttpServletRequest request) {
+	public String changeStatus(@RequestParam("recipecate-data") String cateData, RedirectAttributes redirectAtt,
+			HttpServletRequest request) {
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
 		}
@@ -121,6 +132,5 @@ public class RecipeCateController {
 		redirectAtt.addAttribute("page", Integer.parseInt(data[2]));
 		return Utils.redirect("/recipecate/list");
 	}
-
 
 }

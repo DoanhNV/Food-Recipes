@@ -84,6 +84,7 @@
 	<h1 style="padding-top: 40px;">Cập nhật công thức</h1>
 </div>
 <div class="clear"></div>
+<input type="hidden" name="kind_cate_buffer"  value="${list_kind_cate_buffer}"/>
 <div class="create-recipe-title create-header"></div>
 <div class="">
 	<div class="create create-left">

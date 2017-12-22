@@ -135,7 +135,7 @@ public class Utils {
 		}
 		String[] data = arr.split(",");
 		for (int i = 0; i < data.length; i++) {
-			if(!data[i].isEmpty()) {
+			if (!data[i].isEmpty()) {
 				result.add(data[i]);
 			}
 		}
@@ -145,12 +145,16 @@ public class Utils {
 	public static String uploadToStorage(MultipartFile file) {
 		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
 		File desFile = new File(filePath);
+		if(!desFile.getParentFile().exists()) {
+			desFile.getParentFile().mkdir();
+		}
 		try {
 			if (file.getSize() != 0) {
 				FileCopyUtils.copy(file.getBytes(), desFile);
 				return filePath;
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
 			System.out.println("update no filePath!");
 		}
 		return "noFilePath";
@@ -162,6 +166,9 @@ public class Utils {
 			MultipartFile file = files.get(i);
 			String filePath = Constant.FILE_STORE + file.getOriginalFilename();
 			File desFile = new File(filePath);
+			if(!desFile.getParentFile().exists()) {
+				desFile.getParentFile().mkdir();
+			}
 			try {
 				if (file.getSize() != 0) {
 					FileCopyUtils.copy(file.getBytes(), desFile);
@@ -233,7 +240,7 @@ public class Utils {
 		}
 		return result;
 	}
-	
+
 	public static String toSqlLikesFrInt(List<Integer> listKindCate, String field) {
 		String result = "";
 		int size = listKindCate.size();
@@ -245,7 +252,6 @@ public class Utils {
 		}
 		return result;
 	}
-
 
 	public static String toSqlLikesFromInt(List<Integer> listKindCate, String field) {
 		String result = "";
@@ -302,16 +308,16 @@ public class Utils {
 		}
 		return result;
 	}
-	
+
 	public static List<String> toListRecipeCate(String[] data) {
 		List<String> result = new ArrayList<String>();
 		for (int i = 0; i < data.length; i++) {
-			result.add(data[i]+"-");
+			result.add(data[i] + "-");
 		}
 		return result;
 	}
-	
-	public static String toSqlLikesTitle(String title,String field) {
+
+	public static String toSqlLikesTitle(String title, String field) {
 		String[] words = title.split("[\\s]+");
 		String result = "";
 		int size = words.length;
@@ -323,14 +329,49 @@ public class Utils {
 		}
 		return result;
 	}
-	
-	public static List<String> toListCateId(List<String> listKindCate){
+
+	public static List<String> toListCateId(List<String> listKindCate) {
 		List<String> result = new ArrayList<String>();
-		if(listKindCate == null ) {
+		if (listKindCate == null) {
 			return result;
 		}
 		for (String kindCate : listKindCate) {
 			result.add(kindCate.split("-")[0]);
+		}
+		return result;
+	}
+
+	public static List<String> getListCateId(String listString) {
+		List<String> result = new ArrayList<String>();
+		String substring = listString.substring(1, listString.length() - 1);
+		if (!substring.isEmpty()) {
+			String[] data = substring.split(",");
+			for (String id : data) {
+				result.add(id.trim());
+			}
+		}
+		return result;
+	}
+
+	public static List<String> getListDecrease(List<String> originals, List<String> listUpdate) {
+		if (originals != null && listUpdate != null) {
+			for (String id : listUpdate) {
+				if(originals.contains(id)) {
+					originals.remove(id);
+				}
+			}
+		}
+		return originals;
+	}
+	
+	public static List<String> getListIncrease(List<String> originals, List<String> listUpdate) {
+		List<String> result = new ArrayList<String>();
+		if (originals != null && listUpdate != null) {
+			for (String id : listUpdate) {
+				if(!originals.contains(id)) {
+					result.add(id);
+				}
+			}
 		}
 		return result;
 	}

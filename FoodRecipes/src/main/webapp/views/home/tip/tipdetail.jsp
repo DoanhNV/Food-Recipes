@@ -188,6 +188,13 @@
 	 box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	 padding: 10px;
 }
+
+.post-recipe-bg{
+	margin-left: 3px;
+    margin-right: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
 </style>
 <div class="clear"></div>
 <div class="center-content" style="margin-top: 38px;">
@@ -227,17 +234,11 @@
 			<c:forEach items="${tip_suggest }" var="tip">
 				<li>
 					<div  class="post-tip-info">
-						<a href="../tipv1/detail?id=${tip.id }"><img src="https://media.cooky.vn/recipe/g1/669/s400x400/recipe669-635519913531386016.jpg" class="post-recipe-bg"/></a>
+						<a href="../tipv1/detail?id=${tip.id }"><img src="${tip.featureImage }" class="post-recipe-bg"/></a>
 						<h5>${tip.title }</h5>
 					</div>
 				</li>
 			</c:forEach>
-			<li>
-				<div class="post-tip-info">
-					<a href="#"><img src="https://media.cooky.vn/recipe/g1/669/s400x400/recipe669-635519913531386016.jpg" class="post-recipe-bg"/></a>
-					<h5>cách làm cho thức ăn ngon hơn khi có nhiều dầu</h5>
-				</div>
-			</li>
 		</ul>
 </div>
 </div>

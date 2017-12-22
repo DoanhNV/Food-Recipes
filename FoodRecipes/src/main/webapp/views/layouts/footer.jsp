@@ -8,7 +8,7 @@
 					<h4>${kind_cate.title }</h4>
 						<ul>
 							<c:forEach items="${kind_cate.cates }" var="cate">
-								<li><span class="glyphicon glyphicon-share"><a href="../search/recipe?kind=cate&id=${cate.id }"> ${cate.title } (${cate.recipeNumber })</a></li>
+								<li><span class="glyphicon glyphicon-share"><a href="../recipe/search?kind=1&data=${cate.id }"> ${cate.title } (${cate.recipeNumber })</a></li>
 							</c:forEach>
 						</ul>
 					</div>

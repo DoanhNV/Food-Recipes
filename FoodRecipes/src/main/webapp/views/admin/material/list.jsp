@@ -80,9 +80,9 @@
 		                            <td class=" ">${material.status}</td>
 		                            <td class=" ">${material.creater.fullName}</td>
 		                             <td class=" "> 
-		                              <span class="btn btn-primary btnUpdateM" data-id="${material.id}">Update</span>
-		                             <span class="btn btn-success btnChangeStatus" data-id="${material.id}" data-status="${material.status}">Đổi trạng thái</span>
-		                             <span class="btn btn-danger btnDelete" data-id="${material.id}">Xóa</span>
+		                              <span class="fa fa-pencil-square-o btn btn-primary btnUpdateM" data-id="${material.id}"></span>
+		                             <span class="fa fa-refresh btn btn-success btnChangeStatus" data-id="${material.id}" data-status="${material.status}"></span>
+		                             <span class="fa fa-remove btn btn-danger btnDelete" data-id="${material.id}"></span>
 		                             </td>
                           		</tr>
                         	</c:forEach>

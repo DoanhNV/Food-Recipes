@@ -82,9 +82,9 @@
 		                            <td class=" ">${tip.createTime}</td>
 		                            <td class=" ">${tip.status}</td>
 		                            <td class=" "> 
-		                             <span class="btn btn-primary btnUpdateM" data-id="${tip.id}">Update</span>
-		                             <span class="btn btn-success btnChangeStatus" data-id="${tip.id}" data-status="${tip.status}">Đổi trạng thái</span>
-		                             <span class="btn btn-danger btnDelete" data-id="${tip.id}">Xóa</span>
+		                             <span class="fa fa-pencil-square-o btn btn-primary btnUpdateM" data-id="${tip.id}"></span>
+		                             <span class="fa fa-refresh btn btn-success btnChangeStatus" data-id="${tip.id}" data-status="${tip.status}"></span>
+		                             <span class="fa fa-remove btn btn-danger btnDelete" data-id="${tip.id}"></span>
 		                             </td>
                           		</tr>
                         	</c:forEach>

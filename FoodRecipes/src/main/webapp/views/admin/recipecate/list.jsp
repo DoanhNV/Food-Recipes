@@ -34,6 +34,7 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Table design <small>Custom design</small></h2>
+                    <h2 style="color:red">${exist_recipe_with_cate}</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -76,9 +77,9 @@
 		                            <td class=" ">${recipecate.createTime}</td>
 		                            <td class=" ">${recipecate.status}</td>
 		                             <td class=" "> 
-		                              <span class="btn btn-primary btnUpdateM" data-id="${recipecate.id}">Update</span>
-		                             <span class="btn btn-success btnChangeStatus" data-id="${recipecate.id}" data-status="${recipecate.status}">Đổi trạng thái</span>
-		                             <span class="btn btn-danger btnDelete" data-id="${recipecate.id}">Xóa</span>
+		                              <span class="fa fa-pencil-square-o btn btn-primary btnUpdateM" data-id="${recipecate.id}"></span>
+		                             <span class="fa fa-refresh btn btn-success btnChangeStatus" data-id="${recipecate.id}" data-status="${recipecate.status}"></span>
+		                             <span class="fa fa-remove btn btn-danger btnDelete" data-id="${recipecate.id}"></span>
 		                             </td>
                           		</tr>
                         	</c:forEach>

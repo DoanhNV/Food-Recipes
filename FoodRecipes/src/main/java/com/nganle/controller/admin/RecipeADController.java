@@ -27,6 +27,7 @@ import com.nganle.service.KindOfCateService;
 import com.nganle.service.MaterialService;
 import com.nganle.service.RecipeCategoryService;
 import com.nganle.service.RecipeService;
+import com.nganle.support.EntitySupport;
 import com.nganle.support.constant.Constant;
 import com.nganle.support.constant.ResultView;
 import com.nganle.support.util.Utils;
@@ -151,7 +152,7 @@ public class RecipeADController {
 		String[] time = recipe.getEstimateTime().split("@");
 		model.addAttribute(Constant.ATTRIBUTE_NAME.RECIPE_HOUR, Utils.initTime(24, "giờ",Integer.parseInt(time[0])));
 		model.addAttribute(Constant.ATTRIBUTE_NAME.RECIPE_MINUTE,Utils.initTime(60, "phút",Integer.parseInt(time[1])));
-		
+		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_KIND_CATE_BUFFER, EntitySupport.getListIdFfromKindCate(recipe.getRecipeCateIds()));
 		return ResultView.ADMIN_RECIPE.UPDATE;
 	}
 	
@@ -174,10 +175,16 @@ public class RecipeADController {
 							@RequestParam("recipeCate") List<String> listKindCate,
 							@RequestParam("stepText") List<String> stepTexts,
 							@RequestParam("video") String videoUrl,
+							@RequestParam("kind_cate_buffer") String listKindCateBuffer ,
 							@RequestParam("id") int id ,HttpServletRequest request){
 		if (!Validator.isExistSession(request.getSession(), ADMIN_SESSION)) {
 			return Utils.redirect("/admin/login");
 		}
+		List<String> listCateId = Utils.getListCateId(listKindCateBuffer);
+		List<String> listCateId2 = Utils.toListCateId(listKindCate);
+		List<String> listDecrease = Utils.getListDecrease(listCateId, listCateId2);
+		List<String> listIncrease = Utils.getListIncrease(listCateId, listCateId2);
+		
 		Recipe recipe = recipeService.getById(id);
 		List<Step> listStep = Step.toListStepV2(recipe.getContent());
 		List<String> filePaths = Utils.uploadToStorageAndCheckUpdate(stepImgs,listStep);
@@ -195,7 +202,8 @@ public class RecipeADController {
 		recipe.setRecipeCateIds(listKindCate);
 		recipe.setVideoUrl(videoUrl);
 		recipeService.update(recipe);
-		cateService.increateNumberOfRecipe(Utils.toListCateId(listKindCate));
+		cateService.increateNumberOfRecipe(listIncrease);
+		cateService.decreateNumberOfRecipe(listDecrease);
 		return Utils.redirect("/admin_recipe/list");
 	}
 	

@@ -116,6 +116,23 @@
 .pagination a:hover:not(.active) {
 	background-color: #ddd;
 }
+
+.checkbox-inline {
+	color: #021b02;
+}
+
+.center-content{
+	margin-top: 63px !important;
+}
+
+.content-recipe-info {
+	    position: absolute;
+	    margin-top: -20px;
+	    font-size: 14px;
+	    color: #1ff31f;
+	    margin-left: 10px;
+	    background-color: black;
+}
 </style>
 
 <!-- Popup create -->
@@ -141,7 +158,7 @@
 	<div class="search-tool">
 		<div class="search-subject">
 			<div>
-				<button type="button" class="btn btn-success" id="btnSearchCate"> Tìm kiếm theo loại món</button>
+				<button type="button" class="btn btn-success" id="btnSearchCate"><span class="glyphicon glyphicon-search" style="font-size:20px;"></span> Tìm kiếm theo loại món </button>
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -152,7 +169,7 @@
 		</div>
 		<div class="search-material">
 			<div class="bound-button">
-				<button type="button" class="btn btn-danger" id="btnChooseM" style="margin-bottom:20px;">Chọn nguyên liệu</button>
+				<button type="button" class="btn btn-danger" id="btnChooseM" style="margin-bottom:20px;"><span class="glyphicon glyphicon-search" style="font-size:20px;"></span>Tìm kiếm theo nguyên liệu</button>
 			</div>
 			<div class="choosed-materials">
 				<c:forEach items="${list_material_title }" var="item">
@@ -207,21 +224,21 @@
 						<c:if test="${list_recipe != null && fn:length(list_recipe) != 0 }">
 							<div class="bound-page">
 		                    <div class="pagination">
-		                    	<a href="../recipe/search?page=${first}&kind=${kind}">&laquo;</a>
+		                    	<a href="../recipe/search?page=${first}&kind=${kind}&data=${data_buffer}">&laquo;</a>
 		                     	<c:forEach items="${materialpages}" var="page">
 		                     		 <c:choose>
 				                      	<c:when test="${page != '...' && page == currentpage}">
-				                      		<a href="../recipe/search?page=${page}&kind=${kind}" id="pageActive" class="active" data-id="${page}">${page}</a>
+				                      		<a href="../recipe/search?page=${page}&kind=${kind}&data=${data_buffer}" id="pageActive" class="active" data-id="${page}">${page}</a>
 				                      	</c:when>
 				                      	<c:when  test="${page == '...'}">
 				                      		<a>${page}</a>
 				                      	</c:when>
 				                      	<c:otherwise>
-				                      		<a href="../recipe/search?page=${page}&kind=${kind}">${page}</a>
+				                      		<a href="../recipe/search?page=${page}&kind=${kind}&data=${data_buffer}">${page}</a>
 				                      	</c:otherwise>
 				                     </c:choose>
 		                     	</c:forEach>
-							  <a href="../recipe/search?page=${last}&kind=${kind}">&raquo;</a>
+							  <a href="../recipe/search?page=${last}&kind=${kind}&data=${data_buffer}">&raquo;</a>
 							</div>
         					</div>
 						</c:if>

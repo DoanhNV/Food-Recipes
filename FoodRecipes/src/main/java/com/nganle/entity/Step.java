@@ -45,6 +45,9 @@ public class Step {
 	}
 	
 	public static String toSQLArray(List<String> texts,List<String> filePaths){
+		if(filePaths == null || filePaths.size() == 0) {
+			filePaths = new ArrayList<String>(texts.size());
+		}
 		String result = "[";
 		int stepNumber = texts.size();
 		for (int i = 0; i < stepNumber; i++) {

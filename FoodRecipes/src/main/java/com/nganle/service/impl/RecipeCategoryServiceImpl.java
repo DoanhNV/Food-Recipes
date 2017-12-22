@@ -39,4 +39,12 @@ public class RecipeCategoryServiceImpl implements RecipeCategoryService {
 		return cateDAO.increateNumberOfRecipe(listId);
 	}
 
+	public boolean decreateNumberOfRecipe(List<String> listId) {
+		return cateDAO.decreateNumberOfRecipe(listId);
+	}
+
+	public List<RecipeCategory> listMenu(int limit) {
+		return cateDAO.listMenu(limit);
+	}
+
 }
