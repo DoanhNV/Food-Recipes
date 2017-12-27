@@ -92,11 +92,15 @@ ul li a{
 .menu ul li:hover{
 	background-color:#b51c1c;
 	border-radius: 3px;
+	transition-delay: 0.05s; /* delays for 1 second */
+	-webkit-transition-delay: 0.05s; /* for Safari & Chrome */
 }
 
 .menu ul li:hover a{
 	background-color:#b51c1c;
 	color: white;
+	transition-delay: 0.05s; /* delays for 1 second */
+	-webkit-transition-delay: 0.05s; /* for Safari & Chrome */
 }
 .menu ul li:first-child{
 	background-color:#b51c1c;
@@ -1075,6 +1079,48 @@ ul li a{
 	min-height: 54px;
 }
 /* end search */
+
+/* menu */
+.dropdown {
+    position: relative !important;
+    display: inline-block !important;
+}
+
+.dropdown-content {
+    display: none !important;
+    position: absolute !important;
+    right: 0 !important;
+    background-color: blue !important;
+    min-width: 160px !important;
+    max-width: 300px !important;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2) !important;
+    z-index: 1 !important;
+}
+
+.dropdown-content a {
+	background-color: #f9f9f9 !important;
+	text-align: left;
+    color: black !important;
+    padding: 8px 16px !important;
+    text-decoration: none !important;
+    display: block !important;
+	border-top: solid 1px silver !important;
+}
+
+.dropdown-content a:hover {
+	transition-delay: 0.05s; /* delays for 1 second */
+	-webkit-transition-delay: 0.05s; /* for Safari & Chrome */
+	background-color: green !important;
+	color: white !important;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block !important;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
 
 
 

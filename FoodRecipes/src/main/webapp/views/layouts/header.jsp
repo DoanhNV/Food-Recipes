@@ -52,8 +52,14 @@
 						<li><a href="../home/index"><span class="glyphicon glyphicon glyphicon-home"></span></a></li>
 						<li><a href="../recipe/search">Công thức</a></li>
 						<li><a href="../tipv1/view">Mẹo vặt</a></li>
-						<c:forEach items="${sessionScope.menu_session }" var="cate">
-							<li><a href="../recipe/search?kind=1&data=${cate.id}">${cate.cateTitle }</a></li>
+						<c:forEach items="${sessionScope.menu_session}" var="kind_cate">
+							<li class="dropdown"><a href="#">${kind_cate.title }</a>
+								<div class="dropdown-content" style="left:0;">
+									<c:forEach items="${kind_cate.cates }" var="cate">
+										<a href="../recipe/search?kind=1&data=${cate.id }"> ${cate.title }</a>
+									</c:forEach>
+								</div>
+							</li>
 						</c:forEach>
 					</ul>
 				</nav>

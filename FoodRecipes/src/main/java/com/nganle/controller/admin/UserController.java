@@ -37,11 +37,13 @@ public class UserController {
 		List<User> users = userService.listAll();
 		List<UserDTO> listDTO = UserDTO.toListDTO(users);
 		List<List<UserDTO>> pageList = UserDTO.pageListUser(listDTO);
-		model.addAttribute(LIST_USER, pageList.get(page - 1));
-		model.addAttribute(USER_PAGE, Utils.getPageToDisplay(pageList.size(), page));
-		model.addAttribute(CURRENT_PAGE, page);
-		model.addAttribute(FISRT_PAGE, 1);
-		model.addAttribute(LAST_PAGE, pageList.size());
+		if(pageList != null && pageList.size() != 0) {
+			model.addAttribute(LIST_USER, pageList.get(page - 1));
+			model.addAttribute(USER_PAGE, Utils.getPageToDisplay(pageList.size(), page));
+			model.addAttribute(CURRENT_PAGE, page);
+			model.addAttribute(FISRT_PAGE, 1);
+			model.addAttribute(LAST_PAGE, pageList.size());
+		}
 		return ResultView.ADMIN.LIST_USER;
 	}
 

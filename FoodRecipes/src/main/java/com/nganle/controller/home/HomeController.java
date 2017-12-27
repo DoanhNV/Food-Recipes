@@ -88,7 +88,7 @@ public class HomeController {
 		List<KindOfCate> kinds = kindOfCateService.listAll();
 		List<RecipeCategory> cates = cateService.listAll();
 		Utils.setSession(request.getSession(), Constant.SESSION_NAME.FOOTER_SESSION, KindCateBasicDTO.toListDTOFooter(kinds, cates, 4, 7));
-		Utils.setSession(request.getSession(), Constant.SESSION_NAME.MENU_SESSION, EntitySupport.LIST_MENU);
+		Utils.setSession(request.getSession(), Constant.SESSION_NAME.MENU_SESSION, KindCateBasicDTO.toListDTOFooter(kinds, cates, 4, 7));
 		model.addAttribute(Constant.ATTRIBUTE_NAME.RECIPE_CATE, RecipeCateForHomeDTO.toListDTO(recipeCates, 12));
 		model.addAttribute(Constant.ATTRIBUTE_NAME.SLIDE, SlideDTO.toListDTO(slide));
 		model.addAttribute(Constant.ATTRIBUTE_NAME.TOP_RECIPE, RecipeTopViewDTO.toListDTO(topViews));
