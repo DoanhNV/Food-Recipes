@@ -49,6 +49,7 @@ public class Constant {
 		public static final String RECIPE = "recipe";
 		public static final String COST = "cost";
 		public static final String LIST_CHECKED_MATERIAL = "list_checked_material";
+		public static final String LIST_MATERIAL_VALUE = "list_material_values";
 		public static final String ADDED_HOUR = "added_hour";
 		public static final String ADDED_MINUTE = "added_minute";
 		public static final String LIST_KIND_CATE_BUFFER = "list_kind_cate_buffer";

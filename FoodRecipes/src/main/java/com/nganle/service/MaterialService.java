@@ -16,4 +16,6 @@ public interface MaterialService {
 	public boolean deleteById(int id);
 	
 	public List<Material> getTopLimit(int limit,String field, String order);
+	
+	public List<Material> searchByTitle(String title);
 }

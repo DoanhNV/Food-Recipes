@@ -138,4 +138,28 @@ public class MaterialDAOImpl extends AbstractDAO implements MaterialDAO {
 		return null;
 	}
 
+	public List<Material> searchByTitle(String title) {
+		List<Material> result = new ArrayList<Material>();
+		try {
+			String formatQuery = String.format(SQLQuery.MATERIAL.SEARCH_BY_TITLE, Utils.toSqlLikesTitle2(title, SQLInfo.MATERIAL.FIELD_MATERIAL_NAME));
+			PreparedStatement prepareStatement = connection.prepareStatement(formatQuery);
+			ResultSet set = prepareStatement.executeQuery();
+			while (set.next()) {
+				Material material = new Material();
+				material.setId(set.getInt(SQLInfo.FIELD_ID));
+				material.setMaterialName(set.getString(SQLInfo.MATERIAL.FIELD_MATERIAL_NAME));
+				material.setFeatureImage(set.getString(SQLInfo.MATERIAL.FIELD_FEATURE_IMAGE));
+				material.setCreateTime(set.getTimestamp(SQLInfo.FIELD_CREATE_TIME));
+				material.setUpdateTime(set.getTimestamp(SQLInfo.FIELD_UPDATE_TIME));
+				material.setCreaterId(set.getInt(SQLInfo.FIELD_CREATER_ID));
+				material.setStatus(set.getInt(SQLInfo.FIELD_STATUS));
+				result.add(material);
+			}
+			return result;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

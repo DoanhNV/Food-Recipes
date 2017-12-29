@@ -61,10 +61,24 @@
 	}
 </style>
 <form method="POST" action="../admin_recipe/doUpdate" enctype="multipart/form-data" >
+<input type="hidden" id="listMaterials" name="listMIds" value="${list_material_values}" />
 <input type="hidden" value="${recipe.id}" name="id"/>
 <!-- Popup create -->
 	<div class="parent-pop">
 		<div class="child-pop ">
+			<div style="width:100%;height:200px;" class="material-search-box row">
+				  <div class="input-group col-xs-12 ">
+				    <span class="input-group-addon">Tìm kiếm</span>
+				    <input id="txtMKeyWord" type="text" class="form-control" name="msg" placeholder="nhập tên nguyên liệu">
+				  </div>
+				  <div class="clear appendMaterial"></div>
+				  <c:forEach items="${listmaterial}" var="material">
+				  		<button type="button" id="tagElement" data-id="${material.id}" class="tag2 btn btn-success" name="" value="1">${material.title}<span class="glyphicon glyphicon-tags title-material-tag"></span>'
+		        		<span id="${material.id}" class="removeTag-Class glyphicon glyphicon-remove" style="margin:0;padding:0;margin-left:3px;color:red; font-size:30px;"></span> </button>
+				  </c:forEach>
+				  <div style="width:100%;height:5px;margin-top:5px;margim-bottom:5px;"></div>
+			</div>
+			
 			<c:forEach items="${list_checked_material}" var="material">
 				<div class="child-content ">
 					<div>
@@ -212,17 +226,103 @@
 		submitStrigger();
 		getMaterial();
 		chooseM();
+		searchMaterial();
+		chooseMaterial();
+		unChooseMaterial();
+		removeTag();
 	});
+	
+	function searchMaterial(){
+		$("#txtMKeyWord").keyup(function(){
+			var title = $("#txtMKeyWord").val();
+			if(title === ""){
+				title = " ";
+			}
+			$.ajax({
+				type : "POST",
+				data : title,
+				url : "../material/search",
+				success: function(response){
+					 $(".child-content").remove();
+					 $.each(response, function(index) {
+				            var content = ' <div class="child-content " id="child'+ response[index].id +'">'
+				            			+'<div>'
+				            			+'<input type="checkbox" value="'+response[index].id+'" class="check-mater" name="materialIds"> '
+				            			+'<img src="'+response[index].featureImage+'" class="mater-img imgMT'+ response[index].id +'"/>'
+										+'</div>'
+										+'<div class="clear"></div>'
+										+'<span class="mater-name" id="materialid-'+response[index].id+'">'+response[index].materialName+'</span>'
+										+'</div>';
+				            $(".material-search-box").append(content);
+				     });
+				},
+				error: function(){
+					alert("error");
+				}
+			});
+		});
+	}
+	
+	function chooseMaterial() {
+		$(document).on('click', 'input[type="checkbox"][name="materialIds"]' ,function() {
+			if($(this).is(":checked")){
+				var id = $(this).val();
+		        var id2 =  "#materialid-"+id;
+		        text = $(id2).text();
+		        var content = '<button type="button" id="tagElement" data-id="'+id+'" class="tag2 btn btn-success" name="" value="1">'+text+'<span class="glyphicon glyphicon-tags title-material-tag"></span>'
+		        +' <span id="'+id+'" class="removeTag-Class glyphicon glyphicon-remove" style="margin:0;padding:0;margin-left:3px;color:red; font-size:30px;"></span> </button>';
+		        var check = true;
+		        $('.tag2').each(function(){
+					var id3 = $(this).data("id");
+					if(id == id3){
+						check = false;
+					}
+			   });
+		        if(check){
+		        	 $(".appendMaterial").append(content);
+		        }
+			} 
+	    });
+	}
+	
+	function unChooseMaterial(){
+		$(document).on('change', 'input[type="checkbox"][name="materialIds"]' ,function() {
+			var id2 = $(this).val();
+			if (!$(this).is(":checked")){ 
+				  $('.tag2').each(function(){
+						var id = $(this).data("id");
+						if(id == id2){
+							$(this).remove();
+							return;
+						}
+				   });
+			 }
+		});
+	}
 	
 	function validateMaterialIds(){
 		var result = false;
-		$('input[type="checkbox"][name="materialIds"]:checked').each(function(i){
+		$('.tag2').each(function(i){
 			result = true;
 	    });
 		if(!result){
 			alert("bạn cần chọn ít nhất 1 nguyên liệu.");
 		}
 		return result;
+	}
+	
+	function removeTag() {
+		$(document).on('click', '.removeTag-Class' ,function() {
+			var idFirst = $(this).attr("id");
+			$("button[data-id='"+$(this).attr("id")+"']").remove();
+			$('input[type="checkbox"][name="materialIds"]').each(function(){
+				var id = $(this).val();
+				if(id == idFirst){
+					$(this).prop("checked",false);
+					return;
+				}
+		   });
+		});
 	}
 	
 	function validateVideoURL(){
@@ -239,17 +339,16 @@
 		$("#submitMaterial").click(function(){
 			$(".parent-pop").attr("style","display:none");
 			var data = "";
-			$('input[type="checkbox"][name="materialIds"]:checked').each(function(i){
-		          var id = $(this).val();
-		          var id2 =  "#materialid-"+id;
-		          text = $(id2).text();
+			var dataIds = "";
+			$('.tag2').each(function(i){
+		          var id = $(this).data("id");
+		          text = $(this).text();
 		          data += text + "||";
-		         
+		          dataIds += id + ",";
 		     });
+			$("#listMaterials").val(dataIds);
 			var arr = data.split("||");
-			if(arr.length > 2){
-				 $("#tagRecipeCate").empty();
-			}
+			$("#tagRecipeCate").empty();
 			for(var i = 0; i < arr.length - 1; i ++){
 				 var content = '<button type="button" id="tagElement" class="btn btn-success" name="" value="1">'+arr[i]+'<span class="glyphicon glyphicon-tags title-material-tag"></span>';
 		         $("#tagRecipeCate").append(content);

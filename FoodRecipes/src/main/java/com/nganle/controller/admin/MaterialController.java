@@ -7,6 +7,7 @@ import static com.nganle.support.constant.Constant.SESSION_NAME.ADMIN_SESSION;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,9 +19,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -135,6 +138,22 @@ public class MaterialController {
 		}
 		materialService.deleteById(id);
 		return Utils.redirect("/material/list");
+	}
+	
+	@RequestMapping(value = "/search",method = RequestMethod.POST)
+	@ResponseBody
+	public List<MaterialDTO> searchByTitle(@RequestBody String data) {
+		List<Material> materials = new ArrayList<Material>();
+		String word = data.replace("+", "");
+		String title = word.substring(0, word.length()-1);
+		if(!title.isEmpty()) {
+			materials = materialService.searchByTitle(data.substring(0, data.length()-1));
+		} else {
+			materials = materialService.listAll();
+		}
+		 
+		List<MaterialDTO> lisMtDTO = MaterialDTO.toListDTO(materials);
+		return lisMtDTO;
 	}
 
 

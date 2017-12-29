@@ -141,6 +141,20 @@ public class Utils {
 		}
 		return result;
 	}
+	
+	public static List<Integer> toListInt(String arr) {
+		List<Integer> result = new ArrayList<Integer>();
+		if (arr == null || arr == "") {
+			return result;
+		}
+		String[] data = arr.split(",");
+		for (int i = 0; i < data.length; i++) {
+			if (!data[i].isEmpty()) {
+				result.add(Integer.parseInt(data[i]));
+			}
+		}
+		return result;
+	}
 
 	public static String uploadToStorage(MultipartFile file) {
 		String filePath = Constant.FILE_STORE + file.getOriginalFilename();
@@ -265,6 +279,18 @@ public class Utils {
 		}
 		return result;
 	}
+	
+	public static String toListInt(List<Integer> inputStr) {
+		String result = "";
+		int size = inputStr.size();
+		for (int i = 0; i < size; i++) {
+			result += inputStr.get(i);
+			if (i != size - 1) {
+				result += ",";
+			}
+		}
+		return result;
+	}
 
 	public static String toSqlInList(List<String> inputStr) {
 		String result = "(";
@@ -323,6 +349,19 @@ public class Utils {
 		int size = words.length;
 		for (int i = 0; i < size; i++) {
 			result += field + " LIKE '%" + words[i] + "%'";
+			if (i != size - 1) {
+				result += " OR ";
+			}
+		}
+		return result;
+	}
+	
+	public static String toSqlLikesTitle2(String title, String field) {
+		String[] words = title.split("[+]+");
+		String result = "";
+		int size = words.length;
+		for (int i = 0; i < size; i++) {
+			result += field + " LIKE '%" + words[i].trim() + "%'";
 			if (i != size - 1) {
 				result += " OR ";
 			}

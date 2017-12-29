@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nganle.dto.KindCateBasicDTO;
+import com.nganle.dto.MaterialBasicDTO;
 import com.nganle.dto.MaterialDTO;
 import com.nganle.dto.RecipeDTO;
 import com.nganle.entity.Material;
@@ -62,7 +63,7 @@ public class RecipeADController {
 	}
 
 	@RequestMapping(value = "/doCreate", method = RequestMethod.POST)
-	public String doCreate(@RequestParam("title") String title, @RequestParam("materialIds") List<Integer> materialIds,
+	public String doCreate(@RequestParam("title") String title, @RequestParam("listMIds") String materialIds,
 							@RequestParam("stepImg") List<MultipartFile> stepImgs,
 							@RequestParam("featureImage") MultipartFile featureFile,
 							@RequestParam("hour") int hour, @RequestParam("minute") int minute,
@@ -88,7 +89,7 @@ public class RecipeADController {
 		recipe.setContent(step);
 		recipe.setCost(cost);
 		recipe.setEstimateTime(estimateTime);
-		recipe.setMaterialIds(materialIds);
+		recipe.setMaterialIds(Utils.toListInt(materialIds));
 		recipe.setRecipeCateIds(listKindCate);
 		recipe.setVideoUrl(videoUrl);
 		recipeService.create(recipe);
@@ -145,6 +146,8 @@ public class RecipeADController {
 		List<MaterialDTO> listCheckedDTO = MaterialDTO.toListCheckedDTO(materials, materialIds);
 		List<KindCateBasicDTO> listDTO = KindCateBasicDTO.toListCheckedDTO(kindService.listAll(), cateService.listAll(),recipeCateIds);
 		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_CHECKED_MATERIAL, listCheckedDTO);
+		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_MATERIAL, MaterialBasicDTO.toListDTO(materials, materialIds));
+		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_MATERIAL_VALUE, Utils.toListInt(materialIds));
 		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_KIND_CATE, listDTO);
 		model.addAttribute(Constant.ATTRIBUTE_NAME.LIST_STEP, listStep);
 		model.addAttribute(Constant.ATTRIBUTE_NAME.RECIPE, recipe);
@@ -167,7 +170,7 @@ public class RecipeADController {
 	
 	
 	@RequestMapping(value = "/doUpdate", method = RequestMethod.POST)
-	public String doUpdate(@RequestParam("title") String title, @RequestParam("materialIds") List<Integer> materialIds,
+	public String doUpdate(@RequestParam("title") String title, @RequestParam("listMIds") String materialIds,
 							@RequestParam("stepImg") List<MultipartFile> stepImgs,
 							@RequestParam("featureImage") MultipartFile featureFile,
 							@RequestParam("hour") int hour, @RequestParam("minute") int minute,
@@ -198,7 +201,7 @@ public class RecipeADController {
 		recipe.setContent(step);
 		recipe.setCost(cost);
 		recipe.setEstimateTime(estimateTime);
-		recipe.setMaterialIds(materialIds);
+		recipe.setMaterialIds(Utils.toListInt(materialIds));
 		recipe.setRecipeCateIds(listKindCate);
 		recipe.setVideoUrl(videoUrl);
 		recipeService.update(recipe);
@@ -220,5 +223,4 @@ public class RecipeADController {
 		return Utils.redirect("/admin_recipe/list");
 	}
 	
-
 }

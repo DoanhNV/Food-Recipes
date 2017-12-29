@@ -17,7 +17,7 @@ public class SQLQuery {
 													+ SQLInfo.FIELD_CREATE_TIME + ","
 													+ SQLInfo.FIELD_UPDATE_TIME + ","
 													+ SQLInfo.FIELD_STATUS + ") "+
-													"VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+													"VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		public static final String FIND_BY_ID = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME 
 													+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
 		public static final String FIND_BY_USER_AND_PASS = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME 
@@ -25,7 +25,7 @@ public class SQLQuery {
 													+ SQLInfo.USER.FIELD_MD5_PASSWORD + " = ?";
 		public static final String FIND_BY_USER_NAME = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME 
 													+ " WHERE "+ SQLInfo.USER.FIELD_USER_NAME + " = ?";
-		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.USER.TABLE_NAME + " ORDER BY " + SQLInfo.FIELD_ID + " DESC";
 		
 		public static final String DELETE_BY_ID = "DELETE FROM "+ SQLInfo.USER.TABLE_NAME + " WHERE "
 													+ SQLInfo.FIELD_ID + " = ?";
@@ -72,15 +72,16 @@ public class SQLQuery {
 													+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
 		
 		public static final String GET_BY_ID = "SELECT * FROM " + SQLInfo.MATERIAL.TABLE_NAME
-				+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
+													+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
 		
-		public static final String LIST_ALL = "SELECT * FROM " + SQLInfo.MATERIAL.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM " + SQLInfo.MATERIAL.TABLE_NAME + " ORDER BY " + SQLInfo.FIELD_ID + " DESC";
 		
 		public static final String GET_TOP_LIMIT = "SELECT * FROM "+ SQLInfo.MATERIAL.TABLE_NAME
 													+ " WHERE " + SQLInfo.FIELD_STATUS + "= 1"
 													+ " ORDER BY ? ?"
 													+ " LIMIT ?";
-		
+		public static final String SEARCH_BY_TITLE = " SELECT * FROM " + SQLInfo.MATERIAL.TABLE_NAME 
+													+ " WHERE  %s collate utf8_unicode_ci" ;
 	}
 	
 	
@@ -99,7 +100,7 @@ public class SQLQuery {
 													+ " WHERE "+ SQLInfo.FIELD_ID + "= ?";
 		public static final String GET_BY_ID = "SELECT * FROM "+ SQLInfo.KIND_OF_CATE.TABLE_NAME
 													+ " WHERE "+ SQLInfo.FIELD_ID +"= ?";
-		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.KIND_OF_CATE.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.KIND_OF_CATE.TABLE_NAME + " ORDER BY " + SQLInfo.FIELD_ID + " DESC";
 		
 		public static final String DELETE = "DELETE FROM "+ SQLInfo.KIND_OF_CATE.TABLE_NAME
 													+ " WHERE " + SQLInfo.FIELD_ID + "= ?";
@@ -125,7 +126,7 @@ public class SQLQuery {
 													+ " WHERE "+ SQLInfo.FIELD_ID + " = ?";
 		public static final String GET_BY_ID = "SELECT * FROM "+SQLInfo.RECIPE_CATE.TABLE_NAME
 													+ " WHERE "+ SQLInfo.FIELD_ID +  "=?";
-		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.RECIPE_CATE.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.RECIPE_CATE.TABLE_NAME + " ORDER BY " + SQLInfo.FIELD_ID + " DESC";
 		
 		public static final String INCREASE_NUMBER_RECIPE = " UPDATE " + SQLInfo.RECIPE_CATE.TABLE_NAME
 													+ " SET " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " = " + SQLInfo.RECIPE_CATE.FIELD_NUMBER_OF_RECIPE + " + 1"
@@ -160,7 +161,7 @@ public class SQLQuery {
 	
 		public static final String GET_BY_ID = "SELECT * FROM "+SQLInfo.TIP_CATE.TABLE_NAME
 													+ " WHERE "+ SQLInfo.FIELD_ID +  "=?";
-		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.TIP_CATE.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.TIP_CATE.TABLE_NAME + " ORDER BY " + SQLInfo.FIELD_ID + " DESC";
 	}
 	
 	public class TIP {
@@ -191,7 +192,7 @@ public class SQLQuery {
 		public static final String GET_BY_ID = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME
 													+ " WHERE " + SQLInfo.FIELD_ID +" = ?";
 		
-		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM "+ SQLInfo.TIP.TABLE_NAME + " ORDER BY " + SQLInfo.FIELD_ID + " DESC";
 		
 		public static final String GET_TOP_LIMIT = "SELECT * FROM " + SQLInfo.TIP.TABLE_NAME
 													+ " WHERE " + SQLInfo.FIELD_STATUS + "= 1"
@@ -243,7 +244,7 @@ public class SQLQuery {
 													+ " WHERE " + SQLInfo.FIELD_ID  + "= ?";
 		public static final String GET_BY_ID = "SELECT * FROM "+ SQLInfo.RECIPE.TABLE_NAME
 													+ " WHERE "+ SQLInfo.FIELD_ID + "=?";
-		public static final String LIST_ALL = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME;
+		public static final String LIST_ALL = "SELECT * FROM " + SQLInfo.RECIPE.TABLE_NAME + " ORDER BY " + SQLInfo.FIELD_ID + " DESC";
 		
 		public static final String CHANGE_STATUS = "UPDATE " + SQLInfo.RECIPE.TABLE_NAME + " SET "
 													+ SQLInfo.FIELD_STATUS + "= ?"

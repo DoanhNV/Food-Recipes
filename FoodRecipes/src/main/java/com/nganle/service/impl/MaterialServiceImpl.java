@@ -40,4 +40,8 @@ public class MaterialServiceImpl extends AbstractService implements MaterialServ
 		return materialDAO.getTopLimit(limit, field, order);
 	}
 
+	public List<Material> searchByTitle(String title) {
+		return materialDAO.searchByTitle(title);
+	}
+
 }

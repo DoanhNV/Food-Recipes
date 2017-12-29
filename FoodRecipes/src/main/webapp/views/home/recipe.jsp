@@ -33,7 +33,7 @@
 	}
 	
 	.step-image2 {
-	    width: 100%;
+	    width: auto;
 	    height: 369px;
 	}
 </style>
